@@ -13,5 +13,6 @@ import { ContactModule } from './contact/contact.module';
   ],
   controllers: [AppController],
   providers: [AppService],
+  exports: [AppService],
 })
 export class AppModule {}
