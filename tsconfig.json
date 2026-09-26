@@ -8,10 +8,13 @@
     "allowSyntheticDefaultImports": true,
     "target": "ES2023",
     "sourceMap": true,
+
     "outDir": "./dist",
     "baseUrl": "./",
+
     "incremental": true,
     "skipLibCheck": true,
+
     "strict": true,
     "strictNullChecks": true,
     "resolveJsonModule": true,
