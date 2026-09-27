@@ -306,7 +306,7 @@ export default function HomePage() {
         <div className="container about-section">
           <div className="about-photo">
             <Image
-              src="/images/2.png"
+              src="/images/2.jpg"
               alt="A child smiling at school"
               fill
               sizes="(max-width: 760px) 100vw, 44vw"
