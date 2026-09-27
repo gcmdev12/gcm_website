@@ -115,7 +115,7 @@ function MobileBrand() {
   return (
     <span className="mobile-brand" aria-hidden="true">
       <span className="mobile-brand-icon">
-        <Image src="/images/logo.png" alt="" fill sizes="42px" />
+        <Image src="/favicon-512.png" alt="" fill sizes="52px" />
       </span>
       <span className="mobile-brand-name">
         <strong>Glory</strong>
