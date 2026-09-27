@@ -206,13 +206,14 @@ button { font: inherit; }
   background: linear-gradient(145deg, #8f38d0, #6721a9);
   box-shadow: 0 14px 30px rgba(90, 27, 150, .34);
   cursor: pointer;
-  z-index: 120;
+  z-index: 9999;
+  pointer-events: none;
   opacity: 0;
   visibility: hidden;
   transform: translateY(18px) scale(.82);
   transition: opacity .28s ease, visibility .28s ease, transform .28s ease, box-shadow .2s ease;
 }
-.scroll-top.visible { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+.scroll-top.visible { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0) scale(1); }
 .scroll-top:hover { transform: translateY(-4px) scale(1.04); box-shadow: 0 18px 34px rgba(90, 27, 150, .45); }
 .scroll-top-ring {
   position: absolute;
@@ -326,7 +327,13 @@ button { font: inherit; }
   .story-grid { grid-template-columns: 1fr; }
 
   .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 28px 20px; }
-  .scroll-top { width: 47px; height: 47px; right: 14px; bottom: 16px; }
+  .scroll-top {
+    width: 50px;
+    height: 50px;
+    right: max(14px, env(safe-area-inset-right));
+    bottom: max(18px, calc(18px + env(safe-area-inset-bottom)));
+    z-index: 9999;
+  }
 
   .footer-brand { grid-column: span 2; }
   .footer-grid > div:last-child { grid-column: span 2; }

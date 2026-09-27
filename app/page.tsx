@@ -131,15 +131,33 @@ export default function HomePage() {
   const [showScrollTop, setShowScrollTop] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 28
-      setScrolled(isScrolled)
-      setShowScrollTop(window.scrollY > 420)
+    let ticking = false
+
+    const updateScrollState = () => {
+      const scrollY = window.scrollY || document.documentElement.scrollTop || 0
+      setScrolled(scrollY > 28)
+      // Show earlier on small screens so the control is available well before
+      // the user reaches the middle of the long mobile page.
+      const threshold = window.innerWidth <= 760 ? 180 : 420
+      setShowScrollTop(scrollY > threshold)
+      ticking = false
     }
 
-    handleScroll()
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollState)
+        ticking = true
+      }
+    }
+
+    updateScrollState()
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('resize', updateScrollState)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', updateScrollState)
+    }
   }, [])
 
   const closeMenu = () => setMenuOpen(false)
