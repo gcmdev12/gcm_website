@@ -1,29 +1,37 @@
-# Glory Children Ministry — NestJS Website
+# Glory Children Ministry — Next.js TypeScript Home Page
 
-This is the first development slice of the redesigned Glory Children Ministry website, implemented as a NestJS MVC application with Handlebars templates and responsive CSS.
+A responsive Next.js + TypeScript recreation of the supplied Glory Children Ministry desktop/mobile mockups, with an added About Us section and an overlapping impact counter card.
 
-## What is included
+## Stack
 
-- Responsive desktop/mobile visual system based on the gcm approved needs
+- Next.js App Router
+- React + TypeScript only
+- CSS Modules are not required; the page uses a single global stylesheet for pixel-level responsive layout control
+- lucide-react for UI icons
+- No JavaScript source files
+- No NestJS, Handlebars, or mixed server-template code
 
-## Run locally
-
-Requires Node.js 20+.
+## Run
 
 ```bash
 npm install
-npm run start:dev
+npm run dev
 ```
 
-Then open `http://localhost:3000`.
+Open `http://localhost:3000`.
 
-## Important content note
+For production:
 
+```bash
+npm run build
+npm start
+```
 
-## Next engineering phase
+## Main files
 
-1. Connect PostgreSQL + Prisma for causes, projects, donations, volunteers, stories and contact submissions.
-2. Add an admin dashboard for non-technical staff.
-3. Integrate a real donation/payment provider after the ministry confirms the preferred payment rails.
-4. Add image/media management and replace all placeholders with approved ministry photography.
-5. Add SEO, analytics, security headers, rate limiting, email delivery and production deployment configuration.
+- `app/page.tsx` — complete home page
+- `app/globals.css` — responsive desktop/mobile styling
+- `app/layout.tsx` — metadata and root layout
+- `public/images/logo.png` — cleaned transparent ministry logo
+- `public/images/hero-children.png` — supplied mockup-derived hero image
+- `public/images/about-children.png` — supplied mockup-derived supporting image
