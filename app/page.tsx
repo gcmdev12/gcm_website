@@ -250,7 +250,7 @@ export default function HomePage() {
         <div className="hero-orb hero-orb-two" aria-hidden="true" />
         <div className="hero-image">
           <Image
-            src="/images/hero-children.png"
+            src="/images/4.png"
             alt="Children smiling together outdoors"
             fill
             priority
@@ -306,7 +306,7 @@ export default function HomePage() {
         <div className="container about-section">
           <div className="about-photo">
             <Image
-              src="/images/about-children.png"
+              src="/images/3.png"
               alt="A child smiling at school"
               fill
               sizes="(max-width: 760px) 100vw, 44vw"
