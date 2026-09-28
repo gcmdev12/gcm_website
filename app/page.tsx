@@ -6,22 +6,13 @@ import { FormEvent, useEffect, useState } from 'react'
 import {
   ArrowLeft,
   ArrowRight,
-  AtSign,
   BookOpen,
   ChevronRight,
   ChevronUp,
-  Facebook,
   GraduationCap,
   Heart,
   HeartHandshake,
   Home,
-  Instagram,
-  Mail,
-  MapPin,
-  Menu,
-  MessageCircle,
-  Music2,
-  Phone,
   Play,
   Quote,
   Sparkles,
@@ -50,15 +41,6 @@ const counters = [
   { value: '12+', label: 'Districts Reached', icon: Sparkles, tone: 'green' },
 ]
 
-const navItems = [
-  ['Home', '#home'],
-  ['About Us', '#about'],
-  ['Our Causes', '#causes'],
-  ['Gallery', '#gallery'],
-  ['News & Updates', '#updates'],
-  ['Contact Us', '#contact'],
-] as const
-
 const heroSlides = [
   {
     image: '/images/4.png',
@@ -85,28 +67,6 @@ const galleryItems = [
   { src: '/images/about-children.png', alt: 'Children learning together', title: 'Learning Together' },
   { src: '/images/4.png', alt: 'Children outdoors', title: 'Growing With Hope' },
 ]
-
-function SocialLinks() {
-  return (
-    <div className="social-links" aria-label="Social media links">
-      <a className="social-whatsapp" href="https://wa.me/message/DUM2WTJMAHSOD1" aria-label="WhatsApp"><MessageCircle size={18} /></a>
-      <a className="social-instagram" href="https://www.instagram.com/glorychildrenministry2" aria-label="Instagram"><Instagram size={18} /></a>
-      <a className="social-facebook" href="https://www.facebook.com/share/187JGBB3RM/?mibextid=wwXlfr" aria-label="Facebook"><Facebook size={18} /></a>
-      <a className="social-threads" href="https://www.threads.com/@glorychildrenministry2" aria-label="Threads"><AtSign size={18} /></a>
-      <a className="social-tiktok" href="https://www.tiktok.com/@glory_children_ministry?_r=1&_t=ZS-9A3NOxkpu3J" aria-label="TikTok"><Music2 size={18} /></a>
-      <a className="social-youtube" href="https://www.youtube.com/@GloryChildrenMinistry" aria-label="YouTube"><Youtube size={18} /></a>
-    </div>
-  )
-}
-
-function MobileBrand() {
-  return (
-    <span className="mobile-brand" aria-hidden="true">
-      <span className="mobile-brand-icon"><Image src="/favicon-512.png" alt="" fill sizes="52px" /></span>
-      <span className="mobile-brand-name"><strong>Glory</strong><span>Children Ministry</span></span>
-    </span>
-  )
-}
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -163,37 +123,6 @@ export default function HomePage() {
 
   return (
     <main>
-      <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`} id="home">
-        <div className="utility-bar">
-          <div className="utility-inner">
-            <div className="utility-contact">
-              <a href="tel:+256755575982"><Phone size={15} /> +256 755 575 982</a>
-              <a href="tel:+256767274915"><Phone size={15} /> +256 767 274 915</a>
-              <a href="mailto:info@glorychildrenministry.org"><Mail size={15} /> info@glorychildrenministry.org</a>
-              <span><MapPin size={15} /> Namusera, Hoima Rd, Kampala, Uganda</span>
-            </div>
-            <div className="follow"><span>Follow Us</span><SocialLinks /></div>
-          </div>
-        </div>
-
-        <nav className="main-nav" aria-label="Primary navigation">
-          <div className="nav-inner">
-            <Link className="brand" href="#home" onClick={closeMenu} aria-label="Glory Children Ministry home">
-              <span className="brand-desktop"><Image src="/images/logo.png" alt="Glory Children Ministry" width={160} height={92} priority /></span>
-              <MobileBrand />
-            </Link>
-            <div className={`desktop-nav ${menuOpen ? 'open' : ''}`}>
-              {navItems.map(([label, href], index) => <a key={label} className={index === 0 ? 'active' : ''} href={href} onClick={closeMenu}>{label}</a>)}
-            </div>
-            <div className="nav-actions">
-              <a className="button button-primary small" href="/donate"><Heart size={16} fill="currentColor" /> Donate</a>
-              <a className="button button-purple small" href="/volunteer"><Users size={16} fill="currentColor" /> Volunteer</a>
-            </div>
-            <button className="menu-button" type="button" aria-label="Toggle navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}>{menuOpen ? <X size={29} /> : <Menu size={30} />}</button>
-          </div>
-        </nav>
-      </header>
-
       <section className="hero hero-carousel" aria-label="Glory Children Ministry highlights">
         <div className="hero-pattern pattern-dots" aria-hidden="true" />
         <div className="hero-orb hero-orb-one" aria-hidden="true" />
@@ -292,19 +221,6 @@ export default function HomePage() {
       </section>
 
       <section className="simple-section updates" id="updates"><div className="updates-pattern" aria-hidden="true" /><div className="container"><p className="eyebrow pink-text">NEWS &amp; UPDATES</p><h2>Stories from <span>the work</span></h2><div className="story-grid"><article><span>UPDATE</span><h3>Creating safe spaces for vulnerable children</h3><p>Share field stories, programme updates and milestones from Glory Children Ministry.</p><a href="#read">Read Story <ArrowRight size={15} /></a></article><article><span>STORY</span><h3>Education opens doors to opportunity</h3><p>Highlight the children, mentors and partners making learning possible.</p><a href="#read">Read Story <ArrowRight size={15} /></a></article><article><span>IMPACT</span><h3>Community support that reaches further</h3><p>Show how donors and volunteers contribute to lasting change.</p><a href="#read">Read Story <ArrowRight size={15} /></a></article></div><div className="section-button-row"><Link className="button button-primary" href="/news-updates">View All News &amp; Updates <ArrowRight size={17} /></Link></div></div></section>
-
-      <footer className="footer" id="contact">
-        <div className="footer-brush" /><div className="footer-pattern" aria-hidden="true" />
-        <div className="container footer-grid">
-          <div className="footer-brand"><Image src="/images/logo.png" alt="Glory Children Ministry" width={195} height={112} /><p className="footer-motto">Hope · Education · Opportunity</p><p className="footer-intro">Together, we can help children feel safe, discover their potential and build brighter futures.</p></div>
-          <div><h3>Quick Links</h3>{navItems.slice(0, 5).map(([label, href]) => <a href={href} key={label}>{label}</a>)}<Link  href="/privacy-policy">Privacy Policy</Link></div>
-          <div><h3>Our Causes</h3>{causes.slice(0, 6).map(({ title }) => <a href="#causes" key={title}>{title}</a>)}</div>
-          <div><h3>Contact Us</h3><a href="tel:+256755575982"><Phone size={15} /> +256 755 575 982</a><a  href="tel:+256767274915"><Phone size={15} /> +256 767 274 915</a><a href="mailto:info@glorychildrenministry.org"><Mail size={15} /> info@glorychildrenministry.org</a><span><MapPin size={15} /> Namusera, Hoima Rd, Kampala, Uganda</span></div>
-          <div><h3>Follow Us</h3><SocialLinks /><p className="footer-tagline">Together We Can Make a Difference <Heart size={17} fill="currentColor" /></p></div>
-        </div>
-        <div className="container newsletter"><div><p className="eyebrow">STAY CONNECTED</p><h3>Subscribe to our newsletter</h3><p>Receive occasional updates, stories and ways to support children.</p></div><form onSubmit={subscribe}>{subscribed ? <strong className="subscribed">Thank you for subscribing! ♥</strong> : <><input type="email" aria-label="Email address" placeholder="Your email address" required /><button className="button button-primary" type="submit">Subscribe <ArrowRight size={16} /></button></>}</form></div>
-        <div className="container copyright">© {currentYear ?? ''} Glory Children Ministry. All Rights Reserved.</div>
-      </footer>
 
       {lightbox !== null && <div className="lightbox" role="dialog" aria-modal="true" aria-label="Gallery viewer" onClick={() => setLightbox(null)}><button type="button" className="lightbox-close" aria-label="Close gallery" onClick={() => setLightbox(null)}><X size={25} /></button><button type="button" className="lightbox-prev" aria-label="Previous photo" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox - 1 + galleryItems.length) % galleryItems.length) }}><ArrowLeft /></button><div className="lightbox-image" onClick={(event) => event.stopPropagation()}><Image src={galleryItems[lightbox].src} alt={galleryItems[lightbox].alt} fill sizes="90vw" /></div><button type="button" className="lightbox-next" aria-label="Next photo" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox + 1) % galleryItems.length) }}><ArrowRight /></button></div>}
 

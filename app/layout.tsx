@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import { Nunito_Sans, Poppins } from 'next/font/google'
 import './globals.css'
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -38,7 +40,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${poppins.variable} ${nunitoSans.variable}`}>
-      <body>{children}</body>
+      
+      <body>
+        <Navbar />
+        <main>
+          {children}
+        </main>
+        <Footer />
+        </body>
     </html>
   )
 }
