@@ -166,19 +166,95 @@ h1, h2, h3, h4, h5, h6, button, .button, .desktop-nav, .eyebrow, .utility-bar, .
 }
 @media (max-width:420px){.container,.utility-inner,.nav-inner{width:calc(100% - 24px)}.mobile-brand-icon{width:43px;height:43px;flex-basis:43px}.mobile-brand-name strong{font-size:16px}.mobile-brand-name span{font-size:7px;letter-spacing:1px}.nav-mtn{font-size:7px}.hero h1{font-size:35px}.hero-description{font-size:12px}.hero-actions .button{padding:0 12px}.counter span{max-width:85px}.cause-grid{gap:8px}.cause-card{min-height:215px}.footer-grid{gap:24px 14px}.newsletter form{display:grid;grid-template-columns:1fr}.newsletter .button{width:100%}}
 
-/* --- Final visual polish: hero overlap, sticky header, branded section patterns --- */
+/* Requested fixes: keep navigation visible, right-align mobile menu, tighten hero-to-stats gap. */
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 1000;
-  isolation: isolate;
+}
+main {
+  padding-top: 111px;
+}
+@media (max-width: 760px) {
+  main {
+    padding-top: 74px;
+  }
+  .nav-inner {
+    width: calc(100% - 30px);
+  }
+  .nav-mtn {
+    margin-left: auto;
+  }
+  .menu-button {
+    margin-left: 8px;
+    margin-right: 0;
+  }
+  .hero,
+  .hero-content {
+    min-height: 570px;
+  }
+  .hero-copy {
+    padding-bottom: 75px;
+  }
+  .counter-card {
+    margin-top: -44px;
+  }
+}
+@media (max-width: 420px) {
+  .hero,
+  .hero-content {
+    min-height: 550px;
+  }
+  .hero-copy {
+    padding-bottom: 65px;
+  }
 }
 
-.main-nav {
-  position: relative;
-  z-index: 1001;
+/* Targeted fixes: persistent header, right-aligned mobile menu, tighter hero-to-stats gap */
+.site-header {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 10000;
+}
+main {
+  padding-top: 111px;
+}
+@media (max-width: 760px) {
+  main { padding-top: 74px; }
+  .nav-inner { display: flex; }
+  .brand { flex: 1 1 auto; }
+  .nav-mtn { margin-left: auto; }
+  .menu-button { margin-left: 10px; }
+  .hero-copy { padding-bottom: 70px; }
+  .counter-card { margin-top: -62px; }
 }
 
+/* =========================================================
+   REQUESTED CHANGES ONLY
+   ========================================================= */
+
+/* 1. Keep the complete header fixed on desktop and mobile. */
+.site-header {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 10000;
+}
+
+/* Make room for the fixed header so it never covers page content. */
+main {
+  padding-top: 111px;
+}
+
+/* 2. Keep the statistics card visibly floating over the bottom of the hero. */
 .hero {
   position: relative;
   z-index: 1;
@@ -188,27 +264,20 @@ h1, h2, h3, h4, h5, h6, button, .button, .desktop-nav, .eyebrow, .utility-bar, .
   position: relative;
   z-index: 5;
   overflow: visible;
-  padding-top: 1px;
 }
 
 .counter-card {
   position: relative;
-  z-index: 20;
+  z-index: 30;
   margin-top: -72px;
+  border: 1px solid rgba(255,255,255,.95);
+  box-shadow:
+    0 22px 50px rgba(5,12,30,.20),
+    0 5px 0 rgba(236,8,127,.10);
   transform: translateZ(0);
-  border: 1px solid rgba(255,255,255,.9);
-  box-shadow: 0 22px 50px rgba(5,12,30,.20), 0 5px 0 rgba(236,8,127,.10);
 }
 
-/* Keep the statistics visibly floating over the hero on small screens too. */
-@media (max-width:760px) {
-  .counter-card {
-    margin-top: -62px;
-    z-index: 30;
-  }
-}
-
-/* About Us heading: centered with decorative brand-color lines. */
+/* 3. Center and decorate the About Us heading. */
 .about-copy {
   text-align: center;
 }
@@ -268,7 +337,7 @@ h1, h2, h3, h4, h5, h6, button, .button, .desktop-nav, .eyebrow, .utility-bar, .
   margin-right: auto;
 }
 
-/* Rich colored frame around the About image. */
+/* 4. Beautify the About image with branded color effects. */
 .about-photo {
   border: 3px solid rgba(255,255,255,.96);
   outline: 3px solid rgba(236,8,127,.28);
@@ -300,6 +369,7 @@ h1, h2, h3, h4, h5, h6, button, .button, .desktop-nav, .eyebrow, .utility-bar, .
   background-size: 42px 42px, 58px 58px, auto;
 }
 
+/* Since 2019 / Every child matters badge. */
 .photo-badge {
   flex-direction: column;
   align-items: flex-start;
@@ -329,7 +399,7 @@ h1, h2, h3, h4, h5, h6, button, .button, .desktop-nav, .eyebrow, .utility-bar, .
   letter-spacing: .2px;
 }
 
-/* Bible verses: richer animated branded background instead of a flat pale block. */
+/* 5. Bible verses: animated branded background instead of a flat white/pale block. */
 .scripture-section {
   background:
     radial-gradient(circle at 8% 20%, rgba(236,8,127,.20), transparent 27%),
@@ -345,15 +415,25 @@ h1, h2, h3, h4, h5, h6, button, .button, .desktop-nav, .eyebrow, .utility-bar, .
   height: 260px;
   border-radius: 50%;
   border: 2px solid rgba(236,8,127,.10);
-  box-shadow: 0 0 0 22px rgba(123,43,196,.05), 0 0 0 46px rgba(19,143,224,.035);
+  box-shadow:
+    0 0 0 22px rgba(123,43,196,.05),
+    0 0 0 46px rgba(19,143,224,.035);
   pointer-events: none;
   animation: rotatePattern 30s linear infinite;
 }
 
-.scripture-section::before { left: -155px; bottom: -115px; }
-.scripture-section::after { right: -150px; top: -125px; animation-direction: reverse; }
+.scripture-section::before {
+  left: -155px;
+  bottom: -115px;
+}
 
-/* Causes: colored animated waves and dots behind the cards. */
+.scripture-section::after {
+  right: -150px;
+  top: -125px;
+  animation-direction: reverse;
+}
+
+/* Causes: animated branded dots and circular pattern behind the cards. */
 .causes-section {
   background:
     radial-gradient(circle at 10% 12%, rgba(236,8,127,.13), transparent 23%),
@@ -392,7 +472,7 @@ h1, h2, h3, h4, h5, h6, button, .button, .desktop-nav, .eyebrow, .utility-bar, .
     0 0 0 94px rgba(255,156,25,.025);
 }
 
-/* Gallery: make the whole section feel like a branded visual showcase. */
+/* Gallery: animated branded visual background. */
 .gallery-section {
   position: relative;
   overflow: hidden;
@@ -411,7 +491,9 @@ h1, h2, h3, h4, h5, h6, button, .button, .desktop-nav, .eyebrow, .utility-bar, .
   bottom: -250px;
   border-radius: 50%;
   border: 2px dashed rgba(19,143,224,.18);
-  box-shadow: 0 0 0 28px rgba(236,8,127,.045), 0 0 0 60px rgba(123,43,196,.035);
+  box-shadow:
+    0 0 0 28px rgba(236,8,127,.045),
+    0 0 0 60px rgba(123,43,196,.035);
   animation: rotatePattern 32s linear infinite;
   pointer-events: none;
 }
@@ -438,6 +520,10 @@ h1, h2, h3, h4, h5, h6, button, .button, .desktop-nav, .eyebrow, .utility-bar, .
 }
 
 @media (max-width:760px) {
+  main {
+    padding-top: 74px;
+  }
+
   .about-copy h2::before,
   .about-copy h2::after {
     width: 18px;
@@ -446,11 +532,16 @@ h1, h2, h3, h4, h5, h6, button, .button, .desktop-nav, .eyebrow, .utility-bar, .
   }
 
   .about-photo {
-    margin: 8px 8px 8px 8px;
+    margin: 8px;
   }
 
   .photo-badge {
     left: 14px;
     bottom: 14px;
+  }
+
+  .counter-card {
+    margin-top: -62px;
+    z-index: 30;
   }
 }
