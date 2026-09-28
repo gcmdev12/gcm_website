@@ -89,12 +89,12 @@ const galleryItems = [
 function SocialLinks() {
   return (
     <div className="social-links" aria-label="Social media links">
-      <a className="social-whatsapp" href="#social-whatsapp" aria-label="WhatsApp"><MessageCircle size={18} /></a>
-      <a className="social-instagram" href="#social-instagram" aria-label="Instagram"><Instagram size={18} /></a>
-      <a className="social-facebook" href="#social-facebook" aria-label="Facebook"><Facebook size={18} /></a>
-      <a className="social-threads" href="#social-threads" aria-label="Threads"><AtSign size={18} /></a>
-      <a className="social-tiktok" href="#social-tiktok" aria-label="TikTok"><Music2 size={18} /></a>
-      <a className="social-youtube" href="#social-youtube" aria-label="YouTube"><Youtube size={18} /></a>
+      <a className="social-whatsapp" href="https://wa.me/message/DUM2WTJMAHSOD1" aria-label="WhatsApp"><MessageCircle size={18} /></a>
+      <a className="social-instagram" href="https://www.instagram.com/glorychildrenministry2" aria-label="Instagram"><Instagram size={18} /></a>
+      <a className="social-facebook" href="https://www.facebook.com/share/187JGBB3RM/?mibextid=wwXlfr" aria-label="Facebook"><Facebook size={18} /></a>
+      <a className="social-threads" href="https://www.threads.com/@glorychildrenministry2" aria-label="Threads"><AtSign size={18} /></a>
+      <a className="social-tiktok" href="https://www.tiktok.com/@glory_children_ministry?_r=1&_t=ZS-9A3NOxkpu3J" aria-label="TikTok"><Music2 size={18} /></a>
+      <a className="social-youtube" href="https://www.youtube.com/@GloryChildrenMinistry" aria-label="YouTube"><Youtube size={18} /></a>
     </div>
   )
 }
@@ -168,7 +168,7 @@ export default function HomePage() {
           <div className="utility-inner">
             <div className="utility-contact">
               <a href="tel:+256755575982"><Phone size={15} /> +256 755 575 982</a>
-              <a href="tel:+256767274915"><Phone size={15} /> MTN +256 767 274 915</a>
+              <a href="tel:+256767274915"><Phone size={15} /> +256 767 274 915</a>
               <a href="mailto:info@glorychildrenministry.org"><Mail size={15} /> info@glorychildrenministry.org</a>
               <span><MapPin size={15} /> Namusera, Hoima Rd, Kampala, Uganda</span>
             </div>
