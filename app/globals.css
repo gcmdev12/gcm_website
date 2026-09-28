@@ -165,3 +165,292 @@ h1, h2, h3, h4, h5, h6, button, .button, .desktop-nav, .eyebrow, .utility-bar, .
   .lightbox{padding:60px 20px}.lightbox-image{width:100%;height:70vh}.lightbox-prev{left:12px}.lightbox-next{right:12px}.lightbox-close{right:14px;top:14px}.scroll-top{width:50px;height:50px;right:max(14px,env(safe-area-inset-right));bottom:max(18px,calc(18px + env(safe-area-inset-bottom)))}
 }
 @media (max-width:420px){.container,.utility-inner,.nav-inner{width:calc(100% - 24px)}.mobile-brand-icon{width:43px;height:43px;flex-basis:43px}.mobile-brand-name strong{font-size:16px}.mobile-brand-name span{font-size:7px;letter-spacing:1px}.nav-mtn{font-size:7px}.hero h1{font-size:35px}.hero-description{font-size:12px}.hero-actions .button{padding:0 12px}.counter span{max-width:85px}.cause-grid{gap:8px}.cause-card{min-height:215px}.footer-grid{gap:24px 14px}.newsletter form{display:grid;grid-template-columns:1fr}.newsletter .button{width:100%}}
+
+/* --- Final visual polish: hero overlap, sticky header, branded section patterns --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  isolation: isolate;
+}
+
+.main-nav {
+  position: relative;
+  z-index: 1001;
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
+}
+
+.about-wrap {
+  position: relative;
+  z-index: 5;
+  overflow: visible;
+  padding-top: 1px;
+}
+
+.counter-card {
+  position: relative;
+  z-index: 20;
+  margin-top: -72px;
+  transform: translateZ(0);
+  border: 1px solid rgba(255,255,255,.9);
+  box-shadow: 0 22px 50px rgba(5,12,30,.20), 0 5px 0 rgba(236,8,127,.10);
+}
+
+/* Keep the statistics visibly floating over the hero on small screens too. */
+@media (max-width:760px) {
+  .counter-card {
+    margin-top: -62px;
+    z-index: 30;
+  }
+}
+
+/* About Us heading: centered with decorative brand-color lines. */
+.about-copy {
+  text-align: center;
+}
+
+.about-copy .eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  margin-bottom: 13px;
+}
+
+.about-copy .eyebrow::before,
+.about-copy .eyebrow::after {
+  content: '';
+  width: 52px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--pink));
+}
+
+.about-copy .eyebrow::after {
+  background: linear-gradient(90deg, var(--pink), transparent);
+}
+
+.about-copy h2 {
+  text-align: center;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-copy h2::before,
+.about-copy h2::after {
+  content: '';
+  display: inline-block;
+  width: 30px;
+  height: 3px;
+  vertical-align: middle;
+  border-radius: 999px;
+  margin: 0 12px 5px;
+  background: linear-gradient(90deg, var(--purple), var(--pink));
+}
+
+.about-copy h2::after {
+  background: linear-gradient(90deg, var(--pink), var(--orange));
+}
+
+.about-copy > p:not(.eyebrow) {
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-copy .button {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Rich colored frame around the About image. */
+.about-photo {
+  border: 3px solid rgba(255,255,255,.96);
+  outline: 3px solid rgba(236,8,127,.28);
+  box-shadow:
+    0 0 0 9px rgba(123,43,196,.10),
+    0 0 0 17px rgba(19,143,224,.07),
+    0 24px 48px rgba(7,18,38,.20);
+}
+
+.about-photo::before {
+  content: '';
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  left: -35px;
+  top: -35px;
+  z-index: 3;
+  border-radius: 50%;
+  border: 9px dotted rgba(236,8,127,.55);
+  animation: rotatePattern 16s linear infinite;
+  pointer-events: none;
+}
+
+.about-photo::after {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(236,8,127,.22) 0 3px, transparent 4px),
+    radial-gradient(circle at 85% 18%, rgba(255,156,25,.24) 0 4px, transparent 5px),
+    linear-gradient(180deg, transparent 42%, rgba(4,11,23,.38));
+  background-size: 42px 42px, 58px 58px, auto;
+}
+
+.photo-badge {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 12px 17px 13px;
+  border-radius: 17px;
+  border-left: 4px solid var(--pink);
+  box-shadow: 0 13px 30px rgba(3,10,25,.24);
+}
+
+.photo-badge span,
+.photo-badge b {
+  display: block;
+  line-height: 1.15;
+}
+
+.photo-badge span {
+  color: var(--purple);
+  font-size: 11px;
+  letter-spacing: .7px;
+  text-transform: uppercase;
+}
+
+.photo-badge b {
+  color: var(--pink);
+  font-size: 14px;
+  letter-spacing: .2px;
+}
+
+/* Bible verses: richer animated branded background instead of a flat pale block. */
+.scripture-section {
+  background:
+    radial-gradient(circle at 8% 20%, rgba(236,8,127,.20), transparent 27%),
+    radial-gradient(circle at 92% 75%, rgba(19,143,224,.18), transparent 29%),
+    linear-gradient(135deg, #fff0f8 0%, #f2edff 48%, #eaf7ff 100%);
+}
+
+.scripture-section::before,
+.scripture-section::after {
+  content: '';
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  border: 2px solid rgba(236,8,127,.10);
+  box-shadow: 0 0 0 22px rgba(123,43,196,.05), 0 0 0 46px rgba(19,143,224,.035);
+  pointer-events: none;
+  animation: rotatePattern 30s linear infinite;
+}
+
+.scripture-section::before { left: -155px; bottom: -115px; }
+.scripture-section::after { right: -150px; top: -125px; animation-direction: reverse; }
+
+/* Causes: colored animated waves and dots behind the cards. */
+.causes-section {
+  background:
+    radial-gradient(circle at 10% 12%, rgba(236,8,127,.13), transparent 23%),
+    radial-gradient(circle at 88% 90%, rgba(123,43,196,.13), transparent 27%),
+    linear-gradient(135deg, #fff8fc 0%, #f6f1fc 50%, #f0f9ff 100%);
+}
+
+.causes-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .42;
+  background-image:
+    radial-gradient(rgba(236,8,127,.20) 1.2px, transparent 1.8px),
+    radial-gradient(rgba(123,43,196,.16) 1px, transparent 1.6px);
+  background-size: 34px 34px, 57px 57px;
+  background-position: 0 0, 17px 23px;
+  animation: driftPattern 24s linear infinite;
+}
+
+.causes-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.cause-pattern {
+  width: 420px;
+  height: 420px;
+  right: -205px;
+  top: -165px;
+  border: 2px dashed rgba(236,8,127,.18);
+  box-shadow:
+    0 0 0 30px rgba(123,43,196,.055),
+    0 0 0 62px rgba(19,143,224,.04),
+    0 0 0 94px rgba(255,156,25,.025);
+}
+
+/* Gallery: make the whole section feel like a branded visual showcase. */
+.gallery-section {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 90% 18%, rgba(236,8,127,.15), transparent 25%),
+    radial-gradient(circle at 8% 85%, rgba(123,43,196,.15), transparent 26%),
+    linear-gradient(145deg, #f7f0ff 0%, #fff4fa 50%, #eef8ff 100%);
+}
+
+.gallery-section::before {
+  content: '';
+  position: absolute;
+  width: 470px;
+  height: 470px;
+  right: -250px;
+  bottom: -250px;
+  border-radius: 50%;
+  border: 2px dashed rgba(19,143,224,.18);
+  box-shadow: 0 0 0 28px rgba(236,8,127,.045), 0 0 0 60px rgba(123,43,196,.035);
+  animation: rotatePattern 32s linear infinite;
+  pointer-events: none;
+}
+
+.gallery-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .28;
+  background-image: radial-gradient(rgba(123,43,196,.23) 1.2px, transparent 1.7px);
+  background-size: 38px 38px;
+  animation: driftPattern 26s linear infinite;
+}
+
+.gallery-section > .container {
+  position: relative;
+  z-index: 2;
+}
+
+.gallery-tile {
+  border: 3px solid rgba(255,255,255,.85);
+  box-shadow: 0 14px 30px rgba(38,20,70,.14), 0 0 0 1px rgba(123,43,196,.10);
+}
+
+@media (max-width:760px) {
+  .about-copy h2::before,
+  .about-copy h2::after {
+    width: 18px;
+    margin-left: 6px;
+    margin-right: 6px;
+  }
+
+  .about-photo {
+    margin: 8px 8px 8px 8px;
+  }
+
+  .photo-badge {
+    left: 14px;
+    bottom: 14px;
+  }
+}

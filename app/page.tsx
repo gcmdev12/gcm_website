@@ -185,10 +185,9 @@ export default function HomePage() {
             <div className={`desktop-nav ${menuOpen ? 'open' : ''}`}>
               {navItems.map(([label, href], index) => <a key={label} className={index === 0 ? 'active' : ''} href={href} onClick={closeMenu}>{label}</a>)}
             </div>
-            <a className="nav-mtn" href="tel:+256767274915"><span>MTN</span> +256 767 274 915</a>
             <div className="nav-actions">
-              <a className="button button-primary small" href="#donate"><Heart size={16} fill="currentColor" /> Donate</a>
-              <a className="button button-purple small" href="#volunteer"><Users size={16} fill="currentColor" /> Volunteer</a>
+              <a className="button button-primary small" href="/donate"><Heart size={16} fill="currentColor" /> Donate</a>
+              <a className="button button-purple small" href="/volunteer"><Users size={16} fill="currentColor" /> Volunteer</a>
             </div>
             <button className="menu-button" type="button" aria-label="Toggle navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}>{menuOpen ? <X size={29} /> : <Menu size={30} />}</button>
           </div>
@@ -298,9 +297,9 @@ export default function HomePage() {
         <div className="footer-brush" /><div className="footer-pattern" aria-hidden="true" />
         <div className="container footer-grid">
           <div className="footer-brand"><Image src="/images/logo.png" alt="Glory Children Ministry" width={195} height={112} /><p className="footer-motto">Hope · Education · Opportunity</p><p className="footer-intro">Together, we can help children feel safe, discover their potential and build brighter futures.</p></div>
-          <div><h3>Quick Links</h3>{navItems.slice(0, 5).map(([label, href]) => <a href={href} key={label}>{label}</a>)}<Link className="privacy-link" href="/privacy-policy">Privacy Policy</Link></div>
+          <div><h3>Quick Links</h3>{navItems.slice(0, 5).map(([label, href]) => <a href={href} key={label}>{label}</a>)}<Link  href="/privacy-policy">Privacy Policy</Link></div>
           <div><h3>Our Causes</h3>{causes.slice(0, 6).map(({ title }) => <a href="#causes" key={title}>{title}</a>)}</div>
-          <div><h3>Contact Us</h3><a href="tel:+256755575982"><Phone size={15} /> +256 755 575 982</a><a className="mtn-contact" href="tel:+256767274915"><Phone size={15} /> MTN +256 767 274 915</a><a href="mailto:info@glorychildrenministry.org"><Mail size={15} /> info@glorychildrenministry.org</a><span><MapPin size={15} /> Namusera, Hoima Rd, Kampala, Uganda</span></div>
+          <div><h3>Contact Us</h3><a href="tel:+256755575982"><Phone size={15} /> +256 755 575 982</a><a  href="tel:+256767274915"><Phone size={15} /> +256 767 274 915</a><a href="mailto:info@glorychildrenministry.org"><Mail size={15} /> info@glorychildrenministry.org</a><span><MapPin size={15} /> Namusera, Hoima Rd, Kampala, Uganda</span></div>
           <div><h3>Follow Us</h3><SocialLinks /><p className="footer-tagline">Together We Can Make a Difference <Heart size={17} fill="currentColor" /></p></div>
         </div>
         <div className="container newsletter"><div><p className="eyebrow">STAY CONNECTED</p><h3>Subscribe to our newsletter</h3><p>Receive occasional updates, stories and ways to support children.</p></div><form onSubmit={subscribe}>{subscribed ? <strong className="subscribed">Thank you for subscribing! ♥</strong> : <><input type="email" aria-label="Email address" placeholder="Your email address" required /><button className="button button-primary" type="submit">Subscribe <ArrowRight size={16} /></button></>}</form></div>
