@@ -6896,3 +6896,96 @@ main {
     transition-duration: .01ms !important;
   }
 }
+
+
+/* =========================================================
+   FINAL PAGE HERO SPACING FIXES
+   Keeps the fixed navbar from covering page-specific heroes.
+   Existing layouts, colors, animations and components are unchanged.
+   ========================================================= */
+
+/* Desktop/tablet: give page heroes enough internal top clearance
+   because the site header is intentionally fixed over the page. */
+.volunteer-hero-grid {
+  padding-top: 125px;
+}
+
+.donation-hero-inner {
+  padding-top: 115px;
+}
+
+.about-hero-inner {
+  padding-top: 120px;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.gallery-hero-inner {
+  padding-top: 125px;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+/* The About hero previously used a full-width inner wrapper, so add
+   the same horizontal breathing room as the other page heroes. */
+.about-hero-copy {
+  min-width: 0;
+}
+
+/* Give the About impact content clear separation from the image edge. */
+.impact-inner {
+  padding-left: calc(24% + 32px);
+  padding-right: 32px;
+}
+
+/* Mobile: preserve the existing responsive layouts while adding only
+   the missing navbar clearance and side breathing room. */
+@media (max-width: 760px) {
+  .volunteer-hero-grid {
+    padding-top: 105px;
+    padding-bottom: 85px;
+  }
+
+  .donation-hero-inner {
+    padding-top: 105px;
+    padding-bottom: 105px;
+  }
+
+  .about-hero-inner {
+    padding-top: 68px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .gallery-hero-inner {
+    padding-top: 68px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .impact-inner {
+    padding: 22px 15px 18px;
+  }
+}
+
+@media (max-width: 420px) {
+  .volunteer-hero-grid {
+    padding-top: 95px;
+  }
+
+  .donation-hero-inner {
+    padding-top: 95px;
+  }
+
+  .about-hero-inner,
+  .gallery-hero-inner {
+    padding-top: 58px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .impact-inner {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
