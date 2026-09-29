@@ -6517,7 +6517,7 @@ main {
 
 .impact-copy h2 span {
   display: block;
-  color: var(--donation-pink);
+  /* color: var(--donation-pink); */
 }
 
 .impact-copy > p {
