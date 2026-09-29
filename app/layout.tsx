@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import { Nunito_Sans, Poppins } from 'next/font/google'
 import './globals.css'
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const poppins = Poppins({
   subsets: ['latin'],
