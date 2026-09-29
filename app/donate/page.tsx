@@ -206,6 +206,7 @@ export default function DonationPage() {
             {donationMethods.map((method) => {
               const Icon = method.icon
               const isBank = method.type === "bank"
+              const accName = "SSUNA KHALIM"
 
               return (
                 <article
