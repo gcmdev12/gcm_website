@@ -223,9 +223,9 @@ export default function DonationPage() {
                       <span>{method.brand}</span>
                     </div>
 
-                    <div className="method-icon" aria-hidden="true">
+                    {/* <div className="method-icon" aria-hidden="true">
                       <Icon size={24} />
-                    </div>
+                    </div> */}
 
                     <span className="method-type">
                       {isBank ? "Bank transfer" : "Mobile money"}
