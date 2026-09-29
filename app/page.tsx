@@ -257,7 +257,7 @@ export default function HomePage() {
 
             <div className="youtube-video-wrap">
               <iframe
-                src=""
+                src="https://youtube.com/shorts/GKqtHajEMGw?si=hyoCVzGu46taFlfE"
                 title="Glory Children Ministry video"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen

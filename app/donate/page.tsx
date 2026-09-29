@@ -46,6 +46,18 @@ const donationMethods = [
     description: "Make a bank transfer or deposit to the ministry account.",
     icon: Banknote,
   },
+   {
+    type: "western-union",
+    tone: "western-union",
+    brand: "WU",
+    label: "Western Union",
+    description: "Send your donation through Western Union using the recipient details below.",
+    icon: Banknote,
+    name: "Ssuna Khalim",
+    country: "Uganda",
+    city: "Kampala",
+    tel: "+256755575982",
+  },
 ]
 
 const impactItems = [
@@ -210,6 +222,7 @@ export default function DonationPage() {
               const Icon = method.icon
               const isBank = method.type === "bank"
               const accName = "Ssuna Khalim"
+              const isWesternUnion = method.type === "western-union"
 
               return (
                 <article
@@ -229,7 +242,7 @@ export default function DonationPage() {
                     </div> */}
 
                     <span className="method-type">
-                      {isBank ? "Bank transfer" : "Mobile money"}
+                         {isWesternUnion ? "Western Union" : isBank ? "Bank transfer" : "Mobile money"}
                     </span>
                   </div>
 
@@ -237,7 +250,26 @@ export default function DonationPage() {
 
                   <p>{method.description}</p>
 
-{isBank ? (
+{isWesternUnion ? (
+                    <div className="bank-details">
+                      <div>
+                        <small>Name</small>
+                        <strong>{method.name}</strong>
+                      </div>
+                      <div>
+                        <small>Country</small>
+                        <strong>{method.country}</strong>
+                      </div>
+                      <div>
+                        <small>City</small>
+                        <strong>{method.city}</strong>
+                      </div>
+                      <div>
+                        <small>Tel</small>
+                        <a href={`tel:${method.tel}`}>{method.tel}</a>
+                      </div>
+                    </div>
+                  ) : isBank ? (
   <div className="bank-details">
     <div>
       <small>Bank</small>

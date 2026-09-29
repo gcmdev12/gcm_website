@@ -7349,3 +7349,85 @@ main {
     animation: none;
   }
 }
+/* Western Union brand logo */
+.donation-brand-western-union {
+  background: #ffdc00;
+  color: #111111;
+  border-radius: 18px;
+  font-family: var(--font-poppins, Poppins, sans-serif);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  text-transform: none;
+  box-shadow: 0 12px 26px rgba(31, 19, 48, 0.16);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative W pattern */
+.donation-brand-western-union::before {
+  content: "W";
+  position: absolute;
+  right: -7px;
+  bottom: -17px;
+  font-size: 58px;
+  line-height: 1;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.08);
+  transform: rotate(-8deg);
+}
+
+/* Inner border */
+.donation-brand-western-union::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 2px solid rgba(0, 0, 0, 0.18);
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+/* Keep logo text above decoration */
+.donation-brand-western-union span {
+  position: relative;
+  z-index: 2;
+  color: #111111;
+  text-align: center;
+  line-height: 1.05;
+}
+
+/* Hover animation */
+.donation-method-card:hover .donation-brand-western-union {
+  transform: translateY(-3px) rotate(-2deg);
+  box-shadow: 0 16px 32px rgba(31, 19, 48, 0.22);
+}
+
+/* Mobile */
+@media (max-width: 760px) {
+  .donation-brand-western-union {
+    width: 56px;
+    height: 56px;
+    flex-basis: 56px;
+    border-radius: 16px;
+    font-size: 12px;
+  }
+
+  .donation-brand-western-union::after {
+    border-radius: 12px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 420px) {
+  .donation-brand-western-union {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
+    border-radius: 14px;
+  }
+
+  .donation-brand-western-union::after {
+    inset: 3px;
+    border-radius: 11px;
+  }
+}
