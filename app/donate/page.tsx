@@ -38,8 +38,8 @@ const donationMethods = [
   {
     type: "bank",
     tone: "bank",
-    label: "Stanbic Bank",
-    number: "008738393382",
+    label: "Diamond Trust Bank",
+    number: "7389213001",
     description: "Make a bank transfer or deposit to the ministry account.",
     icon: Banknote,
   },
@@ -229,7 +229,7 @@ export default function DonationPage() {
                     <div className="bank-details">
                       <div>
                         <small>Bank</small>
-                        <strong>Stanbic Bank</strong>
+                        <strong>DTB</strong>
                       </div>
                       <div>
                         <small>Account number</small>
