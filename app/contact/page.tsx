@@ -122,8 +122,8 @@ export default function ContactPage() {
           </div>
           <div className="contact-cta-actions">
             <a className="button button-primary" href="/donate"><Heart size={18} fill="currentColor" /> Donate</a>
-            <a className="button button-purple" href="/#causes"><Users size={18} /> Support Our Causes</a>
-            <a className="button button-light" href="/#support"><ArrowRight size={18} /> Support Ongoing Campaigns</a>
+            <a className="button button-purple" href="/our-causes"><Users size={18} /> Support Our Causes</a>
+            <a className="button button-light" href="/donate"><ArrowRight size={18} /> Support Ongoing Campaigns</a>
           </div>
         </div>
       </section>

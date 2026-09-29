@@ -141,9 +141,9 @@ export default function HomePage() {
             <h1>{slide.title}</h1>
             <p className="hero-description">{slide.description}</p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#donate"><Heart size={18} fill="currentColor" /> Donate Now</a>
-              <a className="button button-outline" href="#causes"><Users size={18} fill="currentColor" /> Join Our Causes</a>
-              <a className="button button-purple" href="#volunteer"><Users size={18} fill="currentColor" /> Volunteer</a>
+              <a className="button button-primary" href="/donate"><Heart size={18} fill="currentColor" /> Donate Now</a>
+              <a className="button button-outline" href="/our-causes"><Users size={18} fill="currentColor" /> Join Our Causes</a>
+              <a className="button button-purple" href="/volunteer"><Users size={18} fill="currentColor" /> Volunteer</a>
             </div>
           </div>
         </div>
@@ -170,7 +170,7 @@ export default function HomePage() {
             <h2>Building a future where <span>every child can shine.</span></h2>
             <p>Glory Children Ministry exists to walk alongside vulnerable children with practical care, protection and opportunities that restore hope. We believe every child deserves to be safe, heard, educated and equipped to thrive.</p>
             <p>From classrooms and nutritious meals to healthcare, counselling and family support, we work with communities to create lasting change — one child at a time.</p>
-            <a className="button button-primary" href="#about-more">View More About Us <ArrowRight size={17} /></a>
+            <a className="button button-primary" href="/about-us">View More About Us <ArrowRight size={17} /></a>
           </div>
         </div>
       </section>
@@ -180,8 +180,8 @@ export default function HomePage() {
         <div className="container">
           <div className="section-heading scripture-heading"><div><p className="eyebrow pink-text">A HEART FOR GIVING</p><h2>When we give, <span>hope grows.</span></h2></div><p>Small acts of generosity can become meaningful opportunities for children to learn, heal and flourish.</p></div>
           <div className="scripture-grid">
-            <article className="scripture-card scripture-pink"><span className="quote-icon"><Quote size={25} /></span><p>“Whoever is kind to the poor lends to the Lord, and he will reward them for what they have done.”</p><strong>Proverbs 19:17</strong><a href="#donate">Give with compassion <ArrowRight size={15} /></a></article>
-            <article className="scripture-card scripture-purple"><span className="quote-icon"><Quote size={25} /></span><p>“Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.”</p><strong>2 Corinthians 9:7</strong><a href="#donate">Help a child thrive <ArrowRight size={15} /></a></article>
+            <article className="scripture-card scripture-pink"><span className="quote-icon"><Quote size={25} /></span><p>“Whoever is kind to the poor lends to the Lord, and he will reward them for what they have done.”</p><strong>Proverbs 19:17</strong><a href="/donate">Give with compassion <ArrowRight size={15} /></a></article>
+            <article className="scripture-card scripture-purple"><span className="quote-icon"><Quote size={25} /></span><p>“Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.”</p><strong>2 Corinthians 9:7</strong><a href="/donate">Help a child thrive <ArrowRight size={15} /></a></article>
           </div>
         </div>
       </section>
@@ -211,7 +211,7 @@ export default function HomePage() {
         <div className="container impact-inner"><div className="impact-copy"><p className="eyebrow">OUR IMPACT</p><h2>Together, we are creating lasting change</h2><p>Every contribution helps us reach more children with practical care, protection, education and hope.</p></div><div className="impact-stats">{counters.map(({ value, label, icon: Icon, tone }) => <div className={`impact-stat stat-${tone}`} key={label}><Icon size={28} /><strong>{value}</strong><span>{label}</span></div>)}</div></div>
       </section>
 
-      <section className="cta-section" id="support"><div className="container cta-card"><div><p className="eyebrow pink-text">MAKE A DIFFERENCE</p><h2>Your support can change a child&apos;s story.</h2><p>Donate, volunteer, partner with us or support one of our causes.</p></div><div className="hero-actions"><a className="button button-primary" href="#donate"><Heart size={18} fill="currentColor" /> Donate Now</a><a className="button button-purple" href="#volunteer"><Users size={18} fill="currentColor" /> Volunteer</a></div></div></section>
+      <section className="cta-section" id="support"><div className="container cta-card"><div><p className="eyebrow pink-text">MAKE A DIFFERENCE</p><h2>Your support can change a child&apos;s story.</h2><p>Donate, volunteer, partner with us or support one of our causes.</p></div><div className="hero-actions"><a className="button button-primary" href="/donate"><Heart size={18} fill="currentColor" /> Donate Now</a><a className="button button-purple" href="#volunteer"><Users size={18} fill="currentColor" /> Volunteer</a></div></div></section>
 
       <section className="simple-section gallery-section" id="gallery">
         <div className="container"><p className="eyebrow pink-text">GALLERY</p><h2>Moments of <span>Hope &amp; Joy</span></h2><p className="section-lead">Take a closer look at the people, moments and smiles behind the work.</p>
@@ -220,7 +220,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="simple-section updates" id="updates"><div className="updates-pattern" aria-hidden="true" /><div className="container"><p className="eyebrow pink-text">NEWS &amp; UPDATES</p><h2>Stories from <span>the work</span></h2><div className="story-grid"><article><span>UPDATE</span><h3>Creating safe spaces for vulnerable children</h3><p>Share field stories, programme updates and milestones from Glory Children Ministry.</p><a href="#read">Read Story <ArrowRight size={15} /></a></article><article><span>STORY</span><h3>Education opens doors to opportunity</h3><p>Highlight the children, mentors and partners making learning possible.</p><a href="#read">Read Story <ArrowRight size={15} /></a></article><article><span>IMPACT</span><h3>Community support that reaches further</h3><p>Show how donors and volunteers contribute to lasting change.</p><a href="#read">Read Story <ArrowRight size={15} /></a></article></div><div className="section-button-row"><Link className="button button-primary" href="/news-updates">View All News &amp; Updates <ArrowRight size={17} /></Link></div></div></section>
+      <section className="simple-section updates" id="updates"><div className="updates-pattern" aria-hidden="true" /><div className="container"><p className="eyebrow pink-text">NEWS &amp; UPDATES</p><h2>Stories from <span>the work</span></h2><div className="story-grid"><article><span>UPDATE</span><h3>Creating safe spaces for vulnerable children</h3><p>Share field stories, programme updates and milestones from Glory Children Ministry.</p><a href="#read">Read Story <ArrowRight size={15} /></a></article><article><span>STORY</span><h3>Education opens doors to opportunity</h3><p>Highlight the children, mentors and partners making learning possible.</p><a href="#read">Read Story <ArrowRight size={15} /></a></article><article><span>IMPACT</span><h3>Community support that reaches further</h3><p>Show how donors and volunteers contribute to lasting change.</p><a href="#read">Read Story <ArrowRight size={15} /></a></article></div><div className="section-button-row"><Link className="button button-primary" href="/updates">View All News &amp; Updates <ArrowRight size={17} /></Link></div></div></section>
 
       {lightbox !== null && <div className="lightbox" role="dialog" aria-modal="true" aria-label="Gallery viewer" onClick={() => setLightbox(null)}><button type="button" className="lightbox-close" aria-label="Close gallery" onClick={() => setLightbox(null)}><X size={25} /></button><button type="button" className="lightbox-prev" aria-label="Previous photo" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox - 1 + galleryItems.length) % galleryItems.length) }}><ArrowLeft /></button><div className="lightbox-image" onClick={(event) => event.stopPropagation()}><Image src={galleryItems[lightbox].src} alt={galleryItems[lightbox].alt} fill sizes="90vw" /></div><button type="button" className="lightbox-next" aria-label="Next photo" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox + 1) % galleryItems.length) }}><ArrowRight /></button></div>}
 
