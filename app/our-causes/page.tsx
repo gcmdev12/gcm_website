@@ -53,7 +53,7 @@ const causes = [
     points: [
       'Access to essential medical care',
       'Health and wellness support',
-      'Attention to children's changing health needs',
+      'Attention to children\'s changing health needs',
       'Promoting healthy habits and prevention',
     ],
   },
