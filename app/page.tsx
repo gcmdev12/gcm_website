@@ -218,9 +218,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="impact-section" id="impact">
-        <div className="impact-image"><Image src="/images/about-children.png" alt="Children at school" fill sizes="360px" /></div>
-        <div className="container impact-inner"><div className="impact-copy"><p className="eyebrow">OUR IMPACT</p><h2>Together, we are creating lasting change</h2><p>Every contribution helps us reach more children with practical care, protection, education and hope.</p></div><div className="impact-stats">{counters.map(({ value, label, icon: Icon, tone }) => <div className={`impact-stat stat-${tone}`} key={label}><Icon size={28} /><strong>{value}</strong><span>{label}</span></div>)}</div></div>
+      <section className="impact-section-home" id="impact-home">
+        <div className="impact-image-home"><Image src="/images/about-children.png" alt="Children at school" fill sizes="360px" /></div>
+        <div className="container impact-inner-home"><div className="impact-copy-home"><p className="eyebrow">OUR IMPACT</p><h2>Together, we are creating lasting change</h2><p>Every contribution helps us reach more children with practical care, protection, education and hope.</p></div><div className="impact-stats-home">{counters.map(({ value, label, icon: Icon, tone }) => <div className={`impact-stat-home stat-${tone}`} key={label}><Icon size={28} /><strong>{value}</strong><span>{label}</span></div>)}</div></div>
       </section>
 
       <section className="cta-section" id="support"><div className="container cta-card"><div><p className="eyebrow pink-text">MAKE A DIFFERENCE</p><h2>Your support can change a child&apos;s story.</h2><p>Donate, volunteer, partner with us or support one of our causes.</p></div><div className="hero-actions"><a className="button button-primary" href="/donate"><Heart size={18} fill="currentColor" /> Donate Now</a><a className="button button-purple" href="#volunteer"><Users size={18} fill="currentColor" /> Volunteer</a></div></div></section>
