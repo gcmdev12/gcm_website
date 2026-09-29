@@ -6,12 +6,12 @@ import { useEffect, useState } from 'react'
 import { AtSign, Facebook, Heart, Instagram, Mail, MapPin, Menu, MessageCircle, Music2, Phone, Users, X, Youtube } from 'lucide-react'
 
 const navItems = [
-  ['Home', '#home'],
-  ['About Us', '#about'],
-  ['Our Causes', '#causes'],
-  ['Gallery', '#gallery'],
-  ['News & Updates', '#updates'],
-  ['Contact Us', '#contact'],
+  ['Home', '/'],
+  ['About Us', '/about-us'],
+  ['Our Causes', '/our-causes'],
+  ['Gallery', '/gallery'],
+  ['News & Updates', '/updates'],
+  ['Contact Us', '/contact'],
 ] as const
 
 function SocialLinks() {

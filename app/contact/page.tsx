@@ -12,7 +12,7 @@ export default function ContactPage() {
   }
 
   return (
-    <main className="contact-page">
+    <div className="contact-page">
       <section className="contact-hero">
         <div className="contact-hero-dots" aria-hidden="true" />
         <div className="contact-orb contact-orb-one" aria-hidden="true" />
@@ -127,6 +127,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   )
 }

@@ -6,12 +6,12 @@ import { FormEvent, useState } from 'react'
 import { ArrowRight, AtSign, Facebook, Heart, Instagram, Mail, MapPin, MessageCircle, Music2, Phone, Youtube } from 'lucide-react'
 
 const navItems = [
-  ['Home', '#home'],
-  ['About Us', '#about'],
-  ['Our Causes', '#causes'],
-  ['Gallery', '#gallery'],
-  ['News & Updates', '#updates'],
-  ['Contact Us', '#contact'],
+  ['Home', '/'],
+  ['About Us', '/about-us'],
+  ['Our Causes', '/our-causes'],
+  ['Gallery', '/gallery'],
+  ['News & Updates', '/updates'],
+  ['Contact Us', '/contact'],
 ] as const
 
 const causes = [
@@ -47,7 +47,7 @@ export default function Footer() {
         <div className="container footer-grid">
           <div className="footer-brand"><Image src="/images/logo.png" alt="Glory Children Ministry" width={195} height={112} /><p className="footer-motto">Hope · Education · Opportunity</p><p className="footer-intro">Together, we can help children feel safe, discover their potential and build brighter futures.</p></div>
           <div><h3>Quick Links</h3>{navItems.slice(0, 5).map(([label, href]) => <a href={href} key={label}>{label}</a>)}<Link  href="/privacy-policy">Privacy Policy</Link></div>
-          <div><h3>Our Causes</h3>{causes.slice(0, 6).map(({ title }) => <a href="#causes" key={title}>{title}</a>)}</div>
+          <div><h3>Our Causes</h3>{causes.slice(0, 6).map(({ title }) => <a href="/our-causes" key={title}>{title}</a>)}</div>
           <div><h3>Contact Us</h3><a href="tel:+256755575982"><Phone size={15} /> +256 755 575 982</a><a  href="tel:+256767274915"><Phone size={15} /> +256 767 274 915</a><a href="mailto:info@glorychildrenministry.org"><Mail size={15} /> info@glorychildrenministry.org</a><span><MapPin size={15} /> Namusera, Hoima Rd, Kampala, Uganda</span></div>
           <div><h3>Follow Us</h3><SocialLinks /><p className="footer-tagline">Together We Can Make a Difference <Heart size={17} fill="currentColor" /></p></div>
         </div>
