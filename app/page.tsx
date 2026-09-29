@@ -70,11 +70,28 @@ export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSlide, setActiveSlide] = useState(0)
   const [lightbox, setLightbox] = useState<number | null>(null)
+  const [youtubeOpen, setYoutubeOpen] = useState(false)
 
   useEffect(() => {
     const timer = window.setInterval(() => setActiveSlide((current) => (current + 1) % heroSlides.length), 6500)
     return () => window.clearInterval(timer)
   }, [])
+
+  useEffect(() => {
+    if (!youtubeOpen) return
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setYoutubeOpen(false)
+    }
+
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [youtubeOpen])
 
   useEffect(() => {
     if (lightbox === null) return
@@ -149,7 +166,23 @@ export default function HomePage() {
             <h2>Building a future where <span>every child can shine.</span></h2>
             <p>Glory Children Ministry exists to walk alongside vulnerable children with practical care, protection and opportunities that restore hope. We believe every child deserves to be safe, heard, educated and equipped to thrive.</p>
             <p>From classrooms and nutritious meals to healthcare, counselling and family support, we work with communities to create lasting change — one child at a time.</p>
-            <a className="button button-primary" href="/about-us">View More About Us <ArrowRight size={17} /></a>
+            <div className="about-action-row">
+              <button
+                type="button"
+                className="about-video-button"
+                onClick={() => setYoutubeOpen(true)}
+                aria-label="Watch our story on YouTube"
+                title="Watch our story"
+              >
+                <Play size={21} fill="currentColor" />
+                <span className="about-video-pulse" aria-hidden="true" />
+              </button>
+
+              <a className="button button-primary" href="/about-us">
+                View More About Us
+                <ArrowRight size={17} />
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -185,9 +218,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="impact-section-home" id="impact-home">
-        <div className="impact-image-home"><Image src="/images/about-children.png" alt="Children at school" fill sizes="360px" /></div>
-        <div className="container impact-inner-home"><div className="impact-copy-home"><p className="eyebrow">OUR IMPACT</p><h2>Together, we are creating lasting change</h2><p>Every contribution helps us reach more children with practical care, protection, education and hope.</p></div><div className="impact-stats">{counters.map(({ value, label, icon: Icon, tone }) => <div className={`impact-stat stat-${tone}`} key={label}><Icon size={28} /><strong>{value}</strong><span>{label}</span></div>)}</div></div>
+      <section className="impact-section" id="impact">
+        <div className="impact-image"><Image src="/images/about-children.png" alt="Children at school" fill sizes="360px" /></div>
+        <div className="container impact-inner"><div className="impact-copy"><p className="eyebrow">OUR IMPACT</p><h2>Together, we are creating lasting change</h2><p>Every contribution helps us reach more children with practical care, protection, education and hope.</p></div><div className="impact-stats">{counters.map(({ value, label, icon: Icon, tone }) => <div className={`impact-stat stat-${tone}`} key={label}><Icon size={28} /><strong>{value}</strong><span>{label}</span></div>)}</div></div>
       </section>
 
       <section className="cta-section" id="support"><div className="container cta-card"><div><p className="eyebrow pink-text">MAKE A DIFFERENCE</p><h2>Your support can change a child&apos;s story.</h2><p>Donate, volunteer, partner with us or support one of our causes.</p></div><div className="hero-actions"><a className="button button-primary" href="/donate"><Heart size={18} fill="currentColor" /> Donate Now</a><a className="button button-purple" href="#volunteer"><Users size={18} fill="currentColor" /> Volunteer</a></div></div></section>
@@ -200,6 +233,39 @@ export default function HomePage() {
       </section>
 
       <section className="simple-section updates" id="updates"><div className="updates-pattern" aria-hidden="true" /><div className="container"><p className="eyebrow pink-text">NEWS &amp; UPDATES</p><h2>Stories from <span>the work</span></h2><div className="story-grid"><article><span>UPDATE</span><h3>Creating safe spaces for vulnerable children</h3><p>Share field stories, programme updates and milestones from Glory Children Ministry.</p><a href="#read">Read Story <ArrowRight size={15} /></a></article><article><span>STORY</span><h3>Education opens doors to opportunity</h3><p>Highlight the children, mentors and partners making learning possible.</p><a href="#read">Read Story <ArrowRight size={15} /></a></article><article><span>IMPACT</span><h3>Community support that reaches further</h3><p>Show how donors and volunteers contribute to lasting change.</p><a href="#read">Read Story <ArrowRight size={15} /></a></article></div><div className="section-button-row"><Link className="button button-primary" href="/updates">View All News &amp; Updates <ArrowRight size={17} /></Link></div></div></section>
+
+      {youtubeOpen && (
+        <div
+          className="youtube-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Glory Children Ministry video"
+          onClick={() => setYoutubeOpen(false)}
+        >
+          <div
+            className="youtube-modal-card"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="youtube-modal-close"
+              onClick={() => setYoutubeOpen(false)}
+              aria-label="Close video"
+            >
+              <X size={24} />
+            </button>
+
+            <div className="youtube-video-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/-swBjtaHw90?autoplay=1&rel=0"
+                title="Glory Children Ministry video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {lightbox !== null && <div className="lightbox" role="dialog" aria-modal="true" aria-label="Gallery viewer" onClick={() => setLightbox(null)}><button type="button" className="lightbox-close" aria-label="Close gallery" onClick={() => setLightbox(null)}><X size={25} /></button><button type="button" className="lightbox-prev" aria-label="Previous photo" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox - 1 + galleryItems.length) % galleryItems.length) }}><ArrowLeft /></button><div className="lightbox-image" onClick={(event) => event.stopPropagation()}><Image src={galleryItems[lightbox].src} alt={galleryItems[lightbox].alt} fill sizes="90vw" /></div><button type="button" className="lightbox-next" aria-label="Next photo" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox + 1) % galleryItems.length) }}><ArrowRight /></button></div>}
 
