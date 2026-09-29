@@ -349,46 +349,79 @@ export default function DonationPage() {
         </div>
       </section>
 
-      <section className="impact-section section-space">
-        <div className="container impact-layout">
-          <div className="impact-copy">
-            <span className="eyebrow">Why your giving matters</span>
-            <h2>
-              A donation is more than a transaction.
-              <span> It is a message of hope.</span>
-            </h2>
-            <p>
-              When people give, they become part of a community that believes
-              children deserve care, dignity, opportunity and the chance to
-              discover their potential.
-            </p>
-            <div className="impact-quote">
-              <span className="quote-mark">&ldquo;</span>
-              <p>
-                Together, we can create practical pathways for children to
-                experience safety, care, learning and opportunity.
-              </p>
+      <section className="impact-section-donate section-space">
+  <div className="container impact-layout-donate">
+    <div className="impact-visual-donate">
+      <div className="impact-image-frame-donate">
+        <span className="impact-spray-donate impact-spray-one-donate" />
+        <span className="impact-spray-donate impact-spray-two-donate" />
+        <span className="impact-spray-donate impact-spray-three-donate" />
+        <span className="impact-spray-donate impact-spray-four-donate" />
+
+        <div className="impact-image-border-donate impact-border-one-donate">
+          <div className="impact-image-border-donate impact-border-two-donate">
+            <div className="impact-image-wrap-donate">
+              <img
+                src="/images/donate.jpg"
+                alt="Children supported by Glory Children Ministry"
+              />
             </div>
           </div>
+        </div>
 
-          <div className="impact-list">
-            {impactItems.map((item) => {
-              const Icon = item.icon
-              return (
-                <div className="impact-item" key={item.title}>
-                  <div className="impact-icon">
-                    <Icon size={21} />
-                  </div>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
-                  </div>
-                </div>
-              )
-            })}
+        <div className="impact-floating-badge-donate">
+          <span>♥</span>
+          <div>
+            <strong>Every child</strong>
+            <small>deserves hope</small>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+
+    <div className="impact-copy-donate">
+      <span className="eyebrow">Why your giving matters</span>
+
+      <h2>
+        A donation is more than a transaction.
+        <span> It is a message of hope.</span>
+      </h2>
+
+      <p>
+        When people give, they become part of a community that believes
+        children deserve care, dignity, opportunity and the chance to
+        discover their potential.
+      </p>
+
+      <div className="impact-quote">
+        <span className="quote-mark">&ldquo;</span>
+        <p>
+          Together, we can create practical pathways for children to
+          experience safety, care, learning and opportunity.
+        </p>
+      </div>
+    </div>
+
+    <div className="impact-list-donate">
+      {impactItems.map((item) => {
+        const Icon = item.icon
+
+        return (
+          <div className="impact-item-donate" key={item.title}>
+            <div className="impact-icon-donate">
+              <Icon size={21} />
+            </div>
+
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  </div>
+</section>
 
       <section id="online-donation" className="online-section">
         <div className="online-decoration online-decoration-one" />
