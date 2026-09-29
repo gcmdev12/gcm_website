@@ -41,7 +41,7 @@ const donationMethods = [
     type: "bank",
     tone: "bank",
     brand: "DTB",
-    label: "Stanbic Bank",
+    label: "Diamond Trust Bank",
     number: "7389213001",
     description: "Make a bank transfer or deposit to the ministry account.",
     icon: Banknote,
@@ -209,6 +209,7 @@ export default function DonationPage() {
             {donationMethods.map((method) => {
               const Icon = method.icon
               const isBank = method.type === "bank"
+              const accName = "Ssuna Khalim"
 
               return (
                 <article
@@ -236,24 +237,36 @@ export default function DonationPage() {
 
                   <p>{method.description}</p>
 
-                  {isBank ? (
-                    <div className="bank-details">
-                      <div>
-                        <small>Bank</small>
-                        <strong>Stanbic Bank</strong>
-                      </div>
-                      <div>
-                        <small>Account number</small>
-                        <strong>{method.number}</strong>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="mobile-number-box">
-                      <small>Send to</small>
-                      <a href={method.tel}>{method.number}</a>
-                    </div>
-                  )}
+{isBank ? (
+  <div className="bank-details">
+    <div>
+      <small>Bank</small>
+      <strong>DTB</strong>
+    </div>
 
+    <div>
+      <small>Account number</small>
+      <strong>{method.number}</strong>
+    </div>
+
+    <div>
+      <small>Account Name</small>
+      <strong>{accName}</strong>
+    </div>
+  </div>
+) : (
+  <>
+    <div className="mobile-number-box">
+      <small>Send to</small>
+      <a href={method.tel}>{method.number}</a>
+    </div>
+
+    <div className="mobile-number-box">
+      <small>In Names</small>
+      <strong>{accName}</strong>
+    </div>
+  </>
+)}
                   <button
                     type="button"
                     className="copy-button"
