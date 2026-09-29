@@ -351,7 +351,7 @@ export default function GalleryPage() {
             <p className="eyebrow orange-text">MORE THAN A PHOTO</p>
             <h2>Behind every image is a child, a family and a story.</h2>
           </div>
-          <Link className="button button-purple" href="/news-updates">
+          <Link className="button button-purple" href="/updates">
             Read Our Stories <ArrowRight size={17} />
           </Link>
         </div>
