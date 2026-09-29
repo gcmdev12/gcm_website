@@ -362,7 +362,7 @@ export default function DonationPage() {
           <div className="impact-image-border-donate impact-border-two-donate">
             <div className="impact-image-wrap-donate">
               <img
-                src="/images/donate.jpg"
+                src="/images/donate.png"
                 alt="Children supported by Glory Children Ministry"
               />
             </div>
