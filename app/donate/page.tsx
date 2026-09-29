@@ -42,7 +42,7 @@ const donationMethods = [
     tone: "bank",
     brand: "DTB",
     label: "Stanbic Bank",
-    number: "008738393382",
+    number: "7389213001",
     description: "Make a bank transfer or deposit to the ministry account.",
     icon: Banknote,
   },
