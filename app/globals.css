@@ -4210,7 +4210,7 @@ main {
 
 .impact-copy h2 {
   margin: 0;
-  color: var(--ink, #19142e);
+  /* color: var(--ink, #19142e); */
   font-size: clamp(35px, 3.8vw, 52px);
   line-height: 1.04;
   letter-spacing: -.05em;
