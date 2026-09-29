@@ -4210,10 +4210,12 @@ main {
 
 .impact-copy h2 {
   margin: 0;
-  /* color: var(--ink, #19142e); */
+  color: var(--ink, #19142e);
   font-size: clamp(35px, 3.8vw, 52px);
   line-height: 1.04;
   letter-spacing: -.05em;
+  font-family: var(--font-poppins, Poppins, sans-serif);
+ 
 }
 
 .impact-copy h2 span {
@@ -6466,7 +6468,6 @@ main {
 }
 
 .donation-heading h2,
-.impact-copy h2,
 .online-inner h2,
 .final-cta-inner h2 {
   margin: 0;
