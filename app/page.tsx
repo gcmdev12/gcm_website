@@ -2,13 +2,12 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { FormEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ArrowLeft,
   ArrowRight,
   BookOpen,
   ChevronRight,
-  ChevronUp,
   GraduationCap,
   Heart,
   HeartHandshake,
@@ -22,7 +21,6 @@ import {
   Utensils,
   X,
   Wrench,
-  Youtube,
 } from 'lucide-react'
 
 const causes = [
@@ -70,28 +68,8 @@ const galleryItems = [
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [showScrollTop, setShowScrollTop] = useState(false)
   const [activeSlide, setActiveSlide] = useState(0)
   const [lightbox, setLightbox] = useState<number | null>(null)
-  const [currentYear, setCurrentYear] = useState<number | null>(null)
-  const [subscribed, setSubscribed] = useState(false)
-
-  useEffect(() => {
-    setCurrentYear(new Date().getFullYear())
-    const updateScrollState = () => {
-      const scrollY = window.scrollY || document.documentElement.scrollTop || 0
-      setScrolled(scrollY > 28)
-      setShowScrollTop(scrollY > (window.innerWidth <= 760 ? 180 : 420))
-    }
-    updateScrollState()
-    window.addEventListener('scroll', updateScrollState, { passive: true })
-    window.addEventListener('resize', updateScrollState)
-    return () => {
-      window.removeEventListener('scroll', updateScrollState)
-      window.removeEventListener('resize', updateScrollState)
-    }
-  }, [])
 
   useEffect(() => {
     const timer = window.setInterval(() => setActiveSlide((current) => (current + 1) % heroSlides.length), 6500)
@@ -114,11 +92,6 @@ export default function HomePage() {
   }, [lightbox])
 
   const closeMenu = () => setMenuOpen(false)
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
-  const subscribe = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setSubscribed(true)
-  }
   const slide = heroSlides[activeSlide]
 
   return (
@@ -135,6 +108,12 @@ export default function HomePage() {
         <div className="hero-shade" />
         <div className="hero-brush hero-brush-one" />
         <div className="hero-brush hero-brush-two" />
+        <div className="hero-corner-marks" aria-hidden="true">
+          <span className="hero-mark hero-mark-pink" />
+          <span className="hero-mark hero-mark-orange" />
+          <span className="hero-mark hero-mark-blue" />
+          <span className="hero-mark hero-mark-purple" />
+        </div>
         <div className="container hero-content">
           <div className="hero-copy" key={activeSlide}>
             <p className="eyebrow">{slide.eyebrow}</p>
@@ -190,7 +169,7 @@ export default function HomePage() {
         <div className="cause-pattern" aria-hidden="true" />
         <div className="container">
           <div className="section-heading"><div><p className="eyebrow pink-text">OUR CAUSES</p><h2>Changing Lives, <span>One Child</span> at a Time</h2></div><p>We provide holistic support to help children grow, learn and build a better future. Here are some of the key areas we focus on:</p></div>
-          <div className="cause-grid">{causes.map(({ title, description, icon: Icon, tone }) => <article className={`cause-card cause-${tone}`} key={title}><div className="cause-top"><Icon size={40} /></div><div className="cause-body"><h3>{title}</h3><p>{description}</p><a href={`#${title.toLowerCase().replaceAll(' ', '-')}`}>Learn More <ChevronRight size={15} /></a></div></article>)}</div>
+          <div className="cause-grid">{causes.map(({ title, description, icon: Icon, tone }) => <article className={`cause-card cause-${tone}`} key={title}><div className="cause-top"><Icon size={40} /></div><div className="cause-body"><h3>{title}</h3><p>{description}</p><a href={`/our-causes#${title.toLowerCase().replaceAll(' ', '-')}`}>Learn More <ChevronRight size={15} /></a></div></article>)}</div>
         </div>
       </section>
 
@@ -224,7 +203,6 @@ export default function HomePage() {
 
       {lightbox !== null && <div className="lightbox" role="dialog" aria-modal="true" aria-label="Gallery viewer" onClick={() => setLightbox(null)}><button type="button" className="lightbox-close" aria-label="Close gallery" onClick={() => setLightbox(null)}><X size={25} /></button><button type="button" className="lightbox-prev" aria-label="Previous photo" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox - 1 + galleryItems.length) % galleryItems.length) }}><ArrowLeft /></button><div className="lightbox-image" onClick={(event) => event.stopPropagation()}><Image src={galleryItems[lightbox].src} alt={galleryItems[lightbox].alt} fill sizes="90vw" /></div><button type="button" className="lightbox-next" aria-label="Next photo" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox + 1) % galleryItems.length) }}><ArrowRight /></button></div>}
 
-      <button className={`scroll-top ${showScrollTop ? 'visible' : ''}`} type="button" onClick={scrollToTop} aria-label="Scroll back to top" title="Back to top"><span className="scroll-top-ring" aria-hidden="true" /><ChevronUp size={21} strokeWidth={2.7} /></button>
     </main>
   )
 }

@@ -3,7 +3,22 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { AtSign, Facebook, Heart, Instagram, Mail, MapPin, Menu, MessageCircle, Music2, Phone, Users, X, Youtube } from 'lucide-react'
+import {
+  AtSign,
+  Facebook,
+  Heart,
+  Instagram,
+  Mail,
+  MapPin,
+  Menu,
+  MessageCircle,
+  Music2,
+  Phone,
+  Users,
+  X,
+  Youtube,
+} from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 const navItems = [
   ['Home', '/'],
@@ -30,13 +45,19 @@ function SocialLinks() {
 function MobileBrand() {
   return (
     <span className="mobile-brand" aria-hidden="true">
-      <span className="mobile-brand-icon"><Image src="/favicon-512.png" alt="" fill sizes="52px" /></span>
-      <span className="mobile-brand-name"><strong>Glory</strong><span>Children Ministry</span></span>
+      <span className="mobile-brand-icon">
+        <Image src="/favicon-512.png" alt="" fill sizes="52px" />
+      </span>
+      <span className="mobile-brand-name">
+        <strong>Glory</strong>
+        <span>Children Ministry</span>
+      </span>
     </span>
   )
 }
 
 export default function Navbar() {
+  const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -50,36 +71,66 @@ export default function Navbar() {
   const closeMenu = () => setMenuOpen(false)
 
   return (
-      <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`} id="home">
-        <div className="utility-bar">
-          <div className="utility-inner">
-            <div className="utility-contact">
-              <a href="tel:+256755575982"><Phone size={15} /> +256 755 575 982</a>
-              <a href="tel:+256767274915"><Phone size={15} /> +256 767 274 915</a>
-              <a href="mailto:info@glorychildrenministry.org"><Mail size={15} /> info@glorychildrenministry.org</a>
-              <span><MapPin size={15} /> Namusera, Hoima Rd, Kampala, Uganda</span>
-            </div>
-            <div className="follow"><span>Follow Us</span><SocialLinks /></div>
+    <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
+      <div className="utility-bar">
+        <div className="utility-inner">
+          <div className="utility-contact">
+            <a href="tel:+256755575982"><Phone size={15} /> +256 755 575 982</a>
+            <a href="tel:+256767274915"><Phone size={15} /> +256 767 274 915</a>
+            <a href="mailto:info@glorychildrenministry.org"><Mail size={15} /> info@glorychildrenministry.org</a>
+            <span><MapPin size={15} /> Namusera, Hoima Rd, Kampala, Uganda</span>
           </div>
+          <div className="follow"><span>Follow Us</span><SocialLinks /></div>
         </div>
+      </div>
 
-        <nav className="main-nav" aria-label="Primary navigation">
-          <div className="nav-inner">
-            <Link className="brand" href="#home" onClick={closeMenu} aria-label="Glory Children Ministry home">
-              <span className="brand-desktop"><Image src="/images/logo.png" alt="Glory Children Ministry" width={160} height={92} priority /></span>
-              <MobileBrand />
-            </Link>
-            <div className={`desktop-nav ${menuOpen ? 'open' : ''}`}>
-              {navItems.map(([label, href], index) => <a key={label} className={index === 0 ? 'active' : ''} href={href} onClick={closeMenu}>{label}</a>)}
-            </div>
-            <div className="nav-actions">
-              <a className="button button-primary small" href="/donate"><Heart size={16} fill="currentColor" /> Donate</a>
-              <a className="button button-purple small" href="/volunteer"><Users size={16} fill="currentColor" /> Volunteer</a>
-            </div>
-            <button className="menu-button" type="button" aria-label="Toggle navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}>{menuOpen ? <X size={29} /> : <Menu size={30} />}</button>
+      <nav className="main-nav" aria-label="Primary navigation">
+        <div className="nav-inner">
+          <Link className="brand" href="/" onClick={closeMenu} aria-label="Glory Children Ministry home">
+            <span className="brand-desktop">
+              <Image src="/images/logo.png" alt="Glory Children Ministry" width={160} height={92} priority />
+            </span>
+            <MobileBrand />
+          </Link>
+
+          <div className={`desktop-nav ${menuOpen ? 'open' : ''}`}>
+            {navItems.map(([label, href]) => {
+              const isActive = pathname === href
+
+              return (
+                <Link
+                  key={label}
+                  href={href}
+                  className={isActive ? 'active' : ''}
+                  aria-current={isActive ? 'page' : undefined}
+                  onClick={closeMenu}
+                >
+                  {label}
+                </Link>
+              )
+            })}
           </div>
-        </nav>
-      </header>
 
+          <div className="nav-actions">
+            <Link className="button button-primary small" href="/donate">
+              <Heart size={16} fill="currentColor" /> Donate
+            </Link>
+            <Link className="button button-purple small" href="/volunteer">
+              <Users size={16} fill="currentColor" /> Volunteer
+            </Link>
+          </div>
+
+          <button
+            className="menu-button"
+            type="button"
+            aria-label="Toggle navigation"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((value) => !value)}
+          >
+            {menuOpen ? <X size={29} /> : <Menu size={30} />}
+          </button>
+        </div>
+      </nav>
+    </header>
   )
 }

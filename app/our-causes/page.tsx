@@ -30,7 +30,7 @@ const causes = [
     icon: GraduationCap,
     tone: 'pink',
     image:
-      'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=85',
+      '/images/education.jpg',
     points: [
       'School access and educational support',
       'Learning materials and essential supplies',
@@ -49,7 +49,7 @@ const causes = [
     icon: Stethoscope,
     tone: 'blue',
     image:
-      'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=85',
+      '/images/health.jpg',
     points: [
       'Access to essential medical care',
       'Health and wellness support',
@@ -68,7 +68,7 @@ const causes = [
     icon: Utensils,
     tone: 'orange',
     image:
-      'https://images.unsplash.com/photo-1608500218890-c4f9c3a5b5d8?auto=format&fit=crop&w=1200&q=85',
+      '/images/food.jpg',
     points: [
       'Nutritious meals and food support',
       'Support for healthy childhood development',
@@ -87,7 +87,7 @@ const causes = [
     icon: Users,
     tone: 'purple',
     image:
-      'https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=1200&q=85',
+      '/images/guidance.jpg',
     points: [
       'Emotional support and attentive listening',
       'Mentorship and positive encouragement',
@@ -106,7 +106,7 @@ const causes = [
     icon: Home,
     tone: 'red',
     image:
-      'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=85',
+      '/images/shelter.jpg',
     points: [
       'Safe and supportive environments',
       'Protection from harmful and unsafe situations',
@@ -125,7 +125,7 @@ const causes = [
     icon: Wrench,
     tone: 'teal',
     image:
-      'https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1200&q=85',
+      '/images/skills.jpg',
     points: [
       'Practical and vocational skills',
       'Youth empowerment and confidence',
