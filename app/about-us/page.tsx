@@ -21,7 +21,6 @@ import {
   Users,
   Utensils,
 } from "lucide-react"
-import "./about-us.css"
 
 const impactStats = [
   { value: 2019, label: "Established", icon: Sparkles, suffix: "", tone: "pink" },
