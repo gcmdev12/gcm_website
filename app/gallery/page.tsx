@@ -15,7 +15,6 @@ import {
   Users,
   X,
 } from "lucide-react"
-import "./gallery.css"
 
 type GalleryItem = {
   title: string
