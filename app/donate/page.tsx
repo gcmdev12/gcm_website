@@ -224,24 +224,36 @@ export default function DonationPage() {
                   <h3>{method.label}</h3>
 
                   <p>{method.description}</p>
+{isBank ? (
+  <div className="bank-details">
+    <div>
+      <small>Bank</small>
+      <strong>DTB</strong>
+    </div>
 
-                  {isBank ? (
-                    <div className="bank-details">
-                      <div>
-                        <small>Bank</small>
-                        <strong>Stanbic Bank</strong>
-                      </div>
-                      <div>
-                        <small>Account number</small>
-                        <strong>{method.number}</strong>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="mobile-number-box">
-                      <small>Send to</small>
-                      <a href={method.tel}>{method.number}</a>
-                    </div>
-                  )}
+    <div>
+      <small>Account number</small>
+      <strong>{method.number}</strong>
+    </div>
+
+    <div>
+      <small>Account Name</small>
+      <strong>{accName}</strong>
+    </div>
+  </div>
+) : (
+  <>
+    <div className="mobile-number-box">
+      <small>Send to</small>
+      <a href={method.tel}>{method.number}</a>
+    </div>
+
+    <div className="mobile-number-box">
+      <small>In Names</small>
+      <strong>{accName}</strong>
+    </div>
+  </>
+)}
 
                   <button
                     type="button"

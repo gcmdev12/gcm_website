@@ -7073,3 +7073,13 @@ main {
     font-size: 12px;
   }
 }
+.method-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.method-card-header .method-type {
+  margin-left: auto;
+}
