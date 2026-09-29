@@ -57,6 +57,7 @@ const donationMethods = [
     country: "Uganda",
     city: "Kampala",
     tel: "+256755575982",
+    number: "+256755575982",
   },
 ]
 
