@@ -15,11 +15,13 @@ import {
   Smartphone,
   Users,
 } from "lucide-react"
+import "./donation.css"
 
 const donationMethods = [
   {
     type: "mobile",
     tone: "mtn",
+    brand: "MTN",
     label: "MTN Mobile Money",
     number: "+256 767 274 915",
     tel: "tel:+256767274915",
@@ -29,6 +31,7 @@ const donationMethods = [
   {
     type: "mobile",
     tone: "airtel",
+    brand: "airtel",
     label: "Airtel Money",
     number: "+256 755 575 982",
     tel: "tel:+256755575982",
@@ -38,8 +41,9 @@ const donationMethods = [
   {
     type: "bank",
     tone: "bank",
-    label: "Diamond Trust Bank",
-    number: "7389213001",
+    brand: "DTB",
+    label: "Stanbic Bank",
+    number: "008738393382",
     description: "Make a bank transfer or deposit to the ministry account.",
     icon: Banknote,
   },
@@ -206,7 +210,6 @@ export default function DonationPage() {
             {donationMethods.map((method) => {
               const Icon = method.icon
               const isBank = method.type === "bank"
-              const accName = "SSUNA KHALIM"
 
               return (
                 <article
@@ -214,9 +217,17 @@ export default function DonationPage() {
                   key={method.label}
                 >
                   <div className="method-card-header">
-                    <div className="method-icon">
+                    <div
+                      className={`donation-brand-logo donation-brand-${method.tone}`}
+                      aria-label={`${method.brand} logo`}
+                    >
+                      <span>{method.brand}</span>
+                    </div>
+
+                    <div className="method-icon" aria-hidden="true">
                       <Icon size={24} />
                     </div>
+
                     <span className="method-type">
                       {isBank ? "Bank transfer" : "Mobile money"}
                     </span>
@@ -225,36 +236,24 @@ export default function DonationPage() {
                   <h3>{method.label}</h3>
 
                   <p>{method.description}</p>
-{isBank ? (
-  <div className="bank-details">
-    <div>
-      <small>Bank</small>
-      <strong>DTB</strong>
-    </div>
 
-    <div>
-      <small>Account number</small>
-      <strong>{method.number}</strong>
-    </div>
-
-    <div>
-      <small>Account Name</small>
-      <strong>{accName}</strong>
-    </div>
-  </div>
-) : (
-  <>
-    <div className="mobile-number-box">
-      <small>Send to</small>
-      <a href={method.tel}>{method.number}</a>
-    </div>
-
-    <div className="mobile-number-box">
-      <small>In Names</small>
-      <strong>{accName}</strong>
-    </div>
-  </>
-)}
+                  {isBank ? (
+                    <div className="bank-details">
+                      <div>
+                        <small>Bank</small>
+                        <strong>Stanbic Bank</strong>
+                      </div>
+                      <div>
+                        <small>Account number</small>
+                        <strong>{method.number}</strong>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="mobile-number-box">
+                      <small>Send to</small>
+                      <a href={method.tel}>{method.number}</a>
+                    </div>
+                  )}
 
                   <button
                     type="button"
@@ -391,5 +390,3 @@ export default function DonationPage() {
     </div>
   )
 }
-
-
