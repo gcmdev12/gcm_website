@@ -15,7 +15,6 @@ import {
   Smartphone,
   Users,
 } from "lucide-react"
-import "./donation.css"
 
 const donationMethods = [
   {
