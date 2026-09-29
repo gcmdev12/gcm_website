@@ -15,6 +15,7 @@ import {
   Smartphone,
   Users,
 } from "lucide-react"
+import "./donation.css"
 
 const donationMethods = [
   {
@@ -38,8 +39,8 @@ const donationMethods = [
   {
     type: "bank",
     tone: "bank",
-    label: "Diamond Trust Bank",
-    number: "7389213001",
+    label: "Stanbic Bank",
+    number: "008738393382",
     description: "Make a bank transfer or deposit to the ministry account.",
     icon: Banknote,
   },
@@ -205,7 +206,6 @@ export default function DonationPage() {
           <div className="donation-method-grid">
             {donationMethods.map((method) => {
               const Icon = method.icon
-              const accName = "SSUNA KHALIM"
               const isBank = method.type === "bank"
 
               return (
@@ -230,25 +230,17 @@ export default function DonationPage() {
                     <div className="bank-details">
                       <div>
                         <small>Bank</small>
-                        <strong>DTB</strong>
+                        <strong>Stanbic Bank</strong>
                       </div>
                       <div>
                         <small>Account number</small>
                         <strong>{method.number}</strong>
-                      </div>
-                      <div>
-                        <small>Account Name</small>
-                        <strong>{accName}</strong>
                       </div>
                     </div>
                   ) : (
                     <div className="mobile-number-box">
                       <small>Send to</small>
                       <a href={method.tel}>{method.number}</a>
-                    </div>
-                     <div className="mobile-number-box">
-                      <small>In Names</small>
-                      <a href={method.tel}>{accName}</a>
                     </div>
                   )}
 
@@ -356,7 +348,7 @@ export default function DonationPage() {
             Make your contribution online through our secure donation
             experience. Click below to continue.
           </p>
-          <Link href="http://gofund.me/chealuna-hill-27aug" className="button button-light online-button">
+          <Link href="/donate-online" className="button button-light online-button">
             Donate Now
             <ArrowRight size={18} />
           </Link>
@@ -387,3 +379,5 @@ export default function DonationPage() {
     </div>
   )
 }
+
+

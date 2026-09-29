@@ -6989,3 +6989,87 @@ main {
     padding-right: 12px;
   }
 }
+/* =========================================================
+   BRANDED DONATION METHOD LOGOS
+   ========================================================= */
+
+.donation-brand-logo {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 64px;
+  border-radius: 18px;
+  color: #ffffff;
+  font-family: var(--font-poppins, Poppins, sans-serif);
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: -0.3px;
+  box-shadow: 0 12px 25px rgba(30, 20, 40, 0.14);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle inner border for a polished logo-badge effect */
+.donation-brand-logo::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+/* Keep logo text above the decorative border */
+.donation-brand-logo span {
+  position: relative;
+  z-index: 1;
+}
+
+/* MTN — yellow background + white text */
+.donation-brand-mtn {
+  background: #ffcb05;
+  color: #ffffff;
+}
+
+/* Airtel — red background + white text */
+.donation-brand-airtel {
+  background: #e3262e;
+  color: #ffffff;
+  font-size: 14px;
+  text-transform: lowercase;
+}
+
+/* DTB — red background + white text */
+.donation-brand-bank {
+  background: #e3262e;
+  color: #ffffff;
+}
+
+/* Responsive sizing */
+@media (max-width: 760px) {
+  .donation-brand-logo {
+    width: 58px;
+    height: 58px;
+    flex-basis: 58px;
+    border-radius: 16px;
+  }
+
+  .donation-brand-logo::after {
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .donation-brand-logo {
+    width: 54px;
+    height: 54px;
+    flex-basis: 54px;
+    border-radius: 15px;
+    font-size: 13px;
+  }
+
+  .donation-brand-airtel {
+    font-size: 12px;
+  }
+}
