@@ -205,6 +205,7 @@ export default function DonationPage() {
           <div className="donation-method-grid">
             {donationMethods.map((method) => {
               const Icon = method.icon
+              const accName = "SSUNA KHALIM"
               const isBank = method.type === "bank"
 
               return (
@@ -235,11 +236,19 @@ export default function DonationPage() {
                         <small>Account number</small>
                         <strong>{method.number}</strong>
                       </div>
+                      <div>
+                        <small>Account Name</small>
+                        <strong>{accName}</strong>
+                      </div>
                     </div>
                   ) : (
                     <div className="mobile-number-box">
                       <small>Send to</small>
                       <a href={method.tel}>{method.number}</a>
+                    </div>
+                     <div className="mobile-number-box">
+                      <small>In Names</small>
+                      <a href={method.tel}>{accName}</a>
                     </div>
                   )}
 
