@@ -7,6 +7,7 @@ export type Cause = {
 }
 export type Impact = { id:string; key:string; label:string; value:string; description?:string|null; sortOrder:number }
 export type GalleryItem = { id:string; title:string; description?:string|null; imageUrl:string; category:'EDUCATION'|'HEALTH'|'COMMUNITY'|'OTHER'; isPublished:boolean; sortOrder:number }
+export type MediaAsset = { id:string; key:string; page:string; title?:string|null; altText?:string|null; url:string; description?:string|null }
 export type NewsArticle = { id:string; title:string; slug:string; excerpt?:string|null; content:string; imageUrl?:string|null; published:boolean; publishedAt?:string|null; createdAt:string }
 export type DashboardStats = { newContacts:number; newVolunteers:number; newSubscribers:number; causes:number; galleryItems:number; newsArticles:number }
 
@@ -31,6 +32,9 @@ export const CAUSES_QUERY=`query { adminCauses { id slug name description imageU
 export const IMPACT_QUERY=`query { impactStatistics { id key label value description sortOrder } }`
 export const GALLERY_QUERY=`query { adminGalleryItems { id title description imageUrl category isPublished sortOrder } }`
 export const NEWS_QUERY=`query { adminNewsArticles { id title slug excerpt content imageUrl published publishedAt createdAt } }`
+export const MEDIA_QUERY=`query { mediaAssets { id key page title altText url description } }`
+export const UPSERT_MEDIA=`mutation UpsertMedia($id:String,$input:MediaAssetInput!) { upsertMediaAsset(id:$id,input:$input) { id key page title altText url description } }`
+export const DELETE_MEDIA=`mutation DeleteMedia($id:String!) { deleteMediaAsset(id:$id) }`
 
 export const CREATE_CAUSE=`mutation CreateCause($input: CauseInput!) { createCause(input:$input) { id slug name description imageUrl icon color isActive sortOrder } }`
 export const UPDATE_CAUSE=`mutation UpdateCause($id:String!,$input:CauseInput!) { updateCause(id:$id,input:$input) { id slug name description imageUrl icon color isActive sortOrder } }`
@@ -70,6 +74,15 @@ export const UPDATE_NEWSLETTER_STATUS=`mutation UpdateNewsletter($id:String!,$in
 export const ME_QUERY=`query { me { id email firstName lastName role isActive } }`
 export const UPDATE_PROFILE=`mutation UpdateProfile($input:UpdateProfileInput!) { updateMyProfile(input:$input) { id email firstName lastName role isActive } }`
 export const CHANGE_PASSWORD=`mutation ChangePassword($input:ChangePasswordInput!) { changeMyPassword(input:$input) }`
+
+export async function deleteAdminImage(path:string, sha:string){
+  const token=getAdminToken(); if(!token) throw new Error('Your admin session has expired. Please sign in again.')
+  const response=await fetch(`${new URL(getGraphqlUrl()).origin}/api/admin/media/image`,{method:'DELETE',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify({path,sha}),cache:'no-store'})
+  const payload=await response.json().catch(()=>({})) as {message?:string}
+  if(response.status===401||response.status===403) throw new Error('Your admin session has expired. Please sign in again.')
+  if(!response.ok) throw new Error(payload.message||'Image deletion failed.')
+  return payload as {deleted:boolean;commitSha:string}
+}
 
 export async function uploadAdminImage(file: File, folder: 'news' | 'gallery' | 'uploads' = 'uploads') {
   const token = getAdminToken()
