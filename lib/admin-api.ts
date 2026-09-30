@@ -70,3 +70,41 @@ export const UPDATE_NEWSLETTER_STATUS=`mutation UpdateNewsletter($id:String!,$in
 export const ME_QUERY=`query { me { id email firstName lastName role isActive } }`
 export const UPDATE_PROFILE=`mutation UpdateProfile($input:UpdateProfileInput!) { updateMyProfile(input:$input) { id email firstName lastName role isActive } }`
 export const CHANGE_PASSWORD=`mutation ChangePassword($input:ChangePasswordInput!) { changeMyPassword(input:$input) }`
+
+export async function uploadAdminImage(file: File, folder: 'news' | 'gallery' | 'uploads' = 'uploads') {
+  const token = getAdminToken()
+  if (!token) throw new Error('Your admin session has expired. Please sign in again.')
+
+  const graphqlUrl = getGraphqlUrl()
+  const apiBase = new URL(graphqlUrl).origin
+  const formData = new FormData()
+  formData.append('file', file)
+  formData.append('folder', folder)
+
+  const response = await fetch(`${apiBase}/api/admin/media/upload`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+    body: formData,
+    cache: 'no-store',
+  })
+
+  const payload = await response.json().catch(() => ({})) as {
+    imageUrl?: string
+    path?: string
+    commitSha?: string
+    message?: string
+  }
+
+  if (response.status === 401 || response.status === 403) {
+    throw new Error('Your admin session has expired. Please sign in again.')
+  }
+  if (!response.ok || !payload.imageUrl) {
+    throw new Error(payload.message || 'Image upload failed.')
+  }
+
+  return {
+    imageUrl: payload.imageUrl,
+    path: payload.path || '',
+    commitSha: payload.commitSha || '',
+  }
+}
