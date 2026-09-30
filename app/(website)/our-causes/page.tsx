@@ -151,7 +151,7 @@ export default function CausesPage() {
   const [managedCauses, setManagedCauses] = useState(causes)
   const iconMap:Record<string,typeof GraduationCap>={GraduationCap,Stethoscope,Utensils,Users,Home,Wrench}
   useEffect(() => {
-    graphqlRequest<{causes:Array<{slug:string;name:string;description:string;imageUrl?:string|null;color?:string|null}>}>(PUBLIC_CAUSES_QUERY)
+    graphqlRequest<{causes:Array<{slug:string;name:string;description:string;imageUrl?:string|null;icon?:string|null;color?:string|null}>}>(PUBLIC_CAUSES_QUERY)
       .then((data) => {
         if (!data?.causes?.length) return
         setManagedCauses(data.causes.map((item,index) => {
