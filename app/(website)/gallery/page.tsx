@@ -16,82 +16,37 @@ import {
   X,
 } from "lucide-react"
 
-type GalleryItem = {
-  title: string
-  category: "Community" | "Education" | "Joy" | "Impact"
-  image: string
-  alt: string
+type GalleryCategory = "DAILY_LIFE_GROWTH" | "COMMUNITY_FELLOWSHIP" | "LEARNING_CREATIVITY" | "EVENTS_MILESTONES" | "OTHERS"
+type GalleryItem = { id:string; title:string; category:GalleryCategory; image:string; alt:string; description?:string|null }
+const categoryLabels:Record<GalleryCategory,string> = {
+  DAILY_LIFE_GROWTH:"Daily Life & Growth",
+  COMMUNITY_FELLOWSHIP:"Community & Fellowship",
+  LEARNING_CREATIVITY:"Learning & Creativity",
+  EVENTS_MILESTONES:"Events & Milestones",
+  OTHERS:"Others",
 }
-
-const galleryItems: GalleryItem[] = [
-  {
-    title: "Smiles that tell a story",
-    category: "Joy",
-    image: "/images/hero-children.png",
-    alt: "Children smiling together",
-  },
-  {
-    title: "Learning with purpose",
-    category: "Education",
-    image: "/images/about-children.png",
-    alt: "Children learning together",
-  },
-  {
-    title: "Growing together",
-    category: "Community",
-    image: "/images/4.png",
-    alt: "Children and community moment",
-  },
-  {
-    title: "A place to belong",
-    category: "Community",
-    image: "/images/hero-children.png",
-    alt: "Children sharing a joyful moment",
-  },
-  {
-    title: "Every child matters",
-    category: "Impact",
-    image: "/images/about-children.png",
-    alt: "Children benefiting from education",
-  },
-  {
-    title: "Hope in every moment",
-    category: "Joy",
-    image: "/images/4.png",
-    alt: "Children enjoying time together",
-  },
-  {
-    title: "Building brighter futures",
-    category: "Education",
-    image: "/images/about-children.png",
-    alt: "Children in a learning environment",
-  },
-  {
-    title: "Together we can",
-    category: "Impact",
-    image: "/images/hero-children.png",
-    alt: "Children together in community",
-  },
-  {
-    title: "Celebrating possibility",
-    category: "Joy",
-    image: "/images/4.png",
-    alt: "Children celebrating together",
-  },
+const categories:GalleryCategory[]=["DAILY_LIFE_GROWTH","COMMUNITY_FELLOWSHIP","LEARNING_CREATIVITY","EVENTS_MILESTONES","OTHERS"]
+const fallbackGalleryItems:GalleryItem[] = [
+  {id:"fallback-1",title:"Smiles that tell a story",category:"DAILY_LIFE_GROWTH",image:"/images/hero-children.png",alt:"Children smiling together"},
+  {id:"fallback-2",title:"Learning with purpose",category:"LEARNING_CREATIVITY",image:"/images/about-children.png",alt:"Children learning together"},
+  {id:"fallback-3",title:"Growing together",category:"COMMUNITY_FELLOWSHIP",image:"/images/4.png",alt:"Children and community moment"},
+  {id:"fallback-4",title:"A place to belong",category:"COMMUNITY_FELLOWSHIP",image:"/images/hero-children.png",alt:"Children sharing a joyful moment"},
+  {id:"fallback-5",title:"Every child matters",category:"DAILY_LIFE_GROWTH",image:"/images/about-children.png",alt:"Children benefiting from education"},
+  {id:"fallback-6",title:"Hope in every moment",category:"DAILY_LIFE_GROWTH",image:"/images/4.png",alt:"Children enjoying time together"},
+  {id:"fallback-7",title:"Building brighter futures",category:"LEARNING_CREATIVITY",image:"/images/about-children.png",alt:"Children in a learning environment"},
+  {id:"fallback-8",title:"Together we can",category:"COMMUNITY_FELLOWSHIP",image:"/images/hero-children.png",alt:"Children together in community"},
+  {id:"fallback-9",title:"Celebrating possibility",category:"EVENTS_MILESTONES",image:"/images/4.png",alt:"Children celebrating together"},
 ]
 
-const filters = ["All", "Community", "Education", "Joy", "Impact"] as const
-type Filter = (typeof filters)[number]
-
 export default function GalleryPage() {
-  const [filter, setFilter] = useState<Filter>("All")
+  const [items, setItems] = useState<GalleryItem[]>(fallbackGalleryItems)\n  const [filter, setFilter] = useState<Filter>("All")
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
-  const [filterOpen, setFilterOpen] = useState(false)
+  const [filterOpen, setFilterOpen] = useState(false)\n\n  useEffect(() => {\n    graphqlRequest<{galleryItems:Array<{id:string;title:string;description?:string|null;imageUrl:string;category:string}>}>(PUBLIC_GALLERY_QUERY)\n      .then((data) => {\n        const mapped=data.galleryItems.filter(item => categories.includes(item.category as GalleryCategory)).map(item => ({id:item.id,title:item.title,description:item.description,category:item.category as GalleryCategory,image:item.imageUrl,alt:item.title}))\n        if(mapped.length) setItems(mapped)\n      }).catch(() => {})\n  }, [])
 
   const visibleItems =
     filter === "All"
-      ? galleryItems
-      : galleryItems.filter((item) => item.category === filter)
+      ? items
+      : items.filter((item) => item.category === filter)
 
   const selectedItem =
     selectedIndex === null ? null : visibleItems[selectedIndex]
@@ -313,7 +268,7 @@ export default function GalleryPage() {
                 />
                 <span className="gallery-card-shade" />
                 <span className="gallery-card-content">
-                  <small>{item.category}</small>
+                  <small>{categoryLabels[item.category]}</small>
                   <strong>{item.title}</strong>
                   <span className="gallery-view-link">
                     View photo <ArrowRight size={15} />
