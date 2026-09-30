@@ -280,7 +280,7 @@ export default function CausesPage() {
                   </span>
                   {cause.shortTitle}
                 </a>
-              ))}
+              )})}
             </div>
           </div>
         </div>
