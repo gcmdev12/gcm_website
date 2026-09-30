@@ -17,7 +17,7 @@ function Stat({icon:Icon,value,label,tone,href}:{icon:any;value:string;label:str
 const UsersIcon=UserRound, BellIcon=Clock3, NewspaperIcon=Eye
 
 export function ContentEditor({type}:{type:'home'|'about'|'causes'|'impact'|'donations'|'contact'|'socials'|'profile'}){
- if(type==='home'||type==='about')return <ConnectedPageContent page={type}/>;</>
+ if(type==='home'||type==='about')return <ConnectedPageContent page={type}/>
  if(type==='causes')return <ConnectedCauses/>
  if(type==='impact')return <ConnectedImpact/>
  if(type==='donations')return <ConnectedDonations/>
