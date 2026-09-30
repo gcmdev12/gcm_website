@@ -4,13 +4,12 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Bell, ChevronDown, Heart, LayoutDashboard, UserRound, Globe2, Image, Newspaper, BarChart3, Inbox, LogOut, Menu, X, Phone, Share2, Target, Landmark, Users, Mail, Sparkles } from 'lucide-react'
 import { clearAdminSession, getAdminProfile, getAdminToken, type AdminProfile } from '../../lib/admin-auth'
-import { graphqlRequest } from '../../lib/api'
+import { adminGraphql, SUBMISSION_SUMMARY } from '../../lib/admin-api'
 
-const groups = [
+const baseGroups = [
  {label:'Overview',items:[{href:'/manage/dashboard',label:'Dashboard',icon:LayoutDashboard}]},
  {label:'Website',items:[{href:'/manage/home',label:'Homepage',icon:Globe2},{href:'/manage/about',label:'About Us',icon:Heart},{href:'/manage/causes',label:'Our Causes',icon:Target},{href:'/manage/gallery',label:'Gallery',icon:Image},{href:'/manage/news',label:'News & Updates',icon:Newspaper}]},
  {label:'Content',items:[{href:'/manage/impact',label:'Impact Statistics',icon:BarChart3},{href:'/manage/donations',label:'Donation Details',icon:Landmark}]},
- {label:'Inbox',items:[{href:'/manage/submissions/contact',label:'Contact Forms',icon:Inbox,badge:submissionSummary.contacts},{href:'/manage/submissions/volunteers',label:'Volunteers',icon:Users,badge:submissionSummary.volunteers},{href:'/manage/submissions/newsletter',label:'Newsletter',icon:Mail,badge:submissionSummary.subscribers},{href:'/manage/notifications',label:'Notifications',icon:Bell,badge:submissionSummary.contacts+submissionSummary.volunteers+submissionSummary.subscribers}]},
  {label:'Settings',items:[{href:'/manage/profile',label:'Admin Profile',icon:UserRound},{href:'/manage/website/contact',label:'Contact Details',icon:Phone},{href:'/manage/website/socials',label:'Social Media',icon:Share2}]},
 ]
 
@@ -20,6 +19,7 @@ export default function ManageShell({children}:{children:React.ReactNode}){
  const [open,setOpen]=useState(false)
  const [admin,setAdmin]=useState<AdminProfile|null>(null)
  const [checking,setChecking]=useState(true)
+ const [submissionSummary,setSubmissionSummary]=useState({contacts:0,volunteers:0,subscribers:0})
 
  useEffect(()=>{
   if(!getAdminToken()){
@@ -28,6 +28,9 @@ export default function ManageShell({children}:{children:React.ReactNode}){
   }
   setAdmin(getAdminProfile())
   setChecking(false)
+  adminGraphql<{submissionSummary:{contacts:number;volunteers:number;subscribers:number}}>(SUBMISSION_SUMMARY)
+   .then(r=>setSubmissionSummary(r.submissionSummary))
+   .catch(()=>{})
  },[router])
 
  const logout=()=>{
@@ -50,7 +53,7 @@ export default function ManageShell({children}:{children:React.ReactNode}){
     </div>
 
     <nav className="manage-nav">
-     {groups.map(group=>(
+     {[...baseGroups.slice(0,3),{label:'Inbox',items:[{href:'/manage/submissions/contact',label:'Contact Forms',icon:Inbox,badge:submissionSummary.contacts},{href:'/manage/submissions/volunteers',label:'Volunteers',icon:Users,badge:submissionSummary.volunteers},{href:'/manage/submissions/newsletter',label:'Newsletter',icon:Mail,badge:submissionSummary.subscribers},{href:'/manage/notifications',label:'Notifications',icon:Bell,badge:submissionSummary.contacts+submissionSummary.volunteers+submissionSummary.subscribers}]},baseGroups[3]].map(group=>
       <div className="nav-group" key={group.label}>
        <p>{group.label}</p>
        {group.items.map(item=>{
