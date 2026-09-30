@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { graphqlRequest, PUBLIC_GALLERY_QUERY } from "../../../lib/api"
 import {
   ArrowLeft,
   ArrowRight,
@@ -39,9 +40,18 @@ const fallbackGalleryItems:GalleryItem[] = [
 ]
 
 export default function GalleryPage() {
-  const [items, setItems] = useState<GalleryItem[]>(fallbackGalleryItems)\n  const [filter, setFilter] = useState<Filter>("All")
+  const [items, setItems] = useState<GalleryItem[]>(fallbackGalleryItems)
+  const [filter, setFilter] = useState<Filter>("All")
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
-  const [filterOpen, setFilterOpen] = useState(false)\n\n  useEffect(() => {\n    graphqlRequest<{galleryItems:Array<{id:string;title:string;description?:string|null;imageUrl:string;category:string}>}>(PUBLIC_GALLERY_QUERY)\n      .then((data) => {\n        const mapped=data.galleryItems.filter(item => categories.includes(item.category as GalleryCategory)).map(item => ({id:item.id,title:item.title,description:item.description,category:item.category as GalleryCategory,image:item.imageUrl,alt:item.title}))\n        if(mapped.length) setItems(mapped)\n      }).catch(() => {})\n  }, [])
+  const [filterOpen, setFilterOpen] = useState(false)
+
+  useEffect(() => {
+    graphqlRequest<{galleryItems:Array<{id:string;title:string;description?:string|null;imageUrl:string;category:string}>}>(PUBLIC_GALLERY_QUERY)
+      .then((data) => {
+        const mapped=data.galleryItems.filter(item => categories.includes(item.category as GalleryCategory)).map(item => ({id:item.id,title:item.title,description:item.description,category:item.category as GalleryCategory,image:item.imageUrl,alt:item.title}))
+        if(mapped.length) setItems(mapped)
+      }).catch(() => {})
+  }, [])
 
   const visibleItems =
     filter === "All"
