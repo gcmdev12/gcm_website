@@ -22,6 +22,7 @@ import {
   Sparkles,
   Users,
   Utensils,
+  X,
 } from "lucide-react"
 
 const opportunities = [
@@ -470,6 +471,16 @@ export default function VolunteerPage() {
           </div>
         </div>
       </section>
+    {submitted && <div className="site-success-backdrop" role="dialog" aria-modal="true" aria-labelledby="volunteer-success-title" onClick={() => setSubmitted(false)}>
+      <div className="site-success-modal" onClick={e => e.stopPropagation()}>
+        <button type="button" className="site-success-close" aria-label="Close" onClick={() => setSubmitted(false)}><X size={20} /></button>
+        <div className="site-success-icon"><CheckCircle2 size={42} /></div>
+        <p className="site-success-eyebrow">VOLUNTEER ENQUIRY SENT</p>
+        <h3 id="volunteer-success-title">Thank you for stepping forward!</h3>
+        <p>Your volunteer enquiry has been received successfully. Our team will review your details and get in touch with you.</p>
+        <button type="button" className="button button-primary" onClick={() => setSubmitted(false)}>Continue</button>
+      </div>
+    </div>}
     </div>
   )
 }
