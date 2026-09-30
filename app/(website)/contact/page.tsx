@@ -1,14 +1,37 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
+import { graphqlRequest, SUBMIT_CONTACT_FORM } from '../../../lib/api'
 import { ArrowRight, CheckCircle2, Clock3, Heart, Mail, MapPin, MessageCircle, Phone, Send, Sparkles, Users } from 'lucide-react'
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setSent(true)
+    setError('')
+    setSubmitting(true)
+    const form = event.currentTarget
+    const data = new FormData(form)
+    try {
+      await graphqlRequest(SUBMIT_CONTACT_FORM, {
+        input: {
+          name: String(data.get('name') || ''),
+          email: String(data.get('email') || ''),
+          phone: String(data.get('phone') || '') || undefined,
+          subject: String(data.get('subject') || '') || undefined,
+          message: String(data.get('message') || ''),
+        },
+      })
+      setSent(true)
+      form.reset()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'We could not send your message. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -80,7 +103,8 @@ export default function ContactPage() {
                     <label><span>Subject</span><select name="subject" defaultValue=""><option value="" disabled>Select a subject</option><option value="general">General enquiry</option><option value="donation">Donation &amp; giving</option><option value="volunteer">Volunteering</option><option value="partnership">Partnership</option><option value="causes">Our causes</option><option value="other">Other</option></select></label>
                   </div>
                   <label><span>Your Message</span><textarea name="message" rows={7} placeholder="Tell us how we can help..." required /></label>
-                  <button className="button button-primary contact-submit" type="submit">Send Message <Send size={17} /></button>
+                                    {error && <div className="site-form-error" role="alert">{error}</div>}
+                  <button className="button button-primary contact-submit" type="submit" disabled={submitting}>{submitting ? 'Sending…' : 'Send Message'} {!submitting && <Send size={17} />}</button>
                 </form>
               )}
             </div>
