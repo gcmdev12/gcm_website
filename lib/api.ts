@@ -1,4 +1,4 @@
-const GRAPHQL_URL = process.env.NEXT_PUBLIC_GRAPHQL_URL || 'http://localhost:3000/graphql'
+const GRAPHQL_URL = process.env.NEXT_PUBLIC_GRAPHQL_URL || 'https://gcmbackend.up.railway.app/graphql'
 export type GraphQLResponse<T> = { data?: T; errors?: Array<{ message: string }> }
 export async function graphqlRequest<T>(query: string, variables?: Record<string, unknown>, token?: string): Promise<T> {
   const response = await fetch(GRAPHQL_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) }, body: JSON.stringify({ query, variables }), cache: 'no-store' })
