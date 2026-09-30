@@ -1,2 +1,2 @@
-import { Gallery } from '../../../components/manage/AdminPage'
+import { Gallery } from '../../../../components/manage/AdminPage'
 export default function Page(){return <Gallery/>}

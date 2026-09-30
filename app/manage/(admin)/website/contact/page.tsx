@@ -1,2 +1,2 @@
-import { ContentEditor } from '../../../../components/manage/AdminPage'
+import { ContentEditor } from '../../../../../components/manage/AdminPage'
 export default function Page(){return <ContentEditor type="contact"/>}
