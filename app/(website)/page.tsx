@@ -59,7 +59,7 @@ export default function HomePage() {
   const [youtubeOpen, setYoutubeOpen] = useState(false)
   const [managed, setManaged] = useState<Record<string,string>>({})
   const [managedImages, setManagedImages] = useState<Record<string,string>>({})
-  const displayGalleryItems = displayGalleryItems.map((item,index) => ({...item,src:managedImages['gallery.'+(index+1)] || item.src}))
+  const displayGalleryItems = galleryItems.map((item,index) => ({...item,src:managedImages['gallery.'+(index+1)] || item.src}))
 
   useEffect(() => {
     graphqlRequest<{mediaAssets:Array<{key:string;page:string;url:string;description?:string|null}>}>(PUBLIC_MEDIA_QUERY)
@@ -131,7 +131,7 @@ export default function HomePage() {
         <div className="hero-orb hero-orb-two" aria-hidden="true" />
         {heroSlides.map((item, index) => (
           <div className={`hero-slide-image ${index === activeSlide ? 'is-active' : ''}`} key={item.image} aria-hidden={index !== activeSlide}>
-            <Image src={item.image} alt="" fill sizes="(max-width: 760px) 100vw, 58vw" priority={index === 0} />
+            <Image src={index === activeSlide ? slide.image : (managedImages['hero.'+(index+1)] || item.image)} alt="" fill sizes="(max-width: 760px) 100vw, 58vw" priority={index === 0} />
           </div>
         ))}
         <div className="hero-shade" />
