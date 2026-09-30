@@ -7,3 +7,8 @@ export async function graphqlRequest<T>(query: string, variables?: Record<string
   if (!payload.data) throw new Error('No data returned from the API')
   return payload.data
 }
+
+
+export const SUBMIT_CONTACT_FORM = `mutation SubmitContactForm($input:ContactSubmissionInput!) { submitContactForm(input:$input) }`
+export const SUBMIT_VOLUNTEER_FORM = `mutation SubmitVolunteerForm($input:VolunteerSubmissionInput!) { submitVolunteerForm(input:$input) }`
+export const SUBSCRIBE_NEWSLETTER = `mutation SubscribeNewsletter($input:NewsletterInput!) { subscribeNewsletter(input:$input) }`
