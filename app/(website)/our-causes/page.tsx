@@ -151,7 +151,7 @@ export default function CausesPage() {
   const [managedCauses, setManagedCauses] = useState(causes)
   useEffect(() => {
     graphqlRequest<{causes:Array<{slug:string;name:string;description:string;imageUrl?:string|null;color?:string|null}>}>(PUBLIC_CAUSES_QUERY)
-      .then(({data}) => {
+      .then((data) => {
         if (!data?.causes?.length) return
         setManagedCauses(data.causes.map((item,index) => {
           const fallback=causes.find(x=>x.id===item.slug)||causes[index%causes.length]
