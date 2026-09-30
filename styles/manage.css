@@ -8,3 +8,27 @@
 .login-forgot{color:#8b5cf6;font-size:13px;font-weight:700;cursor:default}
 
 .login-success{margin-top:-2px;padding:11px 13px;border:1px solid rgba(22,163,74,.18);border-radius:12px;background:rgba(22,163,74,.06);color:#15803d;font-size:13px;font-weight:700;line-height:1.45}
+
+
+.page-header-action-row{display:flex;justify-content:flex-end;margin:-20px 0 18px}
+.admin-modal-backdrop{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(15,23,42,.58);backdrop-filter:blur(5px)}
+.admin-modal{width:min(720px,100%);max-height:90vh;overflow:auto;border:1px solid rgba(148,163,184,.2);border-radius:24px;background:#fff;box-shadow:0 28px 80px rgba(15,23,42,.22)}
+.admin-modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:24px 26px 18px;border-bottom:1px solid #eef0f5}
+.admin-modal-head h2{margin:5px 0 0;font-size:23px;line-height:1.2}
+.admin-modal-close{width:36px;height:36px;border:0;border-radius:10px;background:#f4f5f8;color:#64748b;font-size:25px;line-height:1;cursor:pointer}
+.admin-modal-close:hover{background:#eceef4;color:#111827}
+.admin-modal-form{display:grid;gap:16px;padding:24px 26px 26px}
+.admin-modal-form .admin-field input,.admin-modal-form .admin-field textarea,.admin-modal-form .admin-field select{width:100%;box-sizing:border-box}
+.admin-check{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:#475569;cursor:pointer}
+.admin-check input{width:16px;height:16px}
+.admin-modal-actions{display:flex;justify-content:flex-end;gap:10px;padding-top:5px}
+@media(max-width:640px){
+ .page-header-action-row{margin:-8px 0 18px}
+ .page-header-action-row .primary-btn{width:100%;justify-content:center}
+ .admin-modal-backdrop{padding:12px}
+ .admin-modal{max-height:94vh;border-radius:18px}
+ .admin-modal-head{padding:20px 18px 15px}
+ .admin-modal-form{padding:18px}
+ .admin-modal-actions{flex-direction:column-reverse}
+ .admin-modal-actions button{width:100%;justify-content:center}
+}
