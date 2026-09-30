@@ -15,3 +15,5 @@ export const SUBSCRIBE_NEWSLETTER = `mutation SubscribeNewsletter($input:Newslet
 
 
 export const PUBLIC_MEDIA_QUERY = `query { mediaAssets { id key page title altText url description } }`
+
+export const PUBLIC_CAUSES_QUERY = `query { causes { id slug name description imageUrl icon color isActive sortOrder } }`
