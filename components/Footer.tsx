@@ -65,21 +65,65 @@ export default function Footer() {
           <div><h3>Contact Us</h3><a href="tel:+256755575982"><Phone size={15} /> +256 755 575 982</a><a  href="tel:+256767274915"><Phone size={15} /> +256 767 274 915</a><a href="mailto:info@glorychildrenministry.org"><Mail size={15} /> info@glorychildrenministry.org</a><span><MapPin size={15} /> Namusera, Hoima Rd, Kampala, Uganda</span></div>
           <div><h3>Follow Us</h3><SocialLinks /><p className="footer-tagline">Together We Can Make a Difference <Heart size={17} fill="currentColor" /></p></div>
         </div>
-        <div className="container newsletter"><div><p className="eyebrow">STAY CONNECTED</p><h3>Subscribe to our newsletter</h3><p>Receive occasional updates, stories and ways to support children.</p></div><form onSubmit={subscribe}>
-  <input type="email" aria-label="Email address" placeholder="Your email address" value={email} onChange={e => setEmail(e.target.value)} required disabled={submitting} />
-  <button className="button button-primary" type="submit" disabled={submitting}>{submitting ? 'Subscribing…' : <>Subscribe <ArrowRight size={16} /></>}</button>
-  {error && <p className="footer-form-error" role="alert">{error}</p>}
-</form>
-{subscribed && <div className="site-success-backdrop" role="dialog" aria-modal="true" aria-labelledby="newsletter-success-title" onClick={() => setSubscribed(false)}>
-  <div className="site-success-modal" onClick={e => e.stopPropagation()}>
-    <button type="button" className="site-success-close" aria-label="Close" onClick={() => setSubscribed(false)}><X size={20} /></button>
-    <div className="site-success-icon"><CheckCircle2 size={42} /></div>
-    <p className="site-success-eyebrow">SUBSCRIPTION CONFIRMED</p>
-    <h3 id="newsletter-success-title">Thank you for subscribing!</h3>
-    <p>You’re now on the Glory Children Ministry newsletter list. We’ll share occasional updates, stories and ways to support children.</p>
-    <button type="button" className="button button-primary" onClick={() => setSubscribed(false)}>Continue</button>
-  </div>
-</div></div>
+        <div className="container newsletter">
+          <div>
+            <p className="eyebrow">STAY CONNECTED</p>
+            <h3>Subscribe to our newsletter</h3>
+            <p>Receive occasional updates, stories and ways to support children.</p>
+          </div>
+
+          <form onSubmit={subscribe}>
+            <input
+              type="email"
+              aria-label="Email address"
+              placeholder="Your email address"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+              disabled={submitting}
+            />
+            <button className="button button-primary" type="submit" disabled={submitting}>
+              {submitting ? 'Subscribing…' : <>Subscribe <ArrowRight size={16} /></>}
+            </button>
+            {error && <p className="footer-form-error" role="alert">{error}</p>}
+          </form>
+        </div>
+
+        {subscribed && (
+          <div
+            className="site-success-backdrop"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="newsletter-success-title"
+            onClick={() => setSubscribed(false)}
+          >
+            <div className="site-success-modal" onClick={e => e.stopPropagation()}>
+              <button
+                type="button"
+                className="site-success-close"
+                aria-label="Close"
+                onClick={() => setSubscribed(false)}
+              >
+                <X size={20} />
+              </button>
+              <div className="site-success-icon"><CheckCircle2 size={42} /></div>
+              <p className="site-success-eyebrow">SUBSCRIPTION CONFIRMED</p>
+              <h3 id="newsletter-success-title">Thank you for subscribing!</h3>
+              <p>
+                You’re now on the Glory Children Ministry newsletter list. We’ll share occasional
+                updates, stories and ways to support children.
+              </p>
+              <button
+                type="button"
+                className="button button-primary"
+                onClick={() => setSubscribed(false)}
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="container copyright">© {currentYear ?? ''} Glory Children Ministry. All Rights Reserved.</div>
       </footer>
 
