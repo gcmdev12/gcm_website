@@ -68,7 +68,7 @@ export default function ManageShell({children}:{children:React.ReactNode}){
          >
           <Icon size={18}/>
           <span>{item.label}</span>
-          {item.badge?<em>{item.badge}</em>:null}
+          {'badge' in item && item.badge ? <em>{item.badge}</em> : null}
          </Link>
         )
        })}
