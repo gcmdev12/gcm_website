@@ -1,5 +1,8 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+import { graphqlRequest, PUBLIC_CAUSES_QUERY } from '../../../lib/api'
+
 import {
   ArrowRight,
   CheckCircle2,
@@ -145,6 +148,17 @@ const quickIcons = [
 ]
 
 export default function CausesPage() {
+  const [managedCauses, setManagedCauses] = useState(causes)
+  useEffect(() => {
+    graphqlRequest<{causes:Array<{slug:string;name:string;description:string;imageUrl?:string|null;color?:string|null}>}>(PUBLIC_CAUSES_QUERY)
+      .then(({data}) => {
+        if (!data?.causes?.length) return
+        setManagedCauses(data.causes.map((item,index) => {
+          const fallback=causes.find(x=>x.id===item.slug)||causes[index%causes.length]
+          return {...fallback,id:item.slug,title:item.name,shortTitle:item.name,description:item.description,image:item.imageUrl||fallback.image,tone:item.color||fallback.tone}
+        }))
+      }).catch(()=>{})
+  }, [])
   return (
     <div className="causes-page">
       {/* HERO */}
