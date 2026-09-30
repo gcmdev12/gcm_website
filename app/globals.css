@@ -8113,3 +8113,25 @@ main {
     transition: none;
   }
 }
+
+/* Public form success/error feedback */
+.site-success-backdrop{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(25,13,38,.62);backdrop-filter:blur(7px);animation:site-success-fade .2s ease}
+.site-success-modal{position:relative;width:min(520px,100%);padding:38px 34px 34px;border:1px solid rgba(255,255,255,.65);border-radius:26px;background:linear-gradient(145deg,#fff,#fbf8fd);box-shadow:0 30px 90px rgba(28,13,43,.28);text-align:center;animation:site-success-pop .28s ease}
+.site-success-close{position:absolute;right:15px;top:15px;width:38px;height:38px;border:0;border-radius:12px;background:#f3edf7;color:#675773;display:grid;place-items:center;cursor:pointer}
+.site-success-close:hover{background:#eadff0;transform:rotate(6deg)}
+.site-success-icon{width:76px;height:76px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;background:#e5f8f1;color:#159574;box-shadow:0 12px 30px rgba(21,149,116,.14)}
+.site-success-eyebrow{margin:0 0 7px;font:800 10px/1.2 Poppins,sans-serif;letter-spacing:1.8px;color:#ed3f8d}
+.site-success-modal h3{margin:0 0 10px;font:800 27px/1.2 Poppins,sans-serif;color:#2c183b}
+.site-success-modal>p:last-of-type{margin:0 auto 24px;max-width:420px;color:#746b7b;font:400 14px/1.75 Nunito Sans,sans-serif}
+.site-success-modal .button{min-width:145px}
+.site-form-error,.footer-form-error{margin-top:10px;padding:10px 12px;border-radius:10px;background:#fff1f2;border:1px solid #fecdd3;color:#b42318;font-size:12px;line-height:1.45}
+button:disabled,input:disabled{cursor:not-allowed;opacity:.72}
+@keyframes site-success-fade{from{opacity:0}to{opacity:1}}
+@keyframes site-success-pop{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:560px){
+ .site-success-backdrop{padding:14px}
+ .site-success-modal{padding:34px 20px 25px;border-radius:21px}
+ .site-success-modal h3{font-size:22px}
+ .site-success-modal>p:last-of-type{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){.site-success-backdrop,.site-success-modal{animation:none}}
