@@ -108,7 +108,7 @@ export default function AboutUsPage() {
 
   useEffect(() => {
     graphqlRequest<{mediaAssets:Array<{key:string;page:string;url:string;description?:string|null}>}>(PUBLIC_MEDIA_QUERY)
-      .then(({data}) => {
+      .then((data) => {
         const assets=data?.mediaAssets||[]
         const page=assets.filter(x=>x.page==='about')
         const content=page.find(x=>x.key==='about.content')?.description
