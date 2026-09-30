@@ -73,7 +73,7 @@ export default function ManageShell({children}:{children:React.ReactNode}){
         )
        })}
       </div>
-     ))}
+     )}
     </nav>
 
     <div className="sidebar-bottom">
