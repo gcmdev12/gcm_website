@@ -6,3 +6,5 @@
 
 .login-error{margin-top:-2px;padding:11px 13px;border:1px solid rgba(220,38,38,.18);border-radius:12px;background:rgba(220,38,38,.06);color:#b91c1c;font-size:13px;font-weight:700;line-height:1.45}
 .login-forgot{color:#8b5cf6;font-size:13px;font-weight:700;cursor:default}
+
+.login-success{margin-top:-2px;padding:11px 13px;border:1px solid rgba(22,163,74,.18);border-radius:12px;background:rgba(22,163,74,.06);color:#15803d;font-size:13px;font-weight:700;line-height:1.45}
