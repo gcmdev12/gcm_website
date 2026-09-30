@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from 'react'
 import { graphqlRequest, SUBMIT_CONTACT_FORM } from '../../../lib/api'
-import { ArrowRight, CheckCircle2, Clock3, Heart, Mail, MapPin, MessageCircle, Phone, Send, Sparkles, Users } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Clock3, Heart, Mail, MapPin, MessageCircle, Phone, Send, Sparkles, Users, X } from 'lucide-react'
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false)
@@ -151,6 +151,16 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+    {sent && <div className="site-success-backdrop" role="dialog" aria-modal="true" aria-labelledby="contact-success-title" onClick={() => setSent(false)}>
+      <div className="site-success-modal" onClick={e => e.stopPropagation()}>
+        <button type="button" className="site-success-close" aria-label="Close" onClick={() => setSent(false)}><X size={20} /></button>
+        <div className="site-success-icon"><CheckCircle2 size={42} /></div>
+        <p className="site-success-eyebrow">MESSAGE SENT</p>
+        <h3 id="contact-success-title">Thank you for reaching out!</h3>
+        <p>Your message has been received successfully. We appreciate you taking the time to connect with Glory Children Ministry.</p>
+        <button type="button" className="button button-primary" onClick={() => setSent(false)}>Continue</button>
+      </div>
+    </div>}
     </div>
   )
 }
