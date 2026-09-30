@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { graphqlRequest, PUBLIC_MEDIA_QUERY } from '../../lib/api'
 import {
   ArrowLeft,
   ArrowRight,
@@ -40,24 +41,9 @@ const counters = [
 ]
 
 const heroSlides = [
-  {
-    image: '/images/4.png',
-    eyebrow: 'TOGETHER FOR A BRIGHTER TOMORROW',
-    title: <>Giving Every Child <span>Hope, Education</span> &amp; A <strong>Brighter Future</strong></>,
-    description: 'Glory Children Ministry is an NGO dedicated to caring for vulnerable children through education, healthcare, nutritious food, guidance, counselling and opportunity.',
-  },
-  {
-    image: '/images/hero-children.png',
-    eyebrow: 'EVERY CHILD DESERVES A CHANCE',
-    title: <>Nurturing <span>Hope</span>, Building <strong>Possibility</strong></>,
-    description: 'We create safe, caring spaces where children can learn, grow in confidence and discover pathways toward a brighter future.',
-  },
-  {
-    image: '/images/about-children.png',
-    eyebrow: 'YOUR KINDNESS CREATES CHANGE',
-    title: <>Together We Can <span>Change</span> A Child&apos;s <strong>Story</strong></>,
-    description: 'Your support helps us reach children with practical care, protection, education and the encouragement they need to thrive.',
-  },
+  { image:'/images/4.png', eyebrow:'TOGETHER FOR A BRIGHTER TOMORROW', title:'Giving Every Child Hope, Education & A Brighter Future', description:'Glory Children Ministry is an NGO dedicated to caring for vulnerable children through education, healthcare, nutritious food, guidance, counselling and opportunity.' },
+  { image:'/images/hero-children.png', eyebrow:'EVERY CHILD DESERVES A CHANCE', title:'Nurturing Hope, Building Possibility', description:'We create safe, caring spaces where children can learn, grow in confidence and discover pathways toward a brighter future.' },
+  { image:'/images/about-children.png', eyebrow:'YOUR KINDNESS CREATES CHANGE', title:"Together We Can Change A Child's Story", description:'Your support helps us reach children with practical care, protection, education and the encouragement they need to thrive.' },
 ]
 
 const galleryItems = [
@@ -71,6 +57,21 @@ export default function HomePage() {
   const [activeSlide, setActiveSlide] = useState(0)
   const [lightbox, setLightbox] = useState<number | null>(null)
   const [youtubeOpen, setYoutubeOpen] = useState(false)
+  const [managed, setManaged] = useState<Record<string,string>>({})
+  const [managedImages, setManagedImages] = useState<Record<string,string>>({})
+
+  useEffect(() => {
+    graphqlRequest<{mediaAssets:Array<{key:string;page:string;url:string;description?:string|null}>}>(PUBLIC_MEDIA_QUERY)
+      .then(({data}) => {
+        const assets=data?.mediaAssets||[]
+        const page=assets.filter(x=>x.page==='home')
+        const content=page.find(x=>x.key==='home.content')?.description
+        if(content){try{setManaged(JSON.parse(content) as Record<string,string>)}catch{}}
+        const images:Record<string,string>={}
+        page.filter(x=>x.key.startsWith('home.image.')).forEach(x=>{images[x.key.replace('home.image.','')]=x.url})
+        setManagedImages(images)
+      }).catch(()=>{})
+  }, [])
 
   useEffect(() => {
     const timer = window.setInterval(() => setActiveSlide((current) => (current + 1) % heroSlides.length), 6500)
@@ -109,7 +110,17 @@ export default function HomePage() {
   }, [lightbox])
 
   const closeMenu = () => setMenuOpen(false)
-  const slide = heroSlides[activeSlide]
+  const slideBase = heroSlides[activeSlide]
+  const slide = {
+    ...slideBase,
+    image: managedImages['hero.'+(activeSlide+1)] || slideBase.image,
+    eyebrow: managed['hero'+(activeSlide+1)+'Eyebrow'] || slideBase.eyebrow,
+    title: managed['hero'+(activeSlide+1)+'Title'] || slideBase.title,
+    description: managed['hero'+(activeSlide+1)+'Description'] || slideBase.description,
+  }
+  const aboutTitle = managed.aboutTitle || 'Building a future where every child can shine.'
+  const aboutParagraph1 = managed.aboutParagraph1 || 'Glory Children Ministry exists to walk alongside vulnerable children with practical care, protection and opportunities that restore hope. We believe every child deserves to be safe, heard, educated and equipped to thrive.'
+  const aboutParagraph2 = managed.aboutParagraph2 || 'From classrooms and nutritious meals to healthcare, counselling and family support, we work with communities to create lasting change — one child at a time.'
 
   return (
     <main>
@@ -158,14 +169,14 @@ export default function HomePage() {
         </div>
         <div className="container about-section">
           <div className="about-photo">
-            <Image src="/images/2.jpg" alt="A child smiling at school" fill sizes="(max-width: 760px) 100vw, 44vw" />
+            <Image src={managedImages.about || '/images/2.jpg'} alt="A child smiling at school" fill sizes="(max-width: 760px) 100vw, 44vw" />
             <div className="photo-badge"><Heart size={18} fill="currentColor" /><span>Since 2019</span><b>Every child matters</b></div>
           </div>
           <div className="about-copy">
             <p className="eyebrow pink-text">ABOUT US</p>
-            <h2>Building a future where <span>every child can shine.</span></h2>
-            <p>Glory Children Ministry exists to walk alongside vulnerable children with practical care, protection and opportunities that restore hope. We believe every child deserves to be safe, heard, educated and equipped to thrive.</p>
-            <p>From classrooms and nutritious meals to healthcare, counselling and family support, we work with communities to create lasting change — one child at a time.</p>
+            <h2>{aboutTitle}</h2>
+            <p>{aboutParagraph1}</p>
+            <p>{aboutParagraph2}</p>
             <div className="about-action-row">
               <button
                 type="button"
