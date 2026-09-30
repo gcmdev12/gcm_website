@@ -59,6 +59,7 @@ export default function HomePage() {
   const [youtubeOpen, setYoutubeOpen] = useState(false)
   const [managed, setManaged] = useState<Record<string,string>>({})
   const [managedImages, setManagedImages] = useState<Record<string,string>>({})
+  const displayGalleryItems = displayGalleryItems.map((item,index) => ({...item,src:managedImages['gallery.'+(index+1)] || item.src}))
 
   useEffect(() => {
     graphqlRequest<{mediaAssets:Array<{key:string;page:string;url:string;description?:string|null}>}>(PUBLIC_MEDIA_QUERY)
@@ -98,8 +99,8 @@ export default function HomePage() {
     if (lightbox === null) return
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setLightbox(null)
-      if (event.key === 'ArrowRight') setLightbox((value) => value === null ? null : (value + 1) % galleryItems.length)
-      if (event.key === 'ArrowLeft') setLightbox((value) => value === null ? null : (value - 1 + galleryItems.length) % galleryItems.length)
+      if (event.key === 'ArrowRight') setLightbox((value) => value === null ? null : (value + 1) % displayGalleryItems.length)
+      if (event.key === 'ArrowLeft') setLightbox((value) => value === null ? null : (value - 1 + displayGalleryItems.length) % displayGalleryItems.length)
     }
     document.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
@@ -230,15 +231,15 @@ export default function HomePage() {
       </section>
 
       <section className="impact-section-home" id="impact-home">
-        <div className="impact-image-home"><Image src="/images/about-children.png" alt="Children at school" fill sizes="360px" /></div>
-        <div className="container impact-inner-home"><div className="impact-copy-home"><p className="eyebrow">OUR IMPACT</p><h2>Together, we are creating lasting change</h2><p>Every contribution helps us reach more children with practical care, protection, education and hope.</p></div><div className="impact-stats-home">{counters.map(({ value, label, icon: Icon, tone }) => <div className={`impact-stat-home stat-${tone}`} key={label}><Icon size={28} /><strong>{value}</strong><span>{label}</span></div>)}</div></div>
+        <div className="impact-image-home"><Image src={managedImages.impact || '/images/about-children.png'} alt="Children at school" fill sizes="360px" /></div>
+        <div className="container impact-inner-home"><div className="impact-copy-home"><p className="eyebrow">OUR IMPACT</p><h2>{managed.impactTitle || 'Together, we are creating lasting change'}</h2><p>{managed.impactDescription || 'Every contribution helps us reach more children with practical care, protection, education and hope.'}</p></div><div className="impact-stats-home">{counters.map(({ value, label, icon: Icon, tone }) => <div className={`impact-stat-home stat-${tone}`} key={label}><Icon size={28} /><strong>{value}</strong><span>{label}</span></div>)}</div></div>
       </section>
 
-      <section className="cta-section" id="support"><div className="container cta-card"><div><p className="eyebrow pink-text">MAKE A DIFFERENCE</p><h2>Your support can change a child&apos;s story.</h2><p>Donate, volunteer, partner with us or support one of our causes.</p></div><div className="hero-actions"><a className="button button-primary" href="/donate"><Heart size={18} fill="currentColor" /> Donate Now</a><a className="button button-purple" href="#volunteer"><Users size={18} fill="currentColor" /> Volunteer</a></div></div></section>
+      <section className="cta-section" id="support"><div className="container cta-card"><div><p className="eyebrow pink-text">MAKE A DIFFERENCE</p><h2>{managed.ctaTitle || "Your support can change a child's story."}</h2><p>{managed.ctaDescription || 'Donate, volunteer, partner with us or support one of our causes.'}</p></div><div className="hero-actions"><a className="button button-primary" href="/donate"><Heart size={18} fill="currentColor" /> Donate Now</a><a className="button button-purple" href="#volunteer"><Users size={18} fill="currentColor" /> Volunteer</a></div></div></section>
 
       <section className="simple-section gallery-section" id="gallery">
         <div className="container"><p className="eyebrow pink-text">GALLERY</p><h2>Moments of <span>Hope &amp; Joy</span></h2><p className="section-lead">Take a closer look at the people, moments and smiles behind the work.</p>
-          <div className="gallery-grid">{galleryItems.map((item, index) => <button className={`gallery-tile tile-${index + 1}`} key={item.src} type="button" onClick={() => setLightbox(index)} aria-label={`Open ${item.title}`}><Image src={item.src} alt={item.alt} fill sizes="(max-width: 760px) 50vw, 33vw" /><span className="gallery-overlay"><strong>{item.title}</strong><span><Play size={13} fill="currentColor" /> View photo</span></span></button>)}</div>
+          <div className="gallery-grid">{displayGalleryItems.map((item, index) => <button className={`gallery-tile tile-${index + 1}`} key={item.src} type="button" onClick={() => setLightbox(index)} aria-label={`Open ${item.title}`}><Image src={item.src} alt={item.alt} fill sizes="(max-width: 760px) 50vw, 33vw" /><span className="gallery-overlay"><strong>{item.title}</strong><span><Play size={13} fill="currentColor" /> View photo</span></span></button>)}</div>
           <div className="section-button-row"><Link className="button button-purple" href="/gallery">View Full Gallery <ArrowRight size={17} /></Link></div>
         </div>
       </section>
@@ -278,7 +279,7 @@ export default function HomePage() {
         </div>
       )}
 
-      {lightbox !== null && <div className="lightbox" role="dialog" aria-modal="true" aria-label="Gallery viewer" onClick={() => setLightbox(null)}><button type="button" className="lightbox-close" aria-label="Close gallery" onClick={() => setLightbox(null)}><X size={25} /></button><button type="button" className="lightbox-prev" aria-label="Previous photo" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox - 1 + galleryItems.length) % galleryItems.length) }}><ArrowLeft /></button><div className="lightbox-image" onClick={(event) => event.stopPropagation()}><Image src={galleryItems[lightbox].src} alt={galleryItems[lightbox].alt} fill sizes="90vw" /></div><button type="button" className="lightbox-next" aria-label="Next photo" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox + 1) % galleryItems.length) }}><ArrowRight /></button></div>}
+      {lightbox !== null && <div className="lightbox" role="dialog" aria-modal="true" aria-label="Gallery viewer" onClick={() => setLightbox(null)}><button type="button" className="lightbox-close" aria-label="Close gallery" onClick={() => setLightbox(null)}><X size={25} /></button><button type="button" className="lightbox-prev" aria-label="Previous photo" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox - 1 + displayGalleryItems.length) % displayGalleryItems.length) }}><ArrowLeft /></button><div className="lightbox-image" onClick={(event) => event.stopPropagation()}><Image src={displayGalleryItems[lightbox].src} alt={displayGalleryItems[lightbox].alt} fill sizes="90vw" /></div><button type="button" className="lightbox-next" aria-label="Next photo" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox + 1) % displayGalleryItems.length) }}><ArrowRight /></button></div>}
 
     </main>
   )
