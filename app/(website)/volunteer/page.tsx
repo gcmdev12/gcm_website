@@ -1,6 +1,7 @@
  "use client"
 
 import { FormEvent, useState } from "react"
+import { graphqlRequest, SUBMIT_VOLUNTEER_FORM } from "../../../lib/api"
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -82,10 +83,34 @@ const volunteerSteps = [
 
 export default function VolunteerPage() {
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setSubmitted(true)
+    setError('')
+    setSubmitting(true)
+    const form = event.currentTarget
+    const data = new FormData(form)
+    try {
+      await graphqlRequest(SUBMIT_VOLUNTEER_FORM, {
+        input: {
+          name: String(data.get('fullName') || ''),
+          email: String(data.get('email') || ''),
+          phone: String(data.get('phone') || '') || undefined,
+          location: String(data.get('location') || '') || undefined,
+          interests: String(data.get('interest') || '') || undefined,
+          availability: String(data.get('availability') || '') || undefined,
+          message: String(data.get('message') || '') || undefined,
+        },
+      })
+      setSubmitted(true)
+      form.reset()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'We could not send your enquiry. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -403,9 +428,10 @@ export default function VolunteerPage() {
                   </span>
                 </label>
 
-                <button type="submit" className="button button-primary form-submit">
-                  Send Volunteer Enquiry
-                  <Send size={17} />
+                                {error && <div className="site-form-error" role="alert">{error}</div>}
+                <button type="submit" className="button button-primary form-submit" disabled={submitting}>
+                  {submitting ? "Sending…" : "Send Volunteer Enquiry"}
+                  {!submitting && <Send size={17} />}
                 </button>
 
                 <p className="form-disclaimer">
