@@ -27,6 +27,8 @@ const categoryLabels:Record<GalleryCategory,string> = {
   OTHERS:"Others",
 }
 const categories:GalleryCategory[]=["DAILY_LIFE_GROWTH","COMMUNITY_FELLOWSHIP","LEARNING_CREATIVITY","EVENTS_MILESTONES","OTHERS"]
+const filters = ["All", ...categories] as const
+type Filter = (typeof filters)[number]
 const fallbackGalleryItems:GalleryItem[] = [
   {id:"fallback-1",title:"Smiles that tell a story",category:"DAILY_LIFE_GROWTH",image:"/images/hero-children.png",alt:"Children smiling together"},
   {id:"fallback-2",title:"Learning with purpose",category:"LEARNING_CREATIVITY",image:"/images/about-children.png",alt:"Children learning together"},
@@ -229,7 +231,7 @@ export default function GalleryPage() {
                     className={filter === item ? "active" : ""}
                     onClick={() => changeFilter(item)}
                   >
-                    {item}
+                    {item === "All" ? "All" : categoryLabels[item]}
                   </button>
                 ))}
               </div>
@@ -241,7 +243,7 @@ export default function GalleryPage() {
                   onClick={() => setFilterOpen((open) => !open)}
                   aria-expanded={filterOpen}
                 >
-                  {filter}
+                  {filter === "All" ? "All" : categoryLabels[filter]}
                   <ChevronDown size={17} />
                 </button>
                 {filterOpen && (
@@ -252,8 +254,8 @@ export default function GalleryPage() {
                         type="button"
                         onClick={() => changeFilter(item)}
                       >
-                        {item}
-                      </button>
+                        {item === "All" ? "All" : categoryLabels[item]}
+                  </button>
                     ))}
                   </div>
                 )}
