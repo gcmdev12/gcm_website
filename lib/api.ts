@@ -12,3 +12,6 @@ export async function graphqlRequest<T>(query: string, variables?: Record<string
 export const SUBMIT_CONTACT_FORM = `mutation SubmitContactForm($input:ContactSubmissionInput!) { submitContactForm(input:$input) }`
 export const SUBMIT_VOLUNTEER_FORM = `mutation SubmitVolunteerForm($input:VolunteerSubmissionInput!) { submitVolunteerForm(input:$input) }`
 export const SUBSCRIBE_NEWSLETTER = `mutation SubscribeNewsletter($input:NewsletterInput!) { subscribeNewsletter(input:$input) }`
+
+
+export const PUBLIC_MEDIA_QUERY = `query { mediaAssets { id key page title altText url description } }`
