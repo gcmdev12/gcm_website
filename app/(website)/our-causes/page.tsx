@@ -254,16 +254,16 @@ export default function CausesPage() {
             </div>
 
             <div className="causes-page-navigation-list">
-              {quickIcons.map(({ icon: Icon, label, tone, href }) => (
+              {managedCauses.map((cause) => { const item=quickIcons.find(x=>x.href==='#'+cause.id)||quickIcons[0]; const Icon=item.icon; return (
                 <a
-                  key={label}
-                  href={href}
-                  className={`causes-page-nav-item tone-${tone}`}
+                  key={cause.id}
+                  href={'#'+cause.id}
+                  className={`causes-page-nav-item tone-${cause.tone}`}
                 >
                   <span>
                     <Icon size={18} />
                   </span>
-                  {label}
+                  {cause.shortTitle}
                 </a>
               ))}
             </div>
@@ -295,7 +295,7 @@ export default function CausesPage() {
       {/* DETAILED CAUSES */}
       <section className="causes-page-details">
         <div className="container">
-          {causes.map((cause, index) => {
+          {managedCauses.map((cause, index) => {
             const Icon = cause.icon
             const reverse = index % 2 !== 0
 
