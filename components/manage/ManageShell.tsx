@@ -14,16 +14,109 @@ const groups = [
 ]
 
 export default function ManageShell({children}:{children:React.ReactNode}){
- const pathname=usePathname(); const router=useRouter(); const [open,setOpen]=useState(false); const [admin,setAdmin]=useState<AdminProfile|null>(null); const [checking,setChecking]=useState(true)
- useEffect(()=>{ if(!getAdminToken()){router.replace('/manage/login');return} setAdmin(getAdminProfile());setChecking(false) },[router])
- const logout=()=>{clearAdminSession();router.replace('/manage/login')}
+ const pathname=usePathname()
+ const router=useRouter()
+ const [open,setOpen]=useState(false)
+ const [admin,setAdmin]=useState<AdminProfile|null>(null)
+ const [checking,setChecking]=useState(true)
+
+ useEffect(()=>{
+  if(!getAdminToken()){
+   router.replace('/manage/login')
+   return
+  }
+  setAdmin(getAdminProfile())
+  setChecking(false)
+ },[router])
+
+ const logout=()=>{
+  clearAdminSession()
+  router.replace('/manage/login')
+ }
+
  if(checking) return <div className="manage-app" aria-hidden="true"/>
- return <div className="manage-app">
-  <aside className={"manage-sidebar "+(open?'is-open':'')}>
-   <div className="manage-brand"><div className="manage-brand-mark"><Heart size={22} fill="currentColor"/></div><div><strong>Glory Children</strong><span>MINISTRY · ADMIN</span></div><button className="sidebar-close" onClick={()=>setOpen(false)} aria-label="Close menu"><X size={20}/></button></div>
-   <nav className="manage-nav">{groups.map(group=><div className="nav-group" key={group.label}><p>{group.label}</p>{group.items.map(item=>{const Icon=item.icon;const active=pathname===item.href||(item.href!=='/manage/dashboard'&&pathname.startsWith(item.href));return <Link onClick={()=>setOpen(false)} className={"nav-link "+(active?'active':'')} href={item.href} key={item.href}><Icon size={18}/><span>{item.label}</span>{item.badge?<em>{item.badge}</em>:null}</Link>})}</div>)}</nav>
-   <div className="sidebar-bottom"><div className="sidebar-help"><Sparkles size={17}/><div><strong>Keep the story moving</strong><span>Every update helps the team.</span></div></div><button className="nav-link logout" onClick={logout}><LogOut size={18}/><span>Sign out</span></button></div>
-  </aside>
-  {open&&<button className="sidebar-overlay" onClick={()=>setOpen(false)} aria-label="Close navigation"/>}
-  <div className="manage-main"><header className="manage-topbar"><button className="mobile-menu" onClick={()=>setOpen(true)} aria-label="Open menu"><Menu/></button><div className="topbar-title"><span>Glory Children Ministry</span><strong>Admin workspace</strong></div><div className="topbar-actions"><Link href="/manage/notifications" className="icon-button" aria-label="Notifications"><Bell size={19}/><i/></Link><Link href="/manage/profile" className="admin-chip"><span className="avatar">GC</span><span className="admin-name"><strong>{admin?admin.firstName+" "+admin.lastName:'Administrator'}</strong><small>{admin?.role==='SUPER_ADMIN'?'Super admin':'Administrator'}</small></span><ChevronDown size={16}/></Link></div></header><main className="manage-content">{children}</main></div>
- </div>
+
+ return (
+  <div className="manage-app">
+   <aside className={"manage-sidebar "+(open?'is-open':'')}>
+    <div className="manage-brand">
+     <div className="manage-brand-mark"><Heart size={22} fill="currentColor"/></div>
+     <div>
+      <strong>Glory Children</strong>
+      <span>MINISTRY · ADMIN</span>
+     </div>
+     <button className="sidebar-close" onClick={()=>setOpen(false)} aria-label="Close menu"><X size={20}/></button>
+    </div>
+
+    <nav className="manage-nav">
+     {groups.map(group=>(
+      <div className="nav-group" key={group.label}>
+       <p>{group.label}</p>
+       {group.items.map(item=>{
+        const Icon=item.icon
+        const active=pathname===item.href||(item.href!=='/manage/dashboard'&&pathname.startsWith(item.href))
+        return (
+         <Link
+          onClick={()=>setOpen(false)}
+          className={"nav-link "+(active?'active':'')}
+          href={item.href}
+          key={item.href}
+         >
+          <Icon size={18}/>
+          <span>{item.label}</span>
+          {item.badge?<em>{item.badge}</em>:null}
+         </Link>
+        )
+       })}
+      </div>
+     ))}
+    </nav>
+
+    <div className="sidebar-bottom">
+     <div className="sidebar-help">
+      <Sparkles size={17}/>
+      <div>
+       <strong>Keep the story moving</strong>
+       <span>Every update helps the team.</span>
+      </div>
+     </div>
+     <button className="nav-link logout" onClick={logout}>
+      <LogOut size={18}/>
+      <span>Sign out</span>
+     </button>
+    </div>
+   </aside>
+
+   {open&&<button className="sidebar-overlay" onClick={()=>setOpen(false)} aria-label="Close navigation"/>}
+
+   <div className="manage-main">
+    <header className="manage-topbar">
+     <button className="mobile-menu" onClick={()=>setOpen(true)} aria-label="Open menu"><Menu/></button>
+
+     <div className="topbar-title">
+      <span>Glory Children Ministry</span>
+      <strong>Admin workspace</strong>
+     </div>
+
+     <div className="topbar-actions">
+      <Link href="/manage/notifications" className="icon-button" aria-label="Notifications">
+       <Bell size={19}/>
+       <i/>
+      </Link>
+
+      <Link href="/manage/profile" className="admin-chip">
+       <span className="avatar">GC</span>
+       <span className="admin-name">
+        <strong>{admin?admin.firstName+" "+admin.lastName:'Administrator'}</strong>
+        <small>{admin?.role==='SUPER_ADMIN'?'Super admin':'Administrator'}</small>
+       </span>
+       <ChevronDown size={16}/>
+      </Link>
+     </div>
+    </header>
+
+    <main className="manage-content">{children}</main>
+   </div>
+  </div>
+ )
+}
