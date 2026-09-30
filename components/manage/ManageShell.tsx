@@ -4,12 +4,13 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Bell, ChevronDown, Heart, LayoutDashboard, UserRound, Globe2, Image, Newspaper, BarChart3, Inbox, LogOut, Menu, X, Phone, Share2, Target, Landmark, Users, Mail, Sparkles } from 'lucide-react'
 import { clearAdminSession, getAdminProfile, getAdminToken, type AdminProfile } from '../../lib/admin-auth'
+import { graphqlRequest } from '../../lib/api'
 
 const groups = [
  {label:'Overview',items:[{href:'/manage/dashboard',label:'Dashboard',icon:LayoutDashboard}]},
  {label:'Website',items:[{href:'/manage/home',label:'Homepage',icon:Globe2},{href:'/manage/about',label:'About Us',icon:Heart},{href:'/manage/causes',label:'Our Causes',icon:Target},{href:'/manage/gallery',label:'Gallery',icon:Image},{href:'/manage/news',label:'News & Updates',icon:Newspaper}]},
  {label:'Content',items:[{href:'/manage/impact',label:'Impact Statistics',icon:BarChart3},{href:'/manage/donations',label:'Donation Details',icon:Landmark}]},
- {label:'Inbox',items:[{href:'/manage/submissions/contact',label:'Contact Forms',icon:Inbox,badge:12},{href:'/manage/submissions/volunteers',label:'Volunteers',icon:Users,badge:5},{href:'/manage/submissions/newsletter',label:'Newsletter',icon:Mail},{href:'/manage/notifications',label:'Notifications',icon:Bell,badge:8}]},
+ {label:'Inbox',items:[{href:'/manage/submissions/contact',label:'Contact Forms',icon:Inbox,badge:submissionSummary.contacts},{href:'/manage/submissions/volunteers',label:'Volunteers',icon:Users,badge:submissionSummary.volunteers},{href:'/manage/submissions/newsletter',label:'Newsletter',icon:Mail,badge:submissionSummary.subscribers},{href:'/manage/notifications',label:'Notifications',icon:Bell,badge:submissionSummary.contacts+submissionSummary.volunteers+submissionSummary.subscribers}]},
  {label:'Settings',items:[{href:'/manage/profile',label:'Admin Profile',icon:UserRound},{href:'/manage/website/contact',label:'Contact Details',icon:Phone},{href:'/manage/website/socials',label:'Social Media',icon:Share2}]},
 ]
 
