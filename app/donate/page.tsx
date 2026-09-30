@@ -349,7 +349,7 @@ export default function DonationPage() {
         </div>
       </section>
 
-      <section className="impact-section-donate section-space">
+      <section className="impact-section-donate">
   <div className="container impact-layout-donate">
     <div className="impact-visual-donate">
       <div className="impact-image-frame-donate">
@@ -408,7 +408,7 @@ export default function DonationPage() {
 
         return (
           <div className="impact-item-donate" key={item.title}>
-            <div className="impact-icon-donate">
+            <div className="impact-icon">
               <Icon size={21} />
             </div>
 
