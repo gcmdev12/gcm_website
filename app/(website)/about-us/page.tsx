@@ -317,10 +317,7 @@ export default function AboutUsPage() {
               <p className="eyebrow purple-text">OUR PURPOSE</p>
               <h2>One purpose. <span>A clear direction.</span></h2>
             </div>
-            <p>
-              Our work is shaped by a clear vision, a practical mission and
-              values that guide how we serve children, families and partners.
-            </p>
+            <p>{managed.purposeIntro || 'Our work is shaped by a clear vision, a practical mission and values that guide how we serve children, families and partners.'}</p>
           </div>
 
           <div className="purpose-cards">
@@ -330,7 +327,7 @@ export default function AboutUsPage() {
                 <span>01</span>
               </div>
               <p>OUR VISION</p>
-              <h3>A future where every child is safe, valued and empowered to reach their full potential.</h3>
+              <h3>{managed.vision || 'A future where every child is safe, valued and empowered to reach their full potential.'}</h3>
               <div className="purpose-card-line" />
               <span className="purpose-tag">Hope that becomes possibility.</span>
             </article>
@@ -341,7 +338,7 @@ export default function AboutUsPage() {
                 <span>02</span>
               </div>
               <p>OUR MISSION</p>
-              <h3>To protect, nurture and equip vulnerable children through practical care, education, health and community support.</h3>
+              <h3>{managed.mission || 'To protect, nurture and equip vulnerable children through practical care, education, health and community support.'}</h3>
               <div className="purpose-card-line" />
               <span className="purpose-tag">One child. One opportunity. One brighter future.</span>
             </article>
@@ -352,7 +349,7 @@ export default function AboutUsPage() {
                 <span>03</span>
               </div>
               <p>OUR PURPOSE</p>
-              <h3>To create practical pathways through which children can experience safety, care, learning, dignity and opportunity.</h3>
+              <h3>{managed.purpose || 'To create practical pathways through which children can experience safety, care, learning, dignity and opportunity.'}</h3>
               <div className="purpose-card-line" />
               <span className="purpose-tag">Compassion with a long-term view.</span>
             </article>
@@ -367,11 +364,7 @@ export default function AboutUsPage() {
               <p className="eyebrow orange-text">WHAT GUIDES US</p>
               <h2>Our core <span>values.</span></h2>
             </div>
-            <p>
-              Values are not just words on a page. They shape how we relate to
-              children, communities, partners and the resources entrusted to
-              the ministry.
-            </p>
+            <p>{managed.valuesIntro || 'Values are not just words on a page. They shape how we relate to children, communities, partners and the resources entrusted to the ministry.'}</p>
           </div>
 
           <div className="values-grid">
@@ -450,15 +443,10 @@ export default function AboutUsPage() {
             <div>
               <p className="eyebrow pink-text">OUR FUTURE PROSPECTS</p>
               <h2>
-                Dreaming bigger.
-                <span> Building for generations.</span>
+                {managed.futureHeading || 'Dreaming bigger. Building for generations.'}
               </h2>
             </div>
-            <p>
-              Our long-term vision is to build sustainable infrastructure and
-              partnerships that can expand the depth and reach of our support
-              for children across Uganda.
-            </p>
+            <p>{managed.futureIntro || 'Our long-term vision is to build sustainable infrastructure and partnerships that can expand the depth and reach of our support for children across Uganda.'}</p>
           </div>
 
           <div className="future-roadmap">
@@ -504,13 +492,9 @@ export default function AboutUsPage() {
           <div>
             <p className="eyebrow pink-text">JOIN THE JOURNEY</p>
             <h2>
-              A bigger vision begins with
-              <span> one more person saying yes.</span>
+              {managed.ctaHeading || 'A bigger vision begins with one more person saying yes.'}
             </h2>
-            <p>
-              Support the work through giving, volunteering, partnership or
-              simply helping more people discover the mission.
-            </p>
+            <p>{managed.ctaDescription || 'Support the work through giving, volunteering, partnership or simply helping more people discover the mission.'}</p>
           </div>
 
           <div className="about-cta-actions">
