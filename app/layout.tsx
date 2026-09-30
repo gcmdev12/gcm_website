@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import { Nunito_Sans, Poppins } from 'next/font/google'
 import './globals.css'
+import '../styles/manage.css'
 
 const poppins = Poppins({
   subsets: ['latin'],
