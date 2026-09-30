@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { graphqlRequest, PUBLIC_MEDIA_QUERY } from '../../../lib/api'
 import {
   ArrowRight,
   BadgeCheck,
@@ -102,6 +103,21 @@ const futureProspects = [
 
 export default function AboutUsPage() {
   const [counts, setCounts] = useState(impactStats.map(() => 0))
+  const [managed, setManaged] = useState<Record<string,string>>({})
+  const [managedImages, setManagedImages] = useState<Record<string,string>>({})
+
+  useEffect(() => {
+    graphqlRequest<{mediaAssets:Array<{key:string;page:string;url:string;description?:string|null}>}>(PUBLIC_MEDIA_QUERY)
+      .then(({data}) => {
+        const assets=data?.mediaAssets||[]
+        const page=assets.filter(x=>x.page==='about')
+        const content=page.find(x=>x.key==='about.content')?.description
+        if(content){try{setManaged(JSON.parse(content) as Record<string,string>)}catch{}}
+        const images:Record<string,string>={}
+        page.filter(x=>x.key.startsWith('about.image.')).forEach(x=>{images[x.key.replace('about.image.','')]=x.url})
+        setManagedImages(images)
+      }).catch(()=>{})
+  }, [])
 
   useEffect(() => {
     const duration = 1200
@@ -180,7 +196,7 @@ export default function AboutUsPage() {
           <div className="about-hero-visual">
             <div className="about-hero-image">
               <Image
-                src="/images/about-children.png"
+                src={managedImages.hero || "/images/about-children.png"}
                 alt="Children supported through education and community care"
                 fill
                 priority
@@ -257,7 +273,7 @@ export default function AboutUsPage() {
           <div className="who-image-wrap">
             <div className="who-image">
               <Image
-                src="/images/hero-children.png"
+                src={managedImages.who || "/images/hero-children.png"}
                 alt="Children smiling together"
                 fill
                 sizes="(max-width: 850px) 90vw, 45vw"
@@ -277,15 +293,10 @@ export default function AboutUsPage() {
               <span> compassion into opportunity.</span>
             </h2>
             <p>
-              Glory Children Ministry exists to stand alongside vulnerable
-              children and communities with practical care, protection,
-              education, encouragement and opportunity.
+              {managed.whoParagraph1 || 'Glory Children Ministry exists to stand alongside vulnerable children and communities with practical care, protection, education, encouragement and opportunity.'}
             </p>
             <p>
-              We believe supporting a child means looking beyond one immediate
-              need. It means helping create an environment where children can
-              learn, grow safely, discover their abilities and build a future
-              with dignity.
+              {managed.whoParagraph2 || 'We believe supporting a child means looking beyond one immediate need. It means helping create an environment where children can learn, grow safely, discover their abilities and build a future with dignity.'}
             </p>
 
             <div className="who-highlight">
@@ -386,7 +397,7 @@ export default function AboutUsPage() {
       <section className="impact-section" id="impact">
         <div className="impact-image-panel">
           <Image
-            src="/images/4.png"
+            src={managedImages.impact || "/images/4.png"}
             alt="Children together in community"
             fill
             sizes="(max-width: 900px) 100vw, 38vw"
@@ -406,9 +417,7 @@ export default function AboutUsPage() {
               <span> changing possibilities tomorrow.</span>
             </h2>
             <p>
-              Our impact is about more than numbers. It is about creating
-              practical opportunities for children to be safe, learn, belong
-              and imagine a future beyond their current circumstances.
+              {managed.impactDescription || 'Our impact is about more than numbers. It is about creating practical opportunities for children to be safe, learn, belong and imagine a future beyond their current circumstances.'}
             </p>
             <div className="impact-note">
               <span><Heart size={16} fill="currentColor" /></span>
