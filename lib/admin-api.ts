@@ -6,7 +6,7 @@ export type Cause = {
   id:string; slug:string; name:string; description:string; imageUrl?:string|null; icon?:string|null; color?:string|null; isActive:boolean; sortOrder:number
 }
 export type Impact = { id:string; key:string; label:string; value:string; description?:string|null; sortOrder:number }
-export type GalleryItem = { id:string; title:string; description?:string|null; imageUrl:string; category:'EDUCATION'|'HEALTH'|'COMMUNITY'|'OTHER'; isPublished:boolean; sortOrder:number }
+export type GalleryItem = { id:string; title:string; description?:string|null; imageUrl:string; category:'DAILY_LIFE_GROWTH'|'COMMUNITY_FELLOWSHIP'|'LEARNING_CREATIVITY'|'EVENTS_MILESTONES'|'OTHERS'|'EDUCATION'|'HEALTH'|'COMMUNITY'|'OTHER'; isPublished:boolean; sortOrder:number }
 export type MediaAsset = { id:string; key:string; page:string; title?:string|null; altText?:string|null; url:string; description?:string|null }
 export type NewsArticle = { id:string; title:string; slug:string; excerpt?:string|null; content:string; imageUrl?:string|null; published:boolean; publishedAt?:string|null; createdAt:string }
 export type DashboardStats = { newContacts:number; newVolunteers:number; newSubscribers:number; causes:number; galleryItems:number; newsArticles:number }
