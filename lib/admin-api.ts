@@ -8,7 +8,7 @@ export type Cause = {
 export type Impact = { id:string; key:string; label:string; value:string; description?:string|null; sortOrder:number }
 export type GalleryItem = { id:string; title:string; description?:string|null; imageUrl:string; category:'DAILY_LIFE_GROWTH'|'COMMUNITY_FELLOWSHIP'|'LEARNING_CREATIVITY'|'EVENTS_MILESTONES'|'OTHERS'|'EDUCATION'|'HEALTH'|'COMMUNITY'|'OTHER'; isPublished:boolean; sortOrder:number }
 export type MediaAsset = { id:string; key:string; page:string; title?:string|null; altText?:string|null; url:string; description?:string|null }
-export type NewsArticle = { id:string; title:string; slug:string; excerpt?:string|null; content:string; imageUrl?:string|null; published:boolean; publishedAt?:string|null; createdAt:string }
+export type NewsArticle = { id:string; title:string; slug:string; category:string; excerpt?:string|null; content:string; imageUrl?:string|null; published:boolean; publishedAt?:string|null; createdAt:string }
 export type DashboardStats = { newContacts:number; newVolunteers:number; newSubscribers:number; causes:number; galleryItems:number; newsArticles:number }
 
 export async function adminGraphql<T>(query:string, variables?:Record<string, unknown>):Promise<T>{
@@ -31,7 +31,7 @@ export const DASHBOARD_QUERY=`query { dashboardStats { newContacts newVolunteers
 export const CAUSES_QUERY=`query { adminCauses { id slug name description imageUrl icon color isActive sortOrder } }`
 export const IMPACT_QUERY=`query { impactStatistics { id key label value description sortOrder } }`
 export const GALLERY_QUERY=`query { adminGalleryItems { id title description imageUrl category isPublished sortOrder } }`
-export const NEWS_QUERY=`query { adminNewsArticles { id title slug excerpt content imageUrl published publishedAt createdAt } }`
+export const NEWS_QUERY=`query { adminNewsArticles { id title slug category excerpt content imageUrl published publishedAt createdAt } }`
 export const MEDIA_QUERY=`query { mediaAssets { id key page title altText url description } }`
 export const UPSERT_MEDIA=`mutation UpsertMedia($id:String,$input:MediaAssetInput!) { upsertMediaAsset(id:$id,input:$input) { id key page title altText url description } }`
 export const DELETE_MEDIA=`mutation DeleteMedia($id:String!) { deleteMediaAsset(id:$id) }`
@@ -47,8 +47,8 @@ export const CREATE_GALLERY=`mutation CreateGallery($input:GalleryItemInput!) { 
 export const UPDATE_GALLERY=`mutation UpdateGallery($id:String!,$input:GalleryItemInput!) { updateGalleryItem(id:$id,input:$input) { id title description imageUrl category isPublished sortOrder } }`
 export const DELETE_GALLERY=`mutation DeleteGallery($id:String!) { deleteGalleryItem(id:$id) }`
 
-export const CREATE_NEWS=`mutation CreateNews($input:NewsArticleInput!) { createNewsArticle(input:$input) { id title slug excerpt content imageUrl published publishedAt createdAt } }`
-export const UPDATE_NEWS=`mutation UpdateNews($id:String!,$input:NewsArticleInput!) { updateNewsArticle(id:$id,input:$input) { id title slug excerpt content imageUrl published publishedAt createdAt } }`
+export const CREATE_NEWS=`mutation CreateNews($input:NewsArticleInput!) { createNewsArticle(input:$input) { id title slug category excerpt content imageUrl published publishedAt createdAt } }`
+export const UPDATE_NEWS=`mutation UpdateNews($id:String!,$input:NewsArticleInput!) { updateNewsArticle(id:$id,input:$input) { id title slug category excerpt content imageUrl published publishedAt createdAt } }`
 export const DELETE_NEWS=`mutation DeleteNews($id:String!) { deleteNewsArticle(id:$id) }`
 
 
