@@ -1,4 +1,4 @@
- "use client"
+"use client"
 
 import { useState } from "react"
 import Link from "next/link"
@@ -46,7 +46,7 @@ const donationMethods = [
     description: "Make a bank transfer or deposit to the ministry account.",
     icon: Banknote,
   },
-   {
+  {
     type: "western-union",
     tone: "western-union",
     brand: "WU",
@@ -122,7 +122,12 @@ export default function DonationPage() {
                 Give Offline
                 <ArrowRight size={18} />
               </a>
-              <a href="#online-donation" className="button button-light">
+              <a
+                href="https://gofund.me/chealuna-hill-27aug"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="button button-light"
+              >
                 Donate Online
               </a>
             </div>
@@ -238,12 +243,8 @@ export default function DonationPage() {
                       <span>{method.brand}</span>
                     </div>
 
-                    {/* <div className="method-icon" aria-hidden="true">
-                      <Icon size={24} />
-                    </div> */}
-
                     <span className="method-type">
-                         {isWesternUnion ? "Western Union" : isBank ? "Bank transfer" : "Mobile money"}
+                      {isWesternUnion ? "Western Union" : isBank ? "Bank transfer" : "Mobile money"}
                     </span>
                   </div>
 
@@ -251,7 +252,7 @@ export default function DonationPage() {
 
                   <p>{method.description}</p>
 
-{isWesternUnion ? (
+                  {isWesternUnion ? (
                     <div className="bank-details">
                       <div>
                         <small>Name</small>
@@ -271,35 +272,35 @@ export default function DonationPage() {
                       </div>
                     </div>
                   ) : isBank ? (
-  <div className="bank-details">
-    <div>
-      <small>Bank</small>
-      <strong>DTB</strong>
-    </div>
+                    <div className="bank-details">
+                      <div>
+                        <small>Bank</small>
+                        <strong>DTB</strong>
+                      </div>
 
-    <div>
-      <small>Account number</small>
-      <strong>{method.number}</strong>
-    </div>
+                      <div>
+                        <small>Account number</small>
+                        <strong>{method.number}</strong>
+                      </div>
 
-    <div>
-      <small>Account Name</small>
-      <strong>{accName}</strong>
-    </div>
-  </div>
-) : (
-  <>
-    <div className="mobile-number-box">
-      <small>Send to</small>
-      <a href={method.tel}>{method.number}</a>
-    </div>
+                      <div>
+                        <small>Account Name</small>
+                        <strong>{accName}</strong>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="mobile-number-box">
+                        <small>Send to</small>
+                        <a href={method.tel}>{method.number}</a>
+                      </div>
 
-    <div className="mobile-number-box">
-      <small>In Names</small>
-      <strong>{accName}</strong>
-    </div>
-  </>
-)}
+                      <div className="mobile-number-box">
+                        <small>In Names</small>
+                        <strong>{accName}</strong>
+                      </div>
+                    </>
+                  )}
                   <button
                     type="button"
                     className="copy-button"
@@ -350,78 +351,78 @@ export default function DonationPage() {
       </section>
 
       <section className="impact-section-donate">
-  <div className="container impact-layout-donate">
-    <div className="impact-visual-donate">
-      <div className="impact-image-frame-donate">
-        <span className="impact-spray-donate impact-spray-one-donate" />
-        <span className="impact-spray-donate impact-spray-two-donate" />
-        <span className="impact-spray-donate impact-spray-three-donate" />
-        <span className="impact-spray-donate impact-spray-four-donate" />
+        <div className="container impact-layout-donate">
+          <div className="impact-visual-donate">
+            <div className="impact-image-frame-donate">
+              <span className="impact-spray-donate impact-spray-one-donate" />
+              <span className="impact-spray-donate impact-spray-two-donate" />
+              <span className="impact-spray-donate impact-spray-three-donate" />
+              <span className="impact-spray-donate impact-spray-four-donate" />
 
-        <div className="impact-image-border-donate impact-border-one-donate">
-          <div className="impact-image-border-donate impact-border-two-donate">
-            <div className="impact-image-wrap-donate">
-              <img
-                src="/images/donate.png"
-                alt="Children supported by Glory Children Ministry"
-              />
+              <div className="impact-image-border-donate impact-border-one-donate">
+                <div className="impact-image-border-donate impact-border-two-donate">
+                  <div className="impact-image-wrap-donate">
+                    <img
+                      src="/images/donate.png"
+                      alt="Children supported by Glory Children Ministry"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="impact-floating-badge-donate">
+                <span>♥</span>
+                <div>
+                  <strong>Every child</strong>
+                  <small>deserves hope</small>
+                </div>
+              </div>
             </div>
+          </div>
+
+          <div className="impact-copy-donate">
+            <span className="eyebrow">Why your giving matters</span>
+
+            <h2>
+              A donation is more than a transaction.
+              <span> It is a message of hope.</span>
+            </h2>
+
+            <p>
+              When people give, they become part of a community that believes
+              children deserve care, dignity, opportunity and the chance to
+              discover their potential.
+            </p>
+
+            <div className="impact-quote">
+              <span className="quote-mark">&ldquo;</span>
+              <p>
+                Together, we can create practical pathways for children to
+                experience safety, care, learning and opportunity.
+              </p>
+            </div>
+          </div>
+
+          <div className="impact-list-donate">
+            {impactItems.map((item) => {
+              const Icon = item.icon
+
+              return (
+                <div className="impact-item-donate" key={item.title}>
+                  <div className="impact-icon">
+                    <Icon size={21} />
+                  </div>
+
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
-
-        <div className="impact-floating-badge-donate">
-          <span>♥</span>
-          <div>
-            <strong>Every child</strong>
-            <small>deserves hope</small>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div className="impact-copy-donate">
-      <span className="eyebrow">Why your giving matters</span>
-
-      <h2>
-        A donation is more than a transaction.
-        <span> It is a message of hope.</span>
-      </h2>
-
-      <p>
-        When people give, they become part of a community that believes
-        children deserve care, dignity, opportunity and the chance to
-        discover their potential.
-      </p>
-
-      <div className="impact-quote">
-        <span className="quote-mark">&ldquo;</span>
-        <p>
-          Together, we can create practical pathways for children to
-          experience safety, care, learning and opportunity.
-        </p>
-      </div>
-    </div>
-
-    <div className="impact-list-donate">
-      {impactItems.map((item) => {
-        const Icon = item.icon
-
-        return (
-          <div className="impact-item-donate" key={item.title}>
-            <div className="impact-icon">
-              <Icon size={21} />
-            </div>
-
-            <div>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </div>
-          </div>
-        )
-      })}
-    </div>
-  </div>
-</section>
+      </section>
 
       <section id="online-donation" className="online-section">
         <div className="online-decoration online-decoration-one" />
