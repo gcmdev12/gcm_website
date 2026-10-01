@@ -437,10 +437,15 @@ export default function DonationPage() {
             Make your contribution online through our secure donation
             experience. Click below to continue.
           </p>
-          <Link href="/donate-online" className="button button-light online-button">
+          <a
+            href="https://gofund.me/chealuna-hill-27aug"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="button button-light online-button"
+          >
             Donate Now
             <ArrowRight size={18} />
-          </Link>
+          </a>
           <small>
             <LockKeyhole size={13} />
             Secure online donation
