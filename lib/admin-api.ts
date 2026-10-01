@@ -53,7 +53,7 @@ export const DELETE_NEWS=`mutation DeleteNews($id:String!) { deleteNewsArticle(i
 
 
 export type SiteSettings = { id:number; siteName:string; tagline:string; email:string; phone1?:string|null; phone2?:string|null; location?:string|null; whatsapp?:string|null; instagram?:string|null; facebook?:string|null; threads?:string|null; tiktok?:string|null; youtube?:string|null }
-export type DonationMethod = { id:string; name:string; accountName?:string|null; accountNumber?:string|null; instructions?:string|null; logoUrl?:string|null; isActive:boolean; sortOrder:number }
+export type DonationMethod = { id:string; name:string; accountName?:string|null; accountNumber?:string|null; instructions?:string|null; logoUrl?:string|null; country?:string|null; city?:string|null; contactNumber?:string|null; isActive:boolean; sortOrder:number }
 export type ContactSubmission = { id:string; name:string; email:string; phone?:string|null; subject?:string|null; message:string; status:string; createdAt:string }
 export type VolunteerSubmission = { id:string; name:string; email:string; phone?:string|null; location?:string|null; interests?:string|null; availability?:string|null; experience?:string|null; message?:string|null; status:string; createdAt:string }
 export type NewsletterSubscriber = { id:string; email:string; name?:string|null; status:string; subscribedAt:string }
@@ -61,9 +61,9 @@ export type SponsorSubmission = { id:string; name:string; email:string; phone?:s
 export type SubmissionSummary = { contacts:number; volunteers:number; subscribers:number; sponsors:number }
 export const SITE_SETTINGS_QUERY=`query { siteSettings { id siteName tagline email phone1 phone2 location whatsapp instagram facebook threads tiktok youtube } }`
 export const UPDATE_SITE_SETTINGS=`mutation UpdateSiteSettings($input:SiteSettingsInput!) { updateSiteSettings(input:$input) { id siteName tagline email phone1 phone2 location whatsapp instagram facebook threads tiktok youtube } }`
-export const DONATION_METHODS_QUERY=`query { adminDonationMethods { id name accountName accountNumber instructions logoUrl isActive sortOrder } }`
-export const CREATE_DONATION=`mutation CreateDonation($input:DonationMethodInput!) { createDonationMethod(input:$input) { id name accountName accountNumber instructions logoUrl isActive sortOrder } }`
-export const UPDATE_DONATION=`mutation UpdateDonation($id:String!,$input:DonationMethodInput!) { updateDonationMethod(id:$id,input:$input) { id name accountName accountNumber instructions logoUrl isActive sortOrder } }`
+export const DONATION_METHODS_QUERY=`query { adminDonationMethods { id name accountName accountNumber instructions logoUrl country city contactNumber isActive sortOrder } }`
+export const CREATE_DONATION=`mutation CreateDonation($input:DonationMethodInput!) { createDonationMethod(input:$input) { id name accountName accountNumber instructions logoUrl country city contactNumber isActive sortOrder } }`
+export const UPDATE_DONATION=`mutation UpdateDonation($id:String!,$input:DonationMethodInput!) { updateDonationMethod(id:$id,input:$input) { id name accountName accountNumber instructions logoUrl country city contactNumber isActive sortOrder } }`
 export const DELETE_DONATION=`mutation DeleteDonation($id:String!) { deleteDonationMethod(id:$id) }`
 export const SUBMISSION_SUMMARY=`query { submissionSummary { contacts volunteers subscribers } }`
 export const CONTACT_SUBMISSIONS=`query { contactSubmissions { id name email phone subject message status createdAt } }`
