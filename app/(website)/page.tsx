@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { graphqlRequest, PUBLIC_MEDIA_QUERY } from '../../lib/api'
+import { graphqlRequest, PUBLIC_IMPACT_STATISTICS_QUERY, PUBLIC_MEDIA_QUERY } from '../../lib/api'
 import {
   ArrowLeft,
   ArrowRight,
@@ -71,9 +71,16 @@ export default function HomePage() {
   const [lightbox, setLightbox] = useState<number | null>(null)
   const [youtubeOpen, setYoutubeOpen] = useState(false)
   const [newsItems, setNewsItems] = useState<HomeNewsArticle[]>([])
+  const [impactStats, setImpactStats] = useState<Array<{id:string; key:string; label:string; value:string; description?:string|null; sortOrder:number}>>([])
   const [managed, setManaged] = useState<Record<string,string>>({})
   const [managedImages, setManagedImages] = useState<Record<string,string>>({})
   const displayGalleryItems = galleryItems.map((item,index) => ({...item,src:managedImages['gallery.'+(index+1)] || item.src}))
+
+  useEffect(() => {
+    graphqlRequest<{impactStatistics: Array<{id:string; key:string; label:string; value:string; description?:string|null; sortOrder:number}>}>(PUBLIC_IMPACT_STATISTICS_QUERY)
+      .then((data) => setImpactStats((data?.impactStatistics || []).slice().sort((a,b) => a.sortOrder - b.sortOrder)))
+      .catch(() => setImpactStats([]))
+  }, [])
 
   useEffect(() => {
     graphqlRequest<{newsArticles: HomeNewsArticle[]}>(NEWS_QUERY)
@@ -188,7 +195,7 @@ export default function HomePage() {
       <section className="about-wrap" id="about">
         <div className="section-pattern section-pattern-purple" aria-hidden="true" />
         <div className="container counter-card">
-          {counters.map(({ value, label, icon: Icon, tone }) => <div className={`counter counter-${tone}`} key={label}><div className="counter-icon"><Icon size={28} /></div><div><strong>{value}</strong><span>{label}</span></div></div>)}
+          {(impactStats.length ? impactStats.slice(0, 4) : counters).map((item, index) => { const fallback = counters[index]; const Icon = fallback.icon; return <div className={`counter counter-${fallback.tone}`} key={item.id || fallback.label}><div className="counter-icon"><Icon size={28} /></div><div><strong>{'value' in item ? item.value : fallback.value}</strong><span>{'label' in item ? item.label : fallback.label}</span></div></div> })}
         </div>
         <div className="container about-section">
           <div className="about-photo">
@@ -254,7 +261,7 @@ export default function HomePage() {
 
       <section className="impact-section-home" id="impact-home">
         <div className="impact-image-home"><Image src={managedImages.impact || '/images/about-children.png'} alt="Children at school" fill sizes="360px" /></div>
-        <div className="container impact-inner-home"><div className="impact-copy-home"><p className="eyebrow">OUR IMPACT</p><h2>{managed.impactTitle || 'Together, we are creating lasting change'}</h2><p>{managed.impactDescription || 'Every contribution helps us reach more children with practical care, protection, education and hope.'}</p></div><div className="impact-stats-home">{counters.map(({ value, label, icon: Icon, tone }) => <div className={`impact-stat-home stat-${tone}`} key={label}><Icon size={28} /><strong>{value}</strong><span>{label}</span></div>)}</div></div>
+        <div className="container impact-inner-home"><div className="impact-copy-home"><p className="eyebrow">OUR IMPACT</p><h2>{managed.impactTitle || 'Together, we are creating lasting change'}</h2><p>{managed.impactDescription || 'Every contribution helps us reach more children with practical care, protection, education and hope.'}</p></div><div className="impact-stats-home">{(impactStats.length ? impactStats.slice(0, 4) : counters).map((item, index) => { const fallback = counters[index]; const Icon = fallback.icon; return <div className={`impact-stat-home stat-${fallback.tone}`} key={item.id || fallback.label}><Icon size={28} /><strong>{'value' in item ? item.value : fallback.value}</strong><span>{'label' in item ? item.label : fallback.label}</span></div> })}</div></div>
       </section>
 
       <section className="cta-section" id="support"><div className="container cta-card"><div><p className="eyebrow pink-text">MAKE A DIFFERENCE</p><h2>{managed.ctaTitle || "Your support can change a child's story."}</h2><p>{managed.ctaDescription || 'Donate, volunteer, partner with us or support one of our causes.'}</p></div><div className="hero-actions"><a className="button button-primary" href="/donate"><Heart size={18} fill="currentColor" /> Donate Now</a><a className="button button-purple" href="#volunteer"><Users size={18} fill="currentColor" /> Volunteer</a></div></div></section>
