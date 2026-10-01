@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { graphqlRequest, PUBLIC_DONATION_METHODS_QUERY } from "../../../lib/api"
 import Link from "next/link"
 import {
   ArrowRight,
@@ -16,49 +17,32 @@ import {
   Users,
 } from "lucide-react"
 
-const donationMethods = [
-  {
-    type: "mobile",
-    tone: "mtn",
-    brand: "MTN",
-    label: "MTN Mobile Money",
-    number: "+256 767 274 915",
-    tel: "tel:+256767274915",
-    description: "Send your donation directly through MTN Mobile Money.",
-    icon: Smartphone,
-  },
-  {
-    type: "mobile",
-    tone: "airtel",
-    brand: "airtel",
-    label: "Airtel Money",
-    number: "+256 755 575 982",
-    tel: "tel:+256755575982",
-    description: "Use Airtel Money to make a direct contribution.",
-    icon: Smartphone,
-  },
-  {
-    type: "bank",
-    tone: "bank",
-    brand: "DTB",
-    label: "Diamond Trust Bank",
-    number: "7389213001",
-    description: "Make a bank transfer or deposit to the ministry account.",
-    icon: Banknote,
-  },
-  {
-    type: "western-union",
-    tone: "western-union",
-    brand: "WU",
-    label: "Western Union",
-    description: "Send your donation through Western Union using the recipient details below.",
-    icon: Banknote,
-    name: "Ssuna Khalim",
-    country: "Uganda",
-    city: "Kampala",
-    tel: "+256755575982",
-    number: "+256755575982",
-  },
+type DonationMethodRecord = {
+  id: string
+  name: string
+  accountName?: string | null
+  accountNumber?: string | null
+  instructions?: string | null
+  logoUrl?: string | null
+  country?: string | null
+  city?: string | null
+  contactNumber?: string | null
+  isActive: boolean
+  sortOrder: number
+}
+
+const donationPresentation = [
+  { type: "mobile", tone: "mtn", brand: "MTN", label: "MTN Mobile Money", description: "Send your donation directly through MTN Mobile Money.", icon: Smartphone },
+  { type: "mobile", tone: "airtel", brand: "airtel", label: "Airtel Money", description: "Use Airtel Money to make a direct contribution.", icon: Smartphone },
+  { type: "bank", tone: "bank", brand: "DTB", label: "Diamond Trust Bank", description: "Make a bank transfer or deposit to the ministry account.", icon: Banknote },
+  { type: "western-union", tone: "western-union", brand: "WU", label: "Western Union", description: "Send your donation through Western Union using the recipient details below.", icon: Banknote },
+] as const
+
+const fallbackDonationMethods: DonationMethodRecord[] = [
+  { id: "mtn", name: "MTN Mobile Money", accountName: "Ssuna Khalim", accountNumber: "+256 767 274 915", instructions: "Send your donation directly through MTN Mobile Money.", isActive: true, sortOrder: 0 },
+  { id: "airtel", name: "Airtel Money", accountName: "Ssuna Khalim", accountNumber: "+256 755 575 982", instructions: "Use Airtel Money to make a direct contribution.", isActive: true, sortOrder: 1 },
+  { id: "dtb", name: "Diamond Trust Bank", accountName: "Ssuna Khalim", accountNumber: "7389213001", instructions: "Make a bank transfer or deposit to the ministry account.", isActive: true, sortOrder: 2 },
+  { id: "western-union", name: "Western Union", accountName: "Ssuna Khalim", accountNumber: "+256755575982", instructions: "Send your donation through Western Union using the recipient details below.", country: "Uganda", city: "Kampala", contactNumber: "+256755575982", isActive: true, sortOrder: 3 },
 ]
 
 const impactItems = [
@@ -81,6 +65,16 @@ const impactItems = [
 
 export default function DonationPage() {
   const [copied, setCopied] = useState("")
+  const [donationMethods, setDonationMethods] = useState<DonationMethodRecord[]>(fallbackDonationMethods)
+
+  useEffect(() => {
+    graphqlRequest<{ donationMethods: DonationMethodRecord[] }>(PUBLIC_DONATION_METHODS_QUERY)
+      .then((data) => {
+        const methods = (data?.donationMethods || []).slice().sort((a, b) => a.sortOrder - b.sortOrder)
+        if (methods.length) setDonationMethods(methods)
+      })
+      .catch(() => {})
+  }, [])
 
   async function copyNumber(value: string, label: string) {
     try {
@@ -224,23 +218,27 @@ export default function DonationPage() {
           </div>
 
           <div className="donation-method-grid">
-            {donationMethods.map((method) => {
-              const Icon = method.icon
-              const isBank = method.type === "bank"
-              const accName = "Ssuna Khalim"
-              const isWesternUnion = method.type === "western-union"
+            {donationMethods.map((method, index) => {
+              const presentation = donationPresentation[index] || donationPresentation[0]
+              const Icon = presentation.icon
+              const isBank = presentation.type === "bank"
+              const isWesternUnion = presentation.type === "western-union"
+              const accName = method.accountName || ""
+              const number = method.accountNumber || ""
+              const telNumber = method.contactNumber || method.accountNumber || ""
+              const description = method.instructions || presentation.description
 
               return (
                 <article
-                  className={`donation-method-card donation-${method.tone}`}
+                  className={`donation-method-card donation-${presentation.tone}`}
                   key={method.label}
                 >
                   <div className="method-card-header">
                     <div
-                      className={`donation-brand-logo donation-brand-${method.tone}`}
-                      aria-label={`${method.brand} logo`}
+                      className={`donation-brand-logo donation-brand-${presentation.tone}`}
+                      aria-label={`${presentation.brand} logo`}
                     >
-                      <span>{method.brand}</span>
+                      <span>{presentation.brand}</span>
                     </div>
 
                     <span className="method-type">
@@ -248,39 +246,39 @@ export default function DonationPage() {
                     </span>
                   </div>
 
-                  <h3>{method.label}</h3>
+                  <h3>{method.name || presentation.label}</h3>
 
-                  <p>{method.description}</p>
+                  <p>{description}</p>
 
                   {isWesternUnion ? (
                     <div className="bank-details">
                       <div>
                         <small>Name</small>
-                        <strong>{method.name}</strong>
+                        <strong>{method.accountName || ""}</strong>
                       </div>
                       <div>
                         <small>Country</small>
-                        <strong>{method.country}</strong>
+                        <strong>{method.country || ""}</strong>
                       </div>
                       <div>
                         <small>City</small>
-                        <strong>{method.city}</strong>
+                        <strong>{method.city || ""}</strong>
                       </div>
                       <div>
                         <small>Tel</small>
-                        <a href={`tel:${method.tel}`}>{method.tel}</a>
+                        <a href={`tel:${telNumber.replace(/\s/g, "")}`}>{telNumber}</a>
                       </div>
                     </div>
                   ) : isBank ? (
                     <div className="bank-details">
                       <div>
                         <small>Bank</small>
-                        <strong>DTB</strong>
+                        <strong>{presentation.brand}</strong>
                       </div>
 
                       <div>
                         <small>Account number</small>
-                        <strong>{method.number}</strong>
+                        <strong>{number}</strong>
                       </div>
 
                       <div>
@@ -292,7 +290,7 @@ export default function DonationPage() {
                     <>
                       <div className="mobile-number-box">
                         <small>Send to</small>
-                        <a href={method.tel}>{method.number}</a>
+                        <a href={`tel:${number.replace(/\s/g, "")}`}>{number}</a>
                       </div>
 
                       <div className="mobile-number-box">
@@ -306,12 +304,12 @@ export default function DonationPage() {
                     className="copy-button"
                     onClick={() =>
                       copyNumber(
-                        method.number.replace(/\s/g, ""),
-                        method.label,
+                        number.replace(/\s/g, ""),
+                        method.name || presentation.label,
                       )
                     }
                   >
-                    {copied === method.label ? (
+                    {copied === (method.name || presentation.label) ? (
                       <>
                         <CheckCircle2 size={16} />
                         Copied
@@ -325,7 +323,7 @@ export default function DonationPage() {
                   </button>
 
                   {!isBank && (
-                    <a className="method-call" href={method.tel}>
+                    <a className="method-call" href={`tel:${telNumber.replace(/\s/g, "")}`}>
                       <Phone size={15} />
                       Tap to use this number
                     </a>
