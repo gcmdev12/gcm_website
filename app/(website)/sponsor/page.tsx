@@ -3,7 +3,7 @@
 import { FormEvent, useState } from 'react'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle2, Heart, Mail, MapPin, Phone, ShieldCheck, Users } from 'lucide-react'
-import { graphqlRequest, SUBMIT_SPONSOR_FORM } from '../../lib/api'
+import { graphqlRequest, SUBMIT_SPONSOR_FORM } from '../../../lib/api'
 
 export default function SponsorPage() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', location: '', preferredContact: 'Email', message: '' })
