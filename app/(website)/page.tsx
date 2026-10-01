@@ -52,14 +52,36 @@ const galleryItems = [
   { src: '/images/4.png', alt: 'Children outdoors', title: 'Growing With Hope' },
 ]
 
+const NEWS_QUERY = `query { newsArticles { id title category excerpt content imageUrl published publishedAt createdAt } }`
+
+type HomeNewsArticle = {
+  id: string
+  title: string
+  category: string
+  excerpt?: string | null
+  content: string
+  imageUrl?: string | null
+  publishedAt?: string | null
+  createdAt: string
+}
+
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSlide, setActiveSlide] = useState(0)
   const [lightbox, setLightbox] = useState<number | null>(null)
   const [youtubeOpen, setYoutubeOpen] = useState(false)
+  const [newsItems, setNewsItems] = useState<HomeNewsArticle[]>([])
   const [managed, setManaged] = useState<Record<string,string>>({})
   const [managedImages, setManagedImages] = useState<Record<string,string>>({})
   const displayGalleryItems = galleryItems.map((item,index) => ({...item,src:managedImages['gallery.'+(index+1)] || item.src}))
+
+  useEffect(() => {
+    graphqlRequest<{newsArticles: HomeNewsArticle[]}>(NEWS_QUERY)
+      .then((data) => {
+        setNewsItems((data?.newsArticles || []).slice(0, 3))
+      })
+      .catch(() => setNewsItems([]))
+  }, [])
 
   useEffect(() => {
     graphqlRequest<{mediaAssets:Array<{key:string;page:string;url:string;description?:string|null}>}>(PUBLIC_MEDIA_QUERY)
@@ -244,7 +266,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="simple-section updates" id="updates"><div className="updates-pattern" aria-hidden="true" /><div className="container"><p className="eyebrow pink-text">NEWS &amp; UPDATES</p><h2>Stories from <span>the work</span></h2><div className="story-grid"><article><span>UPDATE</span><h3>Creating safe spaces for vulnerable children</h3><p>Share field stories, programme updates and milestones from Glory Children Ministry.</p><a href="#read">Read Story <ArrowRight size={15} /></a></article><article><span>STORY</span><h3>Education opens doors to opportunity</h3><p>Highlight the children, mentors and partners making learning possible.</p><a href="#read">Read Story <ArrowRight size={15} /></a></article><article><span>IMPACT</span><h3>Community support that reaches further</h3><p>Show how donors and volunteers contribute to lasting change.</p><a href="#read">Read Story <ArrowRight size={15} /></a></article></div><div className="section-button-row"><Link className="button button-primary" href="/updates">View All News &amp; Updates <ArrowRight size={17} /></Link></div></div></section>
+      <section className="simple-section updates" id="updates">
+        <div className="updates-pattern" aria-hidden="true" />
+        <div className="container">
+          <p className="eyebrow pink-text">NEWS &amp; UPDATES</p>
+          <h2>Stories from <span>the work</span></h2>
+          <div className="story-grid">
+            {newsItems.map((article) => (
+              <article key={article.id}>
+                <span>{article.category}</span>
+                <h3>{article.title}</h3>
+                <p>{article.excerpt || article.content.split(/\\n\\s*\\n/)[0].slice(0, 180)}</p>
+                <Link href="/updates">Read More <ArrowRight size={15} /></Link>
+              </article>
+            ))}
+          </div>
+          <div className="section-button-row">
+            <Link className="button button-primary" href="/updates">View All News &amp; Updates <ArrowRight size={17} /></Link>
+          </div>
+        </div>
+      </section>
 
       {youtubeOpen && (
         <div
