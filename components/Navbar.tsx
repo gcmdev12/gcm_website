@@ -96,8 +96,8 @@ export default function Navbar() {
       <div className="utility-bar">
         <div className="utility-inner">
           <div className="utility-contact">
-            {settings.phone1 && <a href={`tel:${settings.phone1.replace(/\\s+/g, "")}`}><Phone size={15} /> {settings.phone1}</a>}
-            {settings.phone2 && <a href={`tel:${settings.phone2.replace(/\\s+/g, "")}`}><Phone size={15} /> {settings.phone2}</a>}
+            {settings.phone1 && <a href={`tel:${settings.phone1.replace(/\s+/g, "")}`}><Phone size={15} /> {settings.phone1}</a>}
+            {settings.phone2 && <a href={`tel:${settings.phone2.replace(/\s+/g, "")}`}><Phone size={15} /> {settings.phone2}</a>}
             <a href={`mailto:${settings.email}`}><Mail size={15} /> {settings.email}</a>
             <span><MapPin size={15} /> {settings.location || "Namusera, Hoima Rd, Kampala, Uganda"}</span>
           </div>
