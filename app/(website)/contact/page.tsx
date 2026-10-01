@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useState } from 'react'
 import { graphqlRequest, PUBLIC_SITE_SETTINGS_QUERY, SUBMIT_CONTACT_FORM } from '../../../lib/api'
-import { ArrowRight, CheckCircle2, Clock3, Heart, Mail, MapPin, MessageCircle, Phone, Send, Sparkles, Users, X } from 'lucide-react'
+import { ArrowRight, AtSign, CheckCircle2, Clock3, Facebook, Heart, Instagram, Mail, MapPin, MessageCircle, Music2, Phone, Send, Sparkles, Users, X, Youtube } from 'lucide-react'
 
 type SiteSettings = {
   email: string
@@ -137,6 +137,17 @@ export default function ContactPage() {
               <div className="contact-detail"><span className="contact-detail-icon contact-icon-blue"><MapPin size={19} /></span><span><strong>Visit Us</strong><small>{settings.location || "Namusera, Hoima Rd, Kampala, Uganda"}</small></span></div>
               <div className="contact-detail"><span className="contact-detail-icon contact-icon-green"><Clock3 size={19} /></span><span><strong>Working Hours</strong><small>Monday – Friday · 8:00 AM – 5:00 PM</small></span></div>
               <div className="contact-details-note"><Heart size={19} fill="currentColor" /><p>Every conversation can help create another opportunity for a child.</p></div>
+              <div className="contact-socials">
+                <p className="eyebrow">FOLLOW US</p>
+                <div className="social-links" aria-label="Social media links">
+                  <a className="social-whatsapp" href={settings.whatsapp || '#'} aria-label="WhatsApp"><MessageCircle size={18} /></a>
+                  <a className="social-instagram" href={settings.instagram || '#'} aria-label="Instagram"><Instagram size={18} /></a>
+                  <a className="social-facebook" href={settings.facebook || '#'} aria-label="Facebook"><Facebook size={18} /></a>
+                  <a className="social-threads" href={settings.threads || '#'} aria-label="Threads"><AtSign size={18} /></a>
+                  <a className="social-tiktok" href={settings.tiktok || '#'} aria-label="TikTok"><Music2 size={18} /></a>
+                  <a className="social-youtube" href={settings.youtube || '#'} aria-label="YouTube"><Youtube size={18} /></a>
+                </div>
+              </div>
             </aside>
           </div>
         </div>
