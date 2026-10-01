@@ -45,7 +45,7 @@ export const DELETE_IMPACT=`mutation DeleteImpact($id:String!) { deleteImpactSta
 
 export const CREATE_GALLERY=`mutation CreateGallery($input:GalleryItemInput!) { createGalleryItem(input:$input) { id title description imageUrl category isPublished sortOrder } }`
 export const UPDATE_GALLERY=`mutation UpdateGallery($id:String!,$input:GalleryItemInput!) { updateGalleryItem(id:$id,input:$input) { id title description imageUrl category isPublished sortOrder } }`
-export const DELETE_GALLERY=`mutation DeleteGallery($id:String!) { deleteGalleryItem(id:$id) }`
+export const DELETE_GALLERY=`mutation DeleteGallery($id:String!) { deleteGalleryItem(id:$id) { id } }`
 
 export const CREATE_NEWS=`mutation CreateNews($input:NewsArticleInput!) { createNewsArticle(input:$input) { id title slug category excerpt content imageUrl published publishedAt createdAt } }`
 export const UPDATE_NEWS=`mutation UpdateNews($id:String!,$input:NewsArticleInput!) { updateNewsArticle(id:$id,input:$input) { id title slug category excerpt content imageUrl published publishedAt createdAt } }`
