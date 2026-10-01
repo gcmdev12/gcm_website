@@ -53,7 +53,7 @@ export default function ManageShell({children}:{children:React.ReactNode}){
     </div>
 
     <nav className="manage-nav">
-     {[...baseGroups.slice(0,3),{label:'Inbox',items:[{href:'/manage/submissions/contact',label:'Contact Forms',icon:Inbox,badge:submissionSummary.contacts},{href:'/manage/submissions/volunteers',label:'Volunteers',icon:Users,badge:submissionSummary.volunteers},{href:'/manage/submissions/newsletter',label:'Newsletter',icon:Mail,badge:submissionSummary.subscribers},{href:'/manage/submissions/sponsor',label:'Sponsor a Child',icon:HeartHandshake,badge:submissionSummary.sponsors},{href:'/manage/notifications',label:'Notifications',icon:Bell,badge:submissionSummary.contacts+submissionSummary.volunteers+submissionSummary.subscribers}]},baseGroups[3]].map(group=>
+     {[...baseGroups.slice(0,3),{label:'Inbox',items:[{href:'/manage/submissions/contact',label:'Contact Forms',icon:Inbox,badge:submissionSummary.contacts},{href:'/manage/submissions/volunteers',label:'Volunteers',icon:Users,badge:submissionSummary.volunteers},{href:'/manage/submissions/newsletter',label:'Newsletter',icon:Mail,badge:submissionSummary.subscribers},{href:'/manage/submissions/sponsor',label:'Sponsor a Child',icon:HeartHandshake,badge:submissionSummary.sponsors},{href:'/manage/notifications',label:'Notifications',icon:Bell,badge:submissionSummary.contacts+submissionSummary.volunteers+submissionSummary.subscribers+submissionSummary.sponsors}]},baseGroups[3]].map(group=>
       <div className="nav-group" key={group.label}>
        <p>{group.label}</p>
        {group.items.map(item=>{
