@@ -49,7 +49,7 @@ export const DELETE_GALLERY=`mutation DeleteGallery($id:String!) { deleteGallery
 
 export const CREATE_NEWS=`mutation CreateNews($input:NewsArticleInput!) { createNewsArticle(input:$input) { id title slug category excerpt content imageUrl published publishedAt createdAt } }`
 export const UPDATE_NEWS=`mutation UpdateNews($id:String!,$input:NewsArticleInput!) { updateNewsArticle(id:$id,input:$input) { id title slug category excerpt content imageUrl published publishedAt createdAt } }`
-export const DELETE_NEWS=`mutation DeleteNews($id:String!) { deleteNewsArticle(id:$id) }`
+export const DELETE_NEWS=`mutation DeleteNews($id:String!) { deleteNewsArticle(id:$id) { id } }`
 
 
 export type SiteSettings = { id:number; siteName:string; tagline:string; email:string; phone1?:string|null; phone2?:string|null; location?:string|null; whatsapp?:string|null; instagram?:string|null; facebook?:string|null; threads?:string|null; tiktok?:string|null; youtube?:string|null }
