@@ -429,7 +429,7 @@ export default function AboutUsPage() {
               const valueText = String(item.value)
               const suffix = valueText.match(/^\d+(.*)$/)?.[1] || fallback.suffix
               return (
-                <article className={`impact-stat impact-stat-${fallback.tone}`} key={item.id || `${item.label}-${index}`}>
+                <article className={`impact-stat impact-stat-${fallback.tone}`} key={`${item.label}-${index}`}>
                   <div className="impact-stat-icon"><Icon size={22} /></div>
                   <strong>
                     {counts[index]}
