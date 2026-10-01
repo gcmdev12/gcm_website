@@ -150,7 +150,7 @@ export default function HomePage() {
             <p className="hero-description">{slide.description}</p>
             <div className="hero-actions">
               <a className="button button-primary" href="/donate"><Heart size={18} fill="currentColor" /> Donate Now</a>
-              <a className="button button-outline" href="/our-causes"><Users size={18} fill="currentColor" /> Join Our Causes</a>
+              <a className="button button-outline" href="/sponsor"><Users size={18} fill="currentColor" /> Sponsor a Child</a>
               <a className="button button-purple" href="/volunteer"><Users size={18} fill="currentColor" /> Volunteer</a>
             </div>
           </div>
