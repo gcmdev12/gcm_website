@@ -1,13 +1,33 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
-import { graphqlRequest, SUBMIT_CONTACT_FORM } from '../../../lib/api'
+import { FormEvent, useEffect, useState } from 'react'
+import { graphqlRequest, PUBLIC_SITE_SETTINGS_QUERY, SUBMIT_CONTACT_FORM } from '../../../lib/api'
 import { ArrowRight, CheckCircle2, Clock3, Heart, Mail, MapPin, MessageCircle, Phone, Send, Sparkles, Users, X } from 'lucide-react'
+
+type SiteSettings = {
+  email: string
+  phone1?: string | null
+  phone2?: string | null
+  location?: string | null
+  whatsapp?: string | null
+  instagram?: string | null
+  facebook?: string | null
+  threads?: string | null
+  tiktok?: string | null
+  youtube?: string | null
+}
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
+  const [settings, setSettings] = useState<SiteSettings>({ email: 'info@glorychildrenministry.org' })
+
+  useEffect(() => {
+    graphqlRequest<{ siteSettings: SiteSettings }>(PUBLIC_SITE_SETTINGS_QUERY)
+      .then((data) => data?.siteSettings && setSettings(data.siteSettings))
+      .catch(() => {})
+  }, [])
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -111,10 +131,10 @@ export default function ContactPage() {
 
             <aside className="contact-details-card">
               <div className="contact-details-heading"><p className="eyebrow">CONTACT DETAILS</p><h3>Let&apos;s stay <span>connected.</span></h3></div>
-              <a className="contact-detail" href="tel:+256755575982"><span className="contact-detail-icon contact-icon-pink"><Phone size={19} /></span><span><strong>Phone</strong><small>+256 755 575 982</small></span></a>
-              <a className="contact-detail" href="tel:+256767274915"><span className="contact-detail-icon contact-icon-orange"><Phone size={19} /></span><span><strong>Alternative Phone</strong><small>+256 767 274 915</small></span></a>
-              <a className="contact-detail" href="mailto:info@glorychildrenministry.org"><span className="contact-detail-icon contact-icon-purple"><Mail size={19} /></span><span><strong>Email</strong><small>info@glorychildrenministry.org</small></span></a>
-              <div className="contact-detail"><span className="contact-detail-icon contact-icon-blue"><MapPin size={19} /></span><span><strong>Visit Us</strong><small>Namusera, Hoima Rd, Kampala, Uganda</small></span></div>
+              {settings.phone1 && <a className="contact-detail" href={`tel:${settings.phone1.replace(/\s+/g, "")}`}><span className="contact-detail-icon contact-icon-pink"><Phone size={19} /></span><span><strong>Phone</strong><small>{settings.phone1}</small></span></a>}
+              {settings.phone2 && <a className="contact-detail" href={`tel:${settings.phone2.replace(/\s+/g, "")}`}><span className="contact-detail-icon contact-icon-orange"><Phone size={19} /></span><span><strong>Alternative Phone</strong><small>{settings.phone2}</small></span></a>}
+              <a className="contact-detail" href={`mailto:${settings.email}`}><span className="contact-detail-icon contact-icon-purple"><Mail size={19} /></span><span><strong>Email</strong><small>{settings.email}</small></span></a>
+              <div className="contact-detail"><span className="contact-detail-icon contact-icon-blue"><MapPin size={19} /></span><span><strong>Visit Us</strong><small>{settings.location || "Namusera, Hoima Rd, Kampala, Uganda"}</small></span></div>
               <div className="contact-detail"><span className="contact-detail-icon contact-icon-green"><Clock3 size={19} /></span><span><strong>Working Hours</strong><small>Monday – Friday · 8:00 AM – 5:00 PM</small></span></div>
               <div className="contact-details-note"><Heart size={19} fill="currentColor" /><p>Every conversation can help create another opportunity for a child.</p></div>
             </aside>
@@ -127,7 +147,7 @@ export default function ContactPage() {
         <div className="container">
           <div className="contact-location-heading">
             <div><p className="eyebrow pink-text">OUR LOCATION</p><h2>Come and <span>visit us.</span></h2></div>
-            <p>Find Glory Children Ministry in Namusera along Hoima Road, Kampala, Uganda.</p>
+            <p>Find Glory Children Ministry at {settings.location || "Namusera, Hoima Road, Kampala, Uganda"}.</p>
           </div>
           <div className="contact-map-card">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.715479346902!2d32.45628276997053!3d0.41138186298174906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177da5b08e6ed545%3A0x1b49d3ca7a435305!2sGlory%20Children%20Ministry!5e0!3m2!1sen!2sug!4v1790597954659!5m2!1sen!2sug" width="600" height="450" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="strict-origin-when-cross-origin" title="Glory Children Ministry location" />
