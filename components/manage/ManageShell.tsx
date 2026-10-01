@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Bell, ChevronDown, Heart, LayoutDashboard, UserRound, Globe2, Image, Newspaper, BarChart3, Inbox, LogOut, Menu, X, Phone, Share2, Target, Landmark, Users, Mail, Sparkles } from 'lucide-react'
+import { Bell, ChevronDown, Heart, LayoutDashboard, UserRound, Globe2, Image, Newspaper, BarChart3, Inbox, LogOut, Menu, X, Phone, Share2, Target, Landmark, Users, Mail, Sparkles, HeartHandshake } from 'lucide-react'
 import { clearAdminSession, getAdminProfile, getAdminToken, type AdminProfile } from '../../lib/admin-auth'
 import { adminGraphql, SUBMISSION_SUMMARY } from '../../lib/admin-api'
 
@@ -19,7 +19,7 @@ export default function ManageShell({children}:{children:React.ReactNode}){
  const [open,setOpen]=useState(false)
  const [admin,setAdmin]=useState<AdminProfile|null>(null)
  const [checking,setChecking]=useState(true)
- const [submissionSummary,setSubmissionSummary]=useState({contacts:0,volunteers:0,subscribers:0})
+ const [submissionSummary,setSubmissionSummary]=useState({contacts:0,volunteers:0,subscribers:0,sponsors:0})
 
  useEffect(()=>{
   if(!getAdminToken()){
@@ -28,7 +28,7 @@ export default function ManageShell({children}:{children:React.ReactNode}){
   }
   setAdmin(getAdminProfile())
   setChecking(false)
-  adminGraphql<{submissionSummary:{contacts:number;volunteers:number;subscribers:number}}>(SUBMISSION_SUMMARY)
+  adminGraphql<{submissionSummary:{contacts:number;volunteers:number;subscribers:number;sponsors:number}}>(SUBMISSION_SUMMARY)
    .then(r=>setSubmissionSummary(r.submissionSummary))
    .catch(()=>{})
  },[router])
@@ -53,7 +53,7 @@ export default function ManageShell({children}:{children:React.ReactNode}){
     </div>
 
     <nav className="manage-nav">
-     {[...baseGroups.slice(0,3),{label:'Inbox',items:[{href:'/manage/submissions/contact',label:'Contact Forms',icon:Inbox,badge:submissionSummary.contacts},{href:'/manage/submissions/volunteers',label:'Volunteers',icon:Users,badge:submissionSummary.volunteers},{href:'/manage/submissions/newsletter',label:'Newsletter',icon:Mail,badge:submissionSummary.subscribers},{href:'/manage/notifications',label:'Notifications',icon:Bell,badge:submissionSummary.contacts+submissionSummary.volunteers+submissionSummary.subscribers}]},baseGroups[3]].map(group=>
+     {[...baseGroups.slice(0,3),{label:'Inbox',items:[{href:'/manage/submissions/contact',label:'Contact Forms',icon:Inbox,badge:submissionSummary.contacts},{href:'/manage/submissions/volunteers',label:'Volunteers',icon:Users,badge:submissionSummary.volunteers},{href:'/manage/submissions/newsletter',label:'Newsletter',icon:Mail,badge:submissionSummary.subscribers},{href:'/manage/submissions/sponsor',label:'Sponsor a Child',icon:HeartHandshake,badge:submissionSummary.sponsors},{href:'/manage/notifications',label:'Notifications',icon:Bell,badge:submissionSummary.contacts+submissionSummary.volunteers+submissionSummary.subscribers}]},baseGroups[3]].map(group=>
       <div className="nav-group" key={group.label}>
        <p>{group.label}</p>
        {group.items.map(item=>{
