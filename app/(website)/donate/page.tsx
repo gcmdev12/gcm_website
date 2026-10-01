@@ -231,7 +231,7 @@ export default function DonationPage() {
               return (
                 <article
                   className={`donation-method-card donation-${presentation.tone}`}
-                  key={method.label}
+                  key={method.id}
                 >
                   <div className="method-card-header">
                     <div
