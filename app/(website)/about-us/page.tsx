@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { graphqlRequest, PUBLIC_MEDIA_QUERY } from '../../../lib/api'
+import { graphqlRequest, PUBLIC_IMPACT_STATISTICS_QUERY, PUBLIC_MEDIA_QUERY } from '../../../lib/api'
 import {
   ArrowRight,
   BadgeCheck,
@@ -102,7 +102,8 @@ const futureProspects = [
 ]
 
 export default function AboutUsPage() {
-  const [counts, setCounts] = useState(impactStats.map(() => 0))
+  const [databaseStats, setDatabaseStats] = useState<Array<{id:string; key:string; label:string; value:string; description?:string|null; sortOrder:number}>>([])
+  const [counts, setCounts] = useState<number[]>(impactStats.map(() => 0))
   const [managed, setManaged] = useState<Record<string,string>>({})
   const [managedImages, setManagedImages] = useState<Record<string,string>>({})
 
@@ -120,27 +121,30 @@ export default function AboutUsPage() {
   }, [])
 
   useEffect(() => {
+    graphqlRequest<{impactStatistics: Array<{id:string; key:string; label:string; value:string; description?:string|null; sortOrder:number}>}>(PUBLIC_IMPACT_STATISTICS_QUERY)
+      .then((data) => setDatabaseStats((data?.impactStatistics || []).slice().sort((a,b) => a.sortOrder - b.sortOrder).slice(0, 4)))
+      .catch(() => setDatabaseStats([]))
+  }, [])
+
+  useEffect(() => {
+    const stats = databaseStats.length ? databaseStats : impactStats.map((item) => ({
+      id: item.label, key: item.label, label: item.label, value: String(item.value), description: null, sortOrder: 0,
+    }))
     const duration = 1200
     const start = performance.now()
     let frame = 0
-
     const animate = (time: number) => {
       const progress = Math.min((time - start) / duration, 1)
       const eased = 1 - Math.pow(1 - progress, 3)
-
-      setCounts(
-        impactStats.map((item) =>
-          Math.round(item.value * eased),
-        ),
-      )
-
+      setCounts(stats.map((item) => {
+        const match = String(item.value).match(/^(\d+)/)
+        return match ? Math.round(Number(match[1]) * eased) : 0
+      }))
       if (progress < 1) frame = requestAnimationFrame(animate)
     }
-
     frame = requestAnimationFrame(animate)
-
     return () => cancelAnimationFrame(frame)
-  }, [])
+  }, [databaseStats])
 
   return (
     <main className="about-page">
@@ -419,14 +423,17 @@ export default function AboutUsPage() {
           </div>
 
           <div className="impact-stats">
-            {impactStats.map((item, index) => {
-              const Icon = item.icon
+            {(databaseStats.length ? databaseStats : impactStats).map((item, index) => {
+              const fallback = impactStats[index]
+              const Icon = fallback.icon
+              const valueText = String(item.value)
+              const suffix = valueText.match(/^\d+(.*)$/)?.[1] || fallback.suffix
               return (
-                <article className={`impact-stat impact-stat-${item.tone}`} key={item.label}>
+                <article className={`impact-stat impact-stat-${fallback.tone}`} key={item.id || item.label}>
                   <div className="impact-stat-icon"><Icon size={22} /></div>
                   <strong>
                     {counts[index]}
-                    {item.suffix}
+                    {suffix}
                   </strong>
                   <span>{item.label}</span>
                 </article>
