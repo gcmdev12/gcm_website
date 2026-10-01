@@ -20,3 +20,6 @@ export const PUBLIC_MEDIA_QUERY = `query { mediaAssets { id key page title altTe
 export const PUBLIC_CAUSES_QUERY = `query { causes { id slug name description imageUrl icon color isActive sortOrder } }`
 
 export const PUBLIC_GALLERY_QUERY = `query { galleryItems { id title description imageUrl category isPublished sortOrder } }`
+
+
+export const PUBLIC_SITE_SETTINGS_QUERY = `query { siteSettings { siteName tagline email phone1 phone2 location whatsapp instagram facebook threads tiktok youtube } }`
