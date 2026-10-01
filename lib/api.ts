@@ -25,3 +25,5 @@ export const PUBLIC_GALLERY_QUERY = `query { galleryItems { id title description
 export const PUBLIC_SITE_SETTINGS_QUERY = `query { siteSettings { siteName tagline email phone1 phone2 location whatsapp instagram facebook threads tiktok youtube } }`
 
 export const PUBLIC_IMPACT_STATISTICS_QUERY = `query { impactStatistics { id key label value description sortOrder } }`
+
+export const PUBLIC_DONATION_METHODS_QUERY = `query { donationMethods { id name accountName accountNumber instructions logoUrl country city contactNumber isActive sortOrder } }`
