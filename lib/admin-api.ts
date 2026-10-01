@@ -101,18 +101,29 @@ export async function uploadAdminImage(file: File, folder: 'news' | 'gallery' | 
     cache: 'no-store',
   })
 
-  const payload = await response.json().catch(() => ({})) as {
+  const rawBody = await response.text()
+  let payload: {
     imageUrl?: string
     path?: string
     commitSha?: string
     message?: string
+    error?: string
+    statusCode?: number
+  } = {}
+
+  try {
+    payload = rawBody ? JSON.parse(rawBody) : {}
+  } catch {
+    payload = { message: rawBody }
   }
 
   if (response.status === 401 || response.status === 403) {
     throw new Error('Your admin session has expired. Please sign in again.')
   }
+
   if (!response.ok || !payload.imageUrl) {
-    throw new Error(payload.message || 'Image upload failed.')
+    const detail = payload.message || payload.error || rawBody || `HTTP ${response.status}`
+    throw new Error(`Image upload failed (${response.status}): ${detail}`)
   }
 
   return {
