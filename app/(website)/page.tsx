@@ -115,18 +115,10 @@ export default function HomePage() {
 
   useEffect(() => {
     if (!youtubeOpen) return
-
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setYoutubeOpen(false)
-    }
-
+    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') setYoutubeOpen(false) }
     document.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
-
-    return () => {
-      document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = ''
-    }
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = '' }
   }, [youtubeOpen])
 
   useEffect(() => {
@@ -138,22 +130,13 @@ export default function HomePage() {
     }
     document.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
-    return () => {
-      document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = ''
-    }
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = '' }
   }, [lightbox])
 
   const closeMenu = () => setMenuOpen(false)
   const slideBase = heroSlides[activeSlide]
   const slideImage = mediaLoaded ? managedImages['hero.'+(activeSlide+1)] : undefined
-  const slide = {
-    ...slideBase,
-    image: slideImage,
-    eyebrow: managed['hero'+(activeSlide+1)+'Eyebrow'] || slideBase.eyebrow,
-    title: managed['hero'+(activeSlide+1)+'Title'] || slideBase.title,
-    description: managed['hero'+(activeSlide+1)+'Description'] || slideBase.description,
-  }
+  const slide = { ...slideBase, image: slideImage, eyebrow: managed['hero'+(activeSlide+1)+'Eyebrow'] || slideBase.eyebrow, title: managed['hero'+(activeSlide+1)+'Title'] || slideBase.title, description: managed['hero'+(activeSlide+1)+'Description'] || slideBase.description }
   const aboutTitle = managed.aboutTitle || 'Building a future where every child can shine.'
   const aboutParagraph1 = managed.aboutParagraph1 || 'Glory Children Ministry exists to walk alongside vulnerable children with practical care, protection and opportunities that restore hope. We believe every child deserves to be safe, heard, educated and equipped to thrive.'
   const aboutParagraph2 = managed.aboutParagraph2 || 'From classrooms and nutritious meals to healthcare, counselling and family support, we work with communities to create lasting change — one child at a time.'
@@ -161,249 +144,37 @@ export default function HomePage() {
   return (
     <main>
       <section className="hero hero-carousel" aria-label="Glory Children Ministry highlights">
-        <div className="hero-pattern pattern-dots" aria-hidden="true" />
-        <div className="hero-orb hero-orb-one" aria-hidden="true" />
-        <div className="hero-orb hero-orb-two" aria-hidden="true" />
-        {mediaLoaded && heroSlides.map((item, index) => {
-          const imageUrl = managedImages['hero.'+(index+1)]
-          if (!imageUrl) return null
-          return (
-            <div className={`hero-slide-image ${index === activeSlide ? 'is-active' : ''}`} key={imageUrl} aria-hidden={index !== activeSlide}>
-              <Image src={imageUrl} alt="" fill sizes="(max-width: 760px) 100vw, 58vw" priority={index === 0} />
-            </div>
-          )
-        })}
-        <div className="hero-shade" />
-        <div className="hero-brush hero-brush-one" />
-        <div className="hero-brush hero-brush-two" />
-        <div className="hero-corner-marks" aria-hidden="true">
-          <span className="hero-mark hero-mark-pink" />
-          <span className="hero-mark hero-mark-orange" />
-          <span className="hero-mark hero-mark-blue" />
-          <span className="hero-mark hero-mark-purple" />
-        </div>
-        <div className="container hero-content">
-          <div className="hero-copy" key={activeSlide}>
-            <p className="eyebrow">{slide.eyebrow}</p>
-            <h1>{slide.title}</h1>
-            <p className="hero-description">{slide.description}</p>
-            <div className="hero-actions">
-              <a className="button button-primary" href="/donate"><Heart size={18} fill="currentColor" /> Donate Now</a>
-              <a className="button button-outline" href="/sponsor"><Users size={18} fill="currentColor" /> Sponsor a Child</a>
-              <a className="button button-purple" href="/volunteer"><Users size={18} fill="currentColor" /> Volunteer</a>
-            </div>
-          </div>
-        </div>
-        <div className="hero-controls">
-          <button type="button" aria-label="Previous slide" onClick={() => setActiveSlide((activeSlide - 1 + heroSlides.length) % heroSlides.length)}><ArrowLeft size={17} /></button>
-          <div className="hero-dots">{heroSlides.map((_, index) => <button key={index} type="button" className={index === activeSlide ? 'active' : ''} aria-label={`Go to slide ${index + 1}`} onClick={() => setActiveSlide(index)} />)}</div>
-          <button type="button" aria-label="Next slide" onClick={() => setActiveSlide((activeSlide + 1) % heroSlides.length)}><ArrowRight size={17} /></button>
-        </div>
+        <div className="hero-pattern pattern-dots" aria-hidden="true" /><div className="hero-orb hero-orb-one" aria-hidden="true" /><div className="hero-orb hero-orb-two" aria-hidden="true" />
+        {mediaLoaded && heroSlides.map((item, index) => { const imageUrl = managedImages['hero.'+(index+1)]; if (!imageUrl) return null; return <div className={`hero-slide-image ${index === activeSlide ? 'is-active' : ''}`} key={imageUrl} aria-hidden={index !== activeSlide}><Image src={imageUrl} alt="" fill sizes="(max-width: 760px) 100vw, 58vw" priority={index === 0} /></div> })}
+        <div className="hero-shade" /><div className="hero-brush hero-brush-one" /><div className="hero-brush hero-brush-two" />
+        <div className="hero-corner-marks" aria-hidden="true"><span className="hero-mark hero-mark-pink" /><span className="hero-mark hero-mark-orange" /><span className="hero-mark hero-mark-blue" /><span className="hero-mark hero-mark-purple" /></div>
+        <div className="container hero-content"><div className="hero-copy" key={activeSlide}><p className="eyebrow">{slide.eyebrow}</p><h1>{slide.title}</h1><p className="hero-description">{slide.description}</p><div className="hero-actions"><a className="button button-primary" href="/donate"><Heart size={18} fill="currentColor" /> Donate Now</a><a className="button button-outline" href="/sponsor"><Users size={18} fill="currentColor" /> Sponsor a Child</a><a className="button button-purple" href="/volunteer"><Users size={18} fill="currentColor" /> Volunteer</a></div></div></div>
+        <div className="hero-controls"><button type="button" aria-label="Previous slide" onClick={() => setActiveSlide((activeSlide - 1 + heroSlides.length) % heroSlides.length)}><ArrowLeft size={17} /></button><div className="hero-dots">{heroSlides.map((_, index) => <button key={index} type="button" className={index === activeSlide ? 'active' : ''} aria-label={`Go to slide ${index + 1}`} onClick={() => setActiveSlide(index)} />)}</div><button type="button" aria-label="Next slide" onClick={() => setActiveSlide((activeSlide + 1) % heroSlides.length)}><ArrowRight size={17} /></button></div>
         <div className="hero-progress" key={activeSlide} />
       </section>
 
       <section className="about-wrap" id="about">
-        <div className="section-pattern section-pattern-purple" aria-hidden="true" />
-        <div className="container counter-card">
-          {(impactStats.length ? impactStats.slice(0, 4) : counters).map((item, index) => { const fallback = counters[index]; const Icon = fallback.icon; return <div className={`counter counter-${fallback.tone}`} key={`${item.label}-${index}`}><div className="counter-icon"><Icon size={28} /></div><div><strong>{'value' in item ? item.value : fallback.value}</strong><span>{'label' in item ? item.label : fallback.label}</span></div></div> })}
-        </div>
-        <div className="container about-section">
-          <div className="about-photo">
-            {mediaLoaded && managedImages.about ? <Image src={managedImages.about} alt="A child smiling at school" fill sizes="(max-width: 760px) 100vw, 44vw" /> : null}
-            <div className="photo-badge"><Heart size={18} fill="currentColor" /><span>Since 2019</span><b>Every child matters</b></div>
-          </div>
-          <div className="about-copy">
-            <p className="eyebrow pink-text">ABOUT US</p>
-            <h2>{aboutTitle}</h2>
-            <p>{aboutParagraph1}</p>
-            <p>{aboutParagraph2}</p>
-            <div className="about-action-row">
-              <button
-                type="button"
-                className="about-video-button"
-                onClick={() => setYoutubeOpen(true)}
-                aria-label="Watch our story on YouTube"
-                title="Watch our story"
-              >
-                <Play size={21} fill="currentColor" />
-                <span className="about-video-pulse" aria-hidden="true" />
-              </button>
-
-              <a className="button button-primary" href="/about-us">
-                View More About Us
-                <ArrowRight size={17} />
-              </a>
-            </div>
-          </div>
-        </div>
+        <div className="section-pattern section-pattern-purple" aria-hidden="true" /><div className="container counter-card">{(impactStats.length ? impactStats.slice(0, 4) : counters).map((item, index) => { const fallback = counters[index]; const Icon = fallback.icon; return <div className={`counter counter-${fallback.tone}`} key={`${item.label}-${index}`}><div className="counter-icon"><Icon size={28} /></div><div><strong>{'value' in item ? item.value : fallback.value}</strong><span>{'label' in item ? item.label : fallback.label}</span></div></div> })}</div>
+        <div className="container about-section"><div className="about-photo">{mediaLoaded && managedImages.about ? <Image src={managedImages.about} alt="A child smiling at school" fill sizes="(max-width: 760px) 100vw, 44vw" /> : null}<div className="photo-badge"><Heart size={18} fill="currentColor" /><span>Since 2019</span><b>Every child matters</b></div></div><div className="about-copy"><p className="eyebrow pink-text">ABOUT US</p><h2>{aboutTitle}</h2><p>{aboutParagraph1}</p><p>{aboutParagraph2}</p><div className="about-action-row"><button type="button" className="about-video-button" onClick={() => setYoutubeOpen(true)} aria-label="Watch our story on YouTube" title="Watch our story"><Play size={21} fill="currentColor" /><span className="about-video-pulse" aria-hidden="true" /></button><a className="button button-primary" href="/about-us">View More About Us<ArrowRight size={17} /></a></div></div></div>
       </section>
 
       <section className="supporter-testimonial-section" aria-labelledby="chealuna-story-title">
-        <div className="supporter-testimonial-pattern supporter-testimonial-pattern-one" aria-hidden="true" />
-        <div className="supporter-testimonial-pattern supporter-testimonial-pattern-two" aria-hidden="true" />
+        <div className="supporter-testimonial-pattern supporter-testimonial-pattern-one" aria-hidden="true" /><div className="supporter-testimonial-pattern supporter-testimonial-pattern-two" aria-hidden="true" />
         <div className="container supporter-testimonial-inner">
-          <div className="supporter-testimonial-photo-wrap">
-            <div className="supporter-testimonial-photo">
-              <Image
-                src="https://images.gofundme.com/gN1goX9swnejzNSIhex6B31D0Jw%3D/fit-in/1200x1200/https%3A//www.gofundme.com/person/profiles/79e1de3350924c98a2738e88d3fad824_edited_photo_1766194454367.jpeg"
-                alt="Chealuna Wright Ochoa"
-                fill
-                sizes="(max-width: 760px) 82vw, 360px"
-              />
-            </div>
-            <div className="supporter-testimonial-badge">
-              <Heart size={16} fill="currentColor" />
-              <span>Supporter from the USA</span>
-            </div>
-          </div>
-
-          <div className="supporter-testimonial-copy">
-            <p className="eyebrow supporter-eyebrow">A VOICE BEHIND THE MISSION</p>
-            <h2 id="chealuna-story-title">When <span>trust becomes action.</span></h2>
-            <p className="supporter-testimonial-intro">
-              We are grateful for friends around the world who choose to stand with vulnerable children. One of those friends is <strong>Chealuna Wright Ochoa</strong>, who has helped connect our work in Uganda with generous supporters in the United States.
-            </p>
-
-            <div className="supporter-story">
-              <Quote className="supporter-quote-icon" size={31} />
-              <p>
-                Chealuna first connected with Glory Children Ministry after discovering Ssuna's work with vulnerable children in Wakiso. She became a monthly supporter and, after speaking directly with Ssuna and the children, felt confident in the ministry and the care being provided.
-              </p>
-              <p>
-                Since then, she has helped organize GoFundMe campaigns that have supported practical needs such as food, medicine, clean water, education and safer living conditions, while also helping us work toward longer-term goals that can give children greater stability and opportunity.
-              </p>
-            </div>
-
-            <p className="supporter-testimonial-attribution">
-              <strong>Chealuna Wright Ochoa</strong>
-              <span>GoFundMe campaign organizer &amp; supporter</span>
-            </p>
-
-            <div className="supporter-campaign-card">
-              <div>
-                <span className="supporter-campaign-label">SUPPORT THE CURRENT CAMPAIGN</span>
-                <h3>Help us continue bringing hope to children.</h3>
-                <p>Through this GoFundMe campaign, Chealuna is helping friends and supporters participate in the work from the USA and beyond.</p>
-              </div>
-              <a
-                className="button supporter-gofundme-button"
-                href="https://gofund.me/chealuna-hill-27aug"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Support on GoFundMe
-                <ArrowRight size={17} />
-              </a>
-            </div>
-
-            <p className="supporter-source-note">
-              Story summarized from Chealuna's GoFundMe campaign description.
-            </p>
-          </div>
+          <div className="supporter-testimonial-photo-wrap"><div className="supporter-testimonial-photo"><Image src="/images/IMG_0306.JPG" alt="Chealuna Wright Ochoa" fill sizes="(max-width: 760px) 82vw, 360px" /></div><div className="supporter-testimonial-badge"><Heart size={16} fill="currentColor" /><span>Supporter from the USA</span></div></div>
+          <div className="supporter-testimonial-copy"><p className="eyebrow supporter-eyebrow">A VOICE BEHIND THE MISSION</p><h2 id="chealuna-story-title">When <span>trust becomes action.</span></h2><p className="supporter-testimonial-intro">We are grateful for friends around the world who choose to stand with vulnerable children. One of those friends is <strong>Chealuna Wright Ochoa</strong>, who has helped connect our work in Uganda with generous supporters in the United States.</p><div className="supporter-story"><Quote className="supporter-quote-icon" size={31} /><p>Chealuna first connected with Glory Children Ministry after discovering Ssuna's work with vulnerable children in Wakiso. She became a monthly supporter and, after speaking directly with Ssuna and the children, felt confident in the ministry and the care being provided.</p><p>Since then, she has helped organize GoFundMe campaigns that have supported practical needs such as food, medicine, clean water, education and safer living conditions, while also helping us work toward longer-term goals that can give children greater stability and opportunity.</p></div><p className="supporter-testimonial-attribution"><strong>Chealuna Wright Ochoa</strong><span>GoFundMe campaign organizer &amp; supporter</span></p><div className="supporter-campaign-card"><div><span className="supporter-campaign-label">SUPPORT THE CURRENT CAMPAIGN</span><h3>Help us continue bringing hope to children.</h3><p>Through this GoFundMe campaign, Chealuna is helping friends and supporters participate in the work from the USA and beyond.</p></div><a className="button supporter-gofundme-button" href="https://gofund.me/chealuna-hill-27aug" target="_blank" rel="noopener noreferrer">Support on GoFundMe<ArrowRight size={17} /></a></div><p className="supporter-source-note">Story summarized from Chealuna's GoFundMe campaign description.</p></div>
         </div>
       </section>
 
-      <section className="scripture-section" aria-label="Bible verses encouraging generosity">
-        <div className="scripture-pattern pattern-one" aria-hidden="true" /><div className="scripture-pattern pattern-two" aria-hidden="true" />
-        <div className="container">
-          <div className="section-heading scripture-heading"><div><p className="eyebrow pink-text">A HEART FOR GIVING</p><h2>When we give, <span>hope grows.</span></h2></div><p>Small acts of generosity can become meaningful opportunities for children to learn, heal and flourish.</p></div>
-          <div className="scripture-grid">
-            <article className="scripture-card scripture-pink"><span className="quote-icon"><Quote size={25} /></span><p>“Whoever is kind to the poor lends to the Lord, and he will reward them for what they have done.”</p><strong>Proverbs 19:17</strong><a href="/donate">Give with compassion <ArrowRight size={15} /></a></article>
-            <article className="scripture-card scripture-purple"><span className="quote-icon"><Quote size={25} /></span><p>“Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.”</p><strong>2 Corinthians 9:7</strong><a href="/donate">Help a child thrive <ArrowRight size={15} /></a></article>
-          </div>
-        </div>
-      </section>
-
-      <section className="causes-section" id="causes">
-        <div className="cause-pattern" aria-hidden="true" />
-        <div className="container">
-          <div className="section-heading"><div><p className="eyebrow pink-text">OUR CAUSES</p><h2>Changing Lives, <span>One Child</span> at a Time</h2></div><p>We provide holistic support to help children grow, learn and build a better future. Here are some of the key areas we focus on:</p></div>
-          <div className="cause-grid">{causes.map(({ title, description, icon: Icon, tone }) => <article className={`cause-card cause-${tone}`} key={title}><div className="cause-top"><Icon size={40} /></div><div className="cause-body"><h3>{title}</h3><p>{description}</p><a href={`/our-causes#${title.toLowerCase().replaceAll(' ', '-')}`}>Learn More <ChevronRight size={15} /></a></div></article>)}</div>
-        </div>
-      </section>
-
-      <section className="values-section" id="about-more">
-        <div className="values-glow" aria-hidden="true" />
-        <div className="container">
-          <div className="section-heading values-heading"><div><p className="eyebrow pink-text">WHO WE ARE</p><h2>Our <span>Vision, Mission</span> &amp; Core Values</h2></div><p>Everything we do is guided by a simple belief: every child matters, and every child deserves a meaningful opportunity to flourish.</p></div>
-          <div className="values-grid">
-            <article className="value-card vision-card"><div className="value-icon"><Sparkles size={25} /></div><p>OUR VISION</p><h3>A future where every child is safe, valued and empowered to reach their full potential.</h3><span>Hope that becomes possibility.</span></article>
-            <article className="value-card mission-card"><div className="value-icon"><Target size={25} /></div><p>OUR MISSION</p><h3>To protect, nurture and equip vulnerable children through practical care, education, health and community support.</h3><span>One child. One opportunity. One brighter future.</span></article>
-            <article className="value-card values-card"><div className="value-icon"><HeartHandshake size={25} /></div><p>OUR CORE VALUES</p><div className="value-list"><span>♥ Compassion</span><span>♥ Integrity</span><span>♥ Dignity</span><span>♥ Excellence</span><span>♥ Community</span><span>♥ Hope</span></div></article>
-          </div>
-        </div>
-      </section>
-
-      <section className="impact-section-home" id="impact-home">
-        <div className="impact-image-home">{mediaLoaded && managedImages.impact ? <Image src={managedImages.impact} alt="Children at school" fill sizes="360px" /> : null}</div>
-        <div className="container impact-inner-home"><div className="impact-copy-home"><p className="eyebrow">OUR IMPACT</p><h2>{managed.impactTitle || 'Together, we are creating lasting change'}</h2><p>{managed.impactDescription || 'Every contribution helps us reach more children with practical care, protection, education and hope.'}</p></div><div className="impact-stats-home">{(impactStats.length ? impactStats.slice(0, 4) : counters).map((item, index) => { const fallback = counters[index]; const Icon = fallback.icon; return <div className={`impact-stat-home stat-${fallback.tone}`} key={`${item.label}-${index}`}><Icon size={28} /><strong>{'value' in item ? item.value : fallback.value}</strong><span>{'label' in item ? item.label : fallback.label}</span></div> })}</div></div>
-      </section>
-
+      <section className="scripture-section" aria-label="Bible verses encouraging generosity"><div className="scripture-pattern pattern-one" aria-hidden="true" /><div className="scripture-pattern pattern-two" aria-hidden="true" /><div className="container"><div className="section-heading scripture-heading"><div><p className="eyebrow pink-text">A HEART FOR GIVING</p><h2>When we give, <span>hope grows.</span></h2></div><p>Small acts of generosity can become meaningful opportunities for children to learn, heal and flourish.</p></div><div className="scripture-grid"><article className="scripture-card scripture-pink"><span className="quote-icon"><Quote size={25} /></span><p>“Whoever is kind to the poor lends to the Lord, and he will reward them for what they have done.”</p><strong>Proverbs 19:17</strong><a href="/donate">Give with compassion <ArrowRight size={15} /></a></article><article className="scripture-card scripture-purple"><span className="quote-icon"><Quote size={25} /></span><p>“Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.”</p><strong>2 Corinthians 9:7</strong><a href="/donate">Help a child thrive <ArrowRight size={15} /></a></article></div></div></section>
+      <section className="causes-section" id="causes"><div className="cause-pattern" aria-hidden="true" /><div className="container"><div className="section-heading"><div><p className="eyebrow pink-text">OUR CAUSES</p><h2>Changing Lives, <span>One Child</span> at a Time</h2></div><p>We provide holistic support to help children grow, learn and build a better future. Here are some of the key areas we focus on:</p></div><div className="cause-grid">{causes.map(({ title, description, icon: Icon, tone }) => <article className={`cause-card cause-${tone}`} key={title}><div className="cause-top"><Icon size={40} /></div><div className="cause-body"><h3>{title}</h3><p>{description}</p><a href={`/our-causes#${title.toLowerCase().replaceAll(' ', '-')}`}>Learn More <ChevronRight size={15} /></a></div></article>)}</div></div></section>
+      <section className="values-section" id="about-more"><div className="values-glow" aria-hidden="true" /><div className="container"><div className="section-heading values-heading"><div><p className="eyebrow pink-text">WHO WE ARE</p><h2>Our <span>Vision, Mission</span> &amp; Core Values</h2></div><p>Everything we do is guided by a simple belief: every child matters, and every child deserves a meaningful opportunity to flourish.</p></div><div className="values-grid"><article className="value-card vision-card"><div className="value-icon"><Sparkles size={25} /></div><p>OUR VISION</p><h3>A future where every child is safe, valued and empowered to reach their full potential.</h3><span>Hope that becomes possibility.</span></article><article className="value-card mission-card"><div className="value-icon"><Target size={25} /></div><p>OUR MISSION</p><h3>To protect, nurture and equip vulnerable children through practical care, education, health and community support.</h3><span>One child. One opportunity. One brighter future.</span></article><article className="value-card values-card"><div className="value-icon"><HeartHandshake size={25} /></div><p>OUR CORE VALUES</p><div className="value-list"><span>♥ Compassion</span><span>♥ Integrity</span><span>♥ Dignity</span><span>♥ Excellence</span><span>♥ Community</span><span>♥ Hope</span></div></article></div></div></section>
+      <section className="impact-section-home" id="impact-home"><div className="impact-image-home">{mediaLoaded && managedImages.impact ? <Image src={managedImages.impact} alt="Children at school" fill sizes="360px" /> : null}</div><div className="container impact-inner-home"><div className="impact-copy-home"><p className="eyebrow">OUR IMPACT</p><h2>{managed.impactTitle || 'Together, we are creating lasting change'}</h2><p>{managed.impactDescription || 'Every contribution helps us reach more children with practical care, protection, education and hope.'}</p></div><div className="impact-stats-home">{(impactStats.length ? impactStats.slice(0, 4) : counters).map((item, index) => { const fallback = counters[index]; const Icon = fallback.icon; return <div className={`impact-stat-home stat-${fallback.tone}`} key={`${item.label}-${index}`}><Icon size={28} /><strong>{'value' in item ? item.value : fallback.value}</strong><span>{'label' in item ? item.label : fallback.label}</span></div> })}</div></div></section>
       <section className="cta-section" id="support"><div className="container cta-card"><div><p className="eyebrow pink-text">MAKE A DIFFERENCE</p><h2>{managed.ctaTitle || "Your support can change a child's story."}</h2><p>{managed.ctaDescription || 'Donate, volunteer, partner with us or support one of our causes.'}</p></div><div className="hero-actions"><a className="button button-primary" href="/donate"><Heart size={18} fill="currentColor" /> Donate Now</a><a className="button button-purple" href="#volunteer"><Users size={18} fill="currentColor" /> Volunteer</a></div></div></section>
-
-      <section className="simple-section gallery-section" id="gallery">
-        <div className="container"><p className="eyebrow pink-text">GALLERY</p><h2>Moments of <span>Hope &amp; Joy</span></h2><p className="section-lead">Take a closer look at the people, moments and smiles behind the work.</p>
-          <div className="gallery-grid">{displayGalleryItems.map((item, index) => <button className={`gallery-tile tile-${index + 1}`} key={item.src} type="button" onClick={() => setLightbox(index)} aria-label={`Open ${item.title}`}><Image src={item.src} alt={item.alt} fill sizes="(max-width: 760px) 50vw, 33vw" /><span className="gallery-overlay"><strong>{item.title}</strong><span><Play size={13} fill="currentColor" /> View photo</span></span></button>)}</div>
-          <div className="section-button-row"><Link className="button button-purple" href="/gallery">View Full Gallery <ArrowRight size={17} /></Link></div>
-        </div>
-      </section>
-
-      <section className="simple-section updates" id="updates">
-        <div className="updates-pattern" aria-hidden="true" />
-        <div className="container">
-          <p className="eyebrow pink-text">NEWS &amp; UPDATES</p>
-          <h2>Stories from <span>the work</span></h2>
-          <div className="story-grid">
-            {newsItems.map((article) => (
-              <article key={article.id}>
-                <span>{article.category}</span>
-                <h3>{article.title}</h3>
-                <p>{article.excerpt || article.content.split(/\\n\\s*\\n/)[0].slice(0, 180)}</p>
-                <Link href="/updates">Read More <ArrowRight size={15} /></Link>
-              </article>
-            ))}
-          </div>
-          <div className="section-button-row">
-            <Link className="button button-primary" href="/updates">View All News &amp; Updates <ArrowRight size={17} /></Link>
-          </div>
-        </div>
-      </section>
-
-      {youtubeOpen && (
-        <div
-          className="youtube-modal"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Glory Children Ministry video"
-          onClick={() => setYoutubeOpen(false)}
-        >
-          <div
-            className="youtube-modal-card"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <button
-              type="button"
-              className="youtube-modal-close"
-              onClick={() => setYoutubeOpen(false)}
-              aria-label="Close video"
-            >
-              <X size={24} />
-            </button>
-
-            <div className="youtube-video-wrap">
-              <iframe
-                src="https://youtube.com/shorts/GKqtHajEMGw?si=hyoCVzGu46taFlfE"
-                title="Glory Children Ministry video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            </div>
-          </div>
-        </div>
-      )}
-
+      <section className="simple-section gallery-section" id="gallery"><div className="container"><p className="eyebrow pink-text">GALLERY</p><h2>Moments of <span>Hope &amp; Joy</span></h2><p className="section-lead">Take a closer look at the people, moments and smiles behind the work.</p><div className="gallery-grid">{displayGalleryItems.map((item, index) => <button className={`gallery-tile tile-${index + 1}`} key={item.src} type="button" onClick={() => setLightbox(index)} aria-label={`Open ${item.title}`}><Image src={item.src} alt={item.alt} fill sizes="(max-width: 760px) 50vw, 33vw" /><span className="gallery-overlay"><strong>{item.title}</strong><span><Play size={13} fill="currentColor" /> View photo</span></span></button>)}</div><div className="section-button-row"><Link className="button button-purple" href="/gallery">View Full Gallery <ArrowRight size={17} /></Link></div></div></section>
+      <section className="simple-section updates" id="updates"><div className="updates-pattern" aria-hidden="true" /><div className="container"><p className="eyebrow pink-text">NEWS &amp; UPDATES</p><h2>Stories from <span>the work</span></h2><div className="story-grid">{newsItems.map((article) => <article key={article.id}><span>{article.category}</span><h3>{article.title}</h3><p>{article.excerpt || article.content.split(/\\n\\s*\\n/)[0].slice(0, 180)}</p><Link href="/updates">Read More <ArrowRight size={15} /></Link></article>)}</div><div className="section-button-row"><Link className="button button-primary" href="/updates">View All News &amp; Updates <ArrowRight size={17} /></Link></div></div></section>
+      {youtubeOpen && <div className="youtube-modal" role="dialog" aria-modal="true" aria-label="Glory Children Ministry video" onClick={() => setYoutubeOpen(false)}><div className="youtube-modal-card" onClick={(event) => event.stopPropagation()}><button type="button" className="youtube-modal-close" onClick={() => setYoutubeOpen(false)} aria-label="Close video"><X size={24} /></button><div className="youtube-video-wrap"><iframe src="https://youtube.com/shorts/GKqtHajEMGw?si=hyoCVzGu46taFlfE" title="Glory Children Ministry video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /></div></div></div>}
       {lightbox !== null && <div className="lightbox" role="dialog" aria-modal="true" aria-label="Gallery viewer" onClick={() => setLightbox(null)}><button type="button" className="lightbox-close" aria-label="Close gallery" onClick={() => setLightbox(null)}><X size={25} /></button><button type="button" className="lightbox-prev" aria-label="Previous photo" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox - 1 + displayGalleryItems.length) % displayGalleryItems.length) }}><ArrowLeft /></button><div className="lightbox-image" onClick={(event) => event.stopPropagation()}><Image src={displayGalleryItems[lightbox].src} alt={displayGalleryItems[lightbox].alt} fill sizes="90vw" /></div><button type="button" className="lightbox-next" aria-label="Next photo" onClick={(event) => { event.stopPropagation(); setLightbox((lightbox + 1) % displayGalleryItems.length) }}><ArrowRight /></button></div>}
-
     </main>
   )
 }
