@@ -8140,3 +8140,345 @@ button:disabled,input:disabled{cursor:not-allowed;opacity:.72}
 /* Sponsor a Child page */
 .sponsor-page{overflow:hidden}.sponsor-hero{position:relative;min-height:560px;background:#050b17;color:#fff;overflow:hidden;isolation:isolate}.sponsor-hero-pattern{position:absolute;inset:0;opacity:.18;background-image:radial-gradient(rgba(255,255,255,.6) 1px,transparent 1px);background-size:24px 24px;mask-image:linear-gradient(90deg,#000,transparent 75%)}.sponsor-hero-orb{position:absolute;border-radius:50%;filter:blur(2px);opacity:.3;pointer-events:none}.sponsor-orb-one{width:330px;height:330px;left:-90px;top:-110px;background:radial-gradient(circle,var(--pink),transparent 70%)}.sponsor-orb-two{width:380px;height:380px;right:-120px;bottom:-190px;background:radial-gradient(circle,var(--purple),transparent 70%)}.sponsor-hero-inner{position:relative;z-index:2;min-height:560px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.65fr);align-items:center;gap:70px;padding:105px 0 70px}.sponsor-hero-copy{max-width:700px}.sponsor-hero-copy .eyebrow{display:flex;align-items:center;gap:7px}.sponsor-hero h1{font-size:clamp(42px,5vw,66px);line-height:1;letter-spacing:-2px;margin:0;max-width:720px}.sponsor-hero h1 span{color:#ff299e}.sponsor-hero-copy>p{max-width:650px;font-size:16px;line-height:1.7;color:#eef1f8;margin:20px 0 28px}.sponsor-trust-row{display:flex;gap:24px;flex-wrap:wrap;margin-top:23px;color:#dce2ed;font-size:12px;font-weight:800}.sponsor-trust-row span{display:flex;align-items:center;gap:7px}.sponsor-trust-row svg{color:#ff299e}.sponsor-hero-card{position:relative;padding:34px;border-radius:28px;background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.06));border:1px solid rgba(255,255,255,.18);box-shadow:0 28px 65px rgba(0,0,0,.3);backdrop-filter:blur(14px);animation:floatOrb 7s ease-in-out infinite}.sponsor-card-icon{width:62px;height:62px;border-radius:20px;display:grid;place-items:center;background:linear-gradient(135deg,var(--pink),var(--purple));margin-bottom:25px;box-shadow:0 12px 30px rgba(236,8,127,.28)}.sponsor-hero-card>span{display:block;color:#ff9e18;text-transform:uppercase;font:900 10px var(--font-poppins);letter-spacing:2.2px}.sponsor-hero-card>strong{display:block;font:800 25px/1.2 var(--font-poppins);margin:9px 0 25px}.sponsor-card-points{display:grid;gap:11px}.sponsor-card-points span{display:flex;align-items:center;gap:9px;color:#fff;font-size:13px;font-weight:800}.sponsor-card-points svg{color:#54d88a}.sponsor-form-section{background:linear-gradient(180deg,#fff,#faf7fc)}.sponsor-form-layout{display:grid;grid-template-columns:.75fr 1.25fr;gap:65px;align-items:start}.sponsor-form-intro h2{margin:0;font:800 clamp(31px,3vw,43px)/1.08 var(--font-poppins);letter-spacing:-1.2px}.sponsor-form-intro>p{color:var(--muted);line-height:1.7;margin:17px 0 25px}.sponsor-contact-note{display:flex;gap:12px;align-items:flex-start;margin-top:16px;padding:15px;border-radius:15px;background:#fff;border:1px solid #ece7f1;box-shadow:0 10px 25px rgba(30,18,45,.06)}.sponsor-contact-note svg{color:var(--pink);flex:0 0 auto;margin-top:2px}.sponsor-contact-note strong,.sponsor-contact-note span{display:block}.sponsor-contact-note strong{font:800 12px var(--font-poppins)}.sponsor-contact-note span{font-size:12px;color:var(--muted);margin-top:3px}.sponsor-form{background:#fff;border:1px solid #e9e4ee;border-radius:24px;padding:30px;box-shadow:0 18px 45px rgba(24,13,40,.08)}.sponsor-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.sponsor-form label{display:flex;flex-direction:column;gap:7px}.sponsor-form label span{font:800 11px var(--font-poppins);color:#24113f}.sponsor-form input,.sponsor-form select,.sponsor-form textarea{width:100%;border:1px solid #dfe3eb;border-radius:12px;background:#fbfcfe;padding:12px 13px;outline:none;font:500 13px var(--font-nunito);color:var(--ink);transition:.2s}.sponsor-form textarea{resize:vertical}.sponsor-form input:focus,.sponsor-form select:focus,.sponsor-form textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(123,43,196,.09);background:#fff}.sponsor-field-wide{grid-column:1/-1}.sponsor-submit{margin-top:22px;border:0}.sponsor-form>small{display:flex;align-items:center;gap:6px;color:#737d91;font-size:11px;margin-top:13px}.sponsor-message{display:flex;gap:8px;align-items:flex-start;padding:12px 14px;border-radius:12px;font-size:12px;font-weight:700;margin-bottom:18px}.sponsor-success{background:#edf9f1;color:#187443}.sponsor-error{background:#fff0f2;color:#b4233f}.sponsor-cta{padding:75px 0;background:linear-gradient(135deg,#25103f,#070d1b);color:#fff;position:relative;overflow:hidden}.sponsor-cta::after{content:'';position:absolute;width:340px;height:340px;right:-130px;top:-160px;border-radius:50%;background:radial-gradient(circle,rgba(236,8,127,.35),transparent 68%)}.sponsor-cta-inner{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:35px}.sponsor-cta h2{margin:0;max-width:650px;font:800 clamp(29px,3vw,43px)/1.08 var(--font-poppins)}.sponsor-cta p{max-width:620px;color:#d8d9e2;margin:12px 0 0}.sponsor-cta-light{background:#fff;color:#24113f;border-color:#fff}
 @media(max-width:760px){.sponsor-hero-inner{grid-template-columns:1fr;gap:35px;padding:55px 0}.sponsor-hero{min-height:auto}.sponsor-hero-inner{min-height:auto}.sponsor-hero h1{font-size:clamp(38px,11vw,52px)}.sponsor-hero-copy>p{font-size:14px}.sponsor-hero-card{padding:25px}.sponsor-form-layout{grid-template-columns:1fr;gap:35px}.sponsor-form{padding:20px}.sponsor-form-grid{grid-template-columns:1fr}.sponsor-field-wide{grid-column:auto}.sponsor-cta-inner{flex-direction:column;align-items:flex-start}.sponsor-cta{padding:58px 0}.sponsor-trust-row{gap:13px;flex-direction:column}}
+
+
+/* =========================================================
+   CHEALUNA SUPPORTER TESTIMONIAL
+   ========================================================= */
+
+.supporter-testimonial-section {
+  position: relative;
+  overflow: hidden;
+  padding: 82px 0 88px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(236,8,127,.18), transparent 28%),
+    radial-gradient(circle at 88% 82%, rgba(19,143,224,.16), transparent 30%),
+    linear-gradient(135deg, #050b17 0%, #0b1022 52%, #160b28 100%);
+}
+
+.supporter-testimonial-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .16;
+  background-image:
+    linear-gradient(rgba(255,255,255,.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.09) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(135deg, rgba(0,0,0,.8), transparent 72%);
+}
+
+.supporter-testimonial-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(270px, 360px) minmax(0, 1fr);
+  gap: clamp(42px, 6vw, 78px);
+  align-items: center;
+}
+
+.supporter-testimonial-pattern {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  border: 1px solid rgba(255,255,255,.13);
+  box-shadow:
+    0 0 0 22px rgba(236,8,127,.035),
+    0 0 0 48px rgba(123,43,196,.035);
+  animation: rotatePattern 28s linear infinite;
+}
+
+.supporter-testimonial-pattern-one {
+  width: 330px;
+  height: 330px;
+  left: -205px;
+  top: -130px;
+}
+
+.supporter-testimonial-pattern-two {
+  width: 270px;
+  height: 270px;
+  right: -155px;
+  bottom: -145px;
+  animation-direction: reverse;
+}
+
+.supporter-testimonial-photo-wrap {
+  position: relative;
+  width: min(100%, 360px);
+  justify-self: center;
+}
+
+.supporter-testimonial-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 4.85;
+  overflow: hidden;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,.28);
+  background: #11182b;
+  box-shadow:
+    0 28px 60px rgba(0,0,0,.35),
+    0 0 0 10px rgba(236,8,127,.08);
+}
+
+.supporter-testimonial-photo::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 12px;
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 22px;
+  pointer-events: none;
+}
+
+.supporter-testimonial-photo::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: 115px;
+  height: 12px;
+  right: -22px;
+  bottom: 24px;
+  border-radius: 100% 0 100% 0;
+  transform: rotate(-8deg);
+  background: var(--orange);
+  box-shadow: 0 13px 0 var(--pink), 0 26px 0 var(--blue);
+  opacity: .95;
+}
+
+.supporter-testimonial-photo img {
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.01);
+  transition: transform .55s ease;
+}
+
+.supporter-testimonial-photo-wrap:hover .supporter-testimonial-photo img {
+  transform: scale(1.045);
+}
+
+.supporter-testimonial-badge {
+  position: absolute;
+  z-index: 4;
+  left: -18px;
+  bottom: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 15px;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(90deg, var(--pink), var(--purple));
+  box-shadow: 0 12px 28px rgba(0,0,0,.3);
+  font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.supporter-testimonial-copy {
+  min-width: 0;
+}
+
+.supporter-eyebrow {
+  color: #ff4cab;
+}
+
+.supporter-testimonial-copy h2 {
+  margin: 0;
+  max-width: 720px;
+  font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.04;
+  letter-spacing: -1.5px;
+  font-weight: 800;
+}
+
+.supporter-testimonial-copy h2 span {
+  color: #ff9e18;
+}
+
+.supporter-testimonial-intro {
+  max-width: 700px;
+  margin: 17px 0 0;
+  color: #d8deea;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.supporter-testimonial-intro strong {
+  color: #fff;
+}
+
+.supporter-story {
+  position: relative;
+  margin: 27px 0 0;
+  padding: 25px 27px 22px 48px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.065);
+  border: 1px solid rgba(255,255,255,.13);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter: blur(9px);
+}
+
+.supporter-quote-icon {
+  position: absolute;
+  left: 16px;
+  top: 20px;
+  color: var(--pink);
+  opacity: .95;
+}
+
+.supporter-story p {
+  margin: 0;
+  color: #f3f5fa;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.supporter-story p + p {
+  margin-top: 13px;
+  color: #c9d0de;
+}
+
+.supporter-testimonial-attribution {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 17px 0 0;
+}
+
+.supporter-testimonial-attribution strong {
+  font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.supporter-testimonial-attribution span {
+  color: #9fa9bb;
+  font-size: 11px;
+}
+
+.supporter-campaign-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  margin-top: 25px;
+  padding: 22px 22px 22px 24px;
+  border-radius: 20px;
+  background: linear-gradient(120deg, rgba(236,8,127,.13), rgba(123,43,196,.16) 52%, rgba(19,143,224,.11));
+  border: 1px solid rgba(255,255,255,.15);
+  box-shadow: 0 16px 38px rgba(0,0,0,.18);
+}
+
+.supporter-campaign-card > div {
+  min-width: 0;
+}
+
+.supporter-campaign-label {
+  display: block;
+  color: #ff4cab;
+  font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  line-height: 1.2;
+  letter-spacing: 2px;
+  font-weight: 900;
+}
+
+.supporter-campaign-card h3 {
+  margin: 7px 0 5px;
+  font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  line-height: 1.25;
+  font-weight: 800;
+  color: #fff;
+}
+
+.supporter-campaign-card p {
+  margin: 0;
+  color: #bfc8d8;
+  font-size: 11px;
+  line-height: 1.55;
+  max-width: 520px;
+}
+
+.supporter-gofundme-button {
+  flex: 0 0 auto;
+  min-height: 43px;
+  color: #fff;
+  background: linear-gradient(90deg, #00a86b, #00c77d);
+  box-shadow: 0 10px 24px rgba(0,168,107,.2);
+}
+
+.supporter-gofundme-button:hover {
+  box-shadow: 0 13px 28px rgba(0,168,107,.3);
+}
+
+.supporter-source-note {
+  margin: 12px 0 0;
+  color: #7f8a9f;
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .supporter-testimonial-section {
+    padding: 68px 0 72px;
+  }
+
+  .supporter-testimonial-inner {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .supporter-testimonial-photo-wrap {
+    width: min(82vw, 370px);
+  }
+
+  .supporter-testimonial-copy h2 {
+    font-size: clamp(31px, 8vw, 42px);
+  }
+}
+
+@media (max-width: 620px) {
+  .supporter-testimonial-section {
+    padding: 56px 0 62px;
+  }
+
+  .supporter-testimonial-inner {
+    gap: 34px;
+  }
+
+  .supporter-testimonial-photo-wrap {
+    width: min(84vw, 340px);
+  }
+
+  .supporter-testimonial-badge {
+    left: -5px;
+    bottom: 15px;
+    font-size: 10px;
+  }
+
+  .supporter-story {
+    padding: 23px 18px 20px 42px;
+    border-radius: 18px;
+  }
+
+  .supporter-story p {
+    font-size: 12px;
+  }
+
+  .supporter-campaign-card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px;
+  }
+
+  .supporter-gofundme-button {
+    width: 100%;
+  }
+}
