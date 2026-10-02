@@ -41,9 +41,9 @@ const counters = [
 ]
 
 const heroSlides = [
-  { image:'/images/4.png', eyebrow:'TOGETHER FOR A BRIGHTER TOMORROW', title:'Giving Every Child Hope, Education & A Brighter Future', description:'Glory Children Ministry is an NGO dedicated to caring for vulnerable children through education, healthcare, nutritious food, guidance, counselling and opportunity.' },
-  { image:'/images/hero-children.png', eyebrow:'EVERY CHILD DESERVES A CHANCE', title:'Nurturing Hope, Building Possibility', description:'We create safe, caring spaces where children can learn, grow in confidence and discover pathways toward a brighter future.' },
-  { image:'/images/about-children.png', eyebrow:'YOUR KINDNESS CREATES CHANGE', title:"Together We Can Change A Child's Story", description:'Your support helps us reach children with practical care, protection, education and the encouragement they need to thrive.' },
+  { eyebrow:'TOGETHER FOR A BRIGHTER TOMORROW', title:'Giving Every Child Hope, Education & A Brighter Future', description:'Glory Children Ministry is an NGO dedicated to caring for vulnerable children through education, healthcare, nutritious food, guidance, counselling and opportunity.' },
+  { eyebrow:'EVERY CHILD DESERVES A CHANCE', title:'Nurturing Hope, Building Possibility', description:'We create safe, caring spaces where children can learn, grow in confidence and discover pathways toward a brighter future.' },
+  { eyebrow:'YOUR KINDNESS CREATES CHANGE', title:"Together We Can Change A Child's Story", description:'Your support helps us reach children with practical care, protection, education and the encouragement they need to thrive.' },
 ]
 
 const galleryItems = [
@@ -74,6 +74,7 @@ export default function HomePage() {
   const [impactStats, setImpactStats] = useState<Array<{id:string; key:string; label:string; value:string; description?:string|null; sortOrder:number}>>([])
   const [managed, setManaged] = useState<Record<string,string>>({})
   const [managedImages, setManagedImages] = useState<Record<string,string>>({})
+  const [mediaLoaded, setMediaLoaded] = useState(false)
   const displayGalleryItems = galleryItems.map((item,index) => ({...item,src:managedImages['gallery.'+(index+1)] || item.src}))
 
   useEffect(() => {
@@ -100,7 +101,9 @@ export default function HomePage() {
         const images:Record<string,string>={}
         page.filter(x=>x.key.startsWith('home.image.')).forEach(x=>{images[x.key.replace('home.image.','')]=x.url})
         setManagedImages(images)
-      }).catch(()=>{})
+      })
+      .catch(() => setManagedImages({}))
+      .finally(() => setMediaLoaded(true))
   }, [])
 
   useEffect(() => {
@@ -141,9 +144,10 @@ export default function HomePage() {
 
   const closeMenu = () => setMenuOpen(false)
   const slideBase = heroSlides[activeSlide]
+  const slideImage = mediaLoaded ? managedImages['hero.'+(activeSlide+1)] : undefined
   const slide = {
     ...slideBase,
-    image: managedImages['hero.'+(activeSlide+1)] || slideBase.image,
+    image: slideImage,
     eyebrow: managed['hero'+(activeSlide+1)+'Eyebrow'] || slideBase.eyebrow,
     title: managed['hero'+(activeSlide+1)+'Title'] || slideBase.title,
     description: managed['hero'+(activeSlide+1)+'Description'] || slideBase.description,
@@ -158,11 +162,15 @@ export default function HomePage() {
         <div className="hero-pattern pattern-dots" aria-hidden="true" />
         <div className="hero-orb hero-orb-one" aria-hidden="true" />
         <div className="hero-orb hero-orb-two" aria-hidden="true" />
-        {heroSlides.map((item, index) => (
-          <div className={`hero-slide-image ${index === activeSlide ? 'is-active' : ''}`} key={item.image} aria-hidden={index !== activeSlide}>
-            <Image src={index === activeSlide ? slide.image : (managedImages['hero.'+(index+1)] || item.image)} alt="" fill sizes="(max-width: 760px) 100vw, 58vw" priority={index === 0} />
-          </div>
-        ))}
+        {mediaLoaded && heroSlides.map((item, index) => {
+          const imageUrl = managedImages['hero.'+(index+1)]
+          if (!imageUrl) return null
+          return (
+            <div className={`hero-slide-image ${index === activeSlide ? 'is-active' : ''}`} key={imageUrl} aria-hidden={index !== activeSlide}>
+              <Image src={imageUrl} alt="" fill sizes="(max-width: 760px) 100vw, 58vw" priority={index === 0} />
+            </div>
+          )
+        })}
         <div className="hero-shade" />
         <div className="hero-brush hero-brush-one" />
         <div className="hero-brush hero-brush-two" />
