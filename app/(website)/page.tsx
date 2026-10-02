@@ -47,9 +47,9 @@ const heroSlides = [
 ]
 
 const galleryItems = [
-  { src: '/images/hero-children.png', alt: 'Children smiling together', title: 'Moments of Joy' },
-  { src: '/images/about-children.png', alt: 'Children learning together', title: 'Learning Together' },
-  { src: '/images/4.png', alt: 'Children outdoors', title: 'Growing With Hope' },
+  { alt: 'Children smiling together', title: 'Moments of Joy' },
+  { alt: 'Children learning together', title: 'Learning Together' },
+  { alt: 'Children outdoors', title: 'Growing With Hope' },
 ]
 
 const NEWS_QUERY = `query { newsArticles { id title category excerpt content imageUrl published publishedAt createdAt } }`
@@ -75,7 +75,9 @@ export default function HomePage() {
   const [managed, setManaged] = useState<Record<string,string>>({})
   const [managedImages, setManagedImages] = useState<Record<string,string>>({})
   const [mediaLoaded, setMediaLoaded] = useState(false)
-  const displayGalleryItems = galleryItems.map((item,index) => ({...item,src:managedImages['gallery.'+(index+1)] || item.src}))
+  const displayGalleryItems = mediaLoaded
+    ? galleryItems.map((item,index) => ({...item,src:managedImages['gallery.'+(index+1)]})).filter((item) => Boolean(item.src))
+    : []
 
   useEffect(() => {
     graphqlRequest<{impactStatistics: Array<{id:string; key:string; label:string; value:string; description?:string|null; sortOrder:number}>}>(PUBLIC_IMPACT_STATISTICS_QUERY)
@@ -207,7 +209,7 @@ export default function HomePage() {
         </div>
         <div className="container about-section">
           <div className="about-photo">
-            <Image src={managedImages.about || '/images/2.jpg'} alt="A child smiling at school" fill sizes="(max-width: 760px) 100vw, 44vw" />
+            {mediaLoaded && managedImages.about ? <Image src={managedImages.about} alt="A child smiling at school" fill sizes="(max-width: 760px) 100vw, 44vw" /> : null}
             <div className="photo-badge"><Heart size={18} fill="currentColor" /><span>Since 2019</span><b>Every child matters</b></div>
           </div>
           <div className="about-copy">
@@ -333,7 +335,7 @@ export default function HomePage() {
       </section>
 
       <section className="impact-section-home" id="impact-home">
-        <div className="impact-image-home"><Image src={managedImages.impact || '/images/about-children.png'} alt="Children at school" fill sizes="360px" /></div>
+        <div className="impact-image-home">{mediaLoaded && managedImages.impact ? <Image src={managedImages.impact} alt="Children at school" fill sizes="360px" /> : null}</div>
         <div className="container impact-inner-home"><div className="impact-copy-home"><p className="eyebrow">OUR IMPACT</p><h2>{managed.impactTitle || 'Together, we are creating lasting change'}</h2><p>{managed.impactDescription || 'Every contribution helps us reach more children with practical care, protection, education and hope.'}</p></div><div className="impact-stats-home">{(impactStats.length ? impactStats.slice(0, 4) : counters).map((item, index) => { const fallback = counters[index]; const Icon = fallback.icon; return <div className={`impact-stat-home stat-${fallback.tone}`} key={`${item.label}-${index}`}><Icon size={28} /><strong>{'value' in item ? item.value : fallback.value}</strong><span>{'label' in item ? item.label : fallback.label}</span></div> })}</div></div>
       </section>
 
