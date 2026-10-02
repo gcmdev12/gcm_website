@@ -245,7 +245,7 @@ export default function HomePage() {
           <div className="supporter-testimonial-photo-wrap">
             <div className="supporter-testimonial-photo">
               <Image
-                src="/images/chealuna-wright-ochoa.svg"
+                src="https://images.gofundme.com/gN1goX9swnejzNSIhex6B31D0Jw%3D/fit-in/1200x1200/https%3A//www.gofundme.com/person/profiles/79e1de3350924c98a2738e88d3fad824_edited_photo_1766194454367.jpeg"
                 alt="Chealuna Wright Ochoa"
                 fill
                 sizes="(max-width: 760px) 82vw, 360px"
