@@ -228,6 +228,71 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="supporter-testimonial-section" aria-labelledby="chealuna-story-title">
+        <div className="supporter-testimonial-pattern supporter-testimonial-pattern-one" aria-hidden="true" />
+        <div className="supporter-testimonial-pattern supporter-testimonial-pattern-two" aria-hidden="true" />
+        <div className="container supporter-testimonial-inner">
+          <div className="supporter-testimonial-photo-wrap">
+            <div className="supporter-testimonial-photo">
+              <Image
+                src="/images/chealuna-wright-ochoa.svg"
+                alt="Chealuna Wright Ochoa"
+                fill
+                sizes="(max-width: 760px) 82vw, 360px"
+              />
+            </div>
+            <div className="supporter-testimonial-badge">
+              <Heart size={16} fill="currentColor" />
+              <span>Supporter from the USA</span>
+            </div>
+          </div>
+
+          <div className="supporter-testimonial-copy">
+            <p className="eyebrow supporter-eyebrow">A VOICE BEHIND THE MISSION</p>
+            <h2 id="chealuna-story-title">When <span>trust becomes action.</span></h2>
+            <p className="supporter-testimonial-intro">
+              We are grateful for friends around the world who choose to stand with vulnerable children. One of those friends is <strong>Chealuna Wright Ochoa</strong>, who has helped connect our work in Uganda with generous supporters in the United States.
+            </p>
+
+            <div className="supporter-story">
+              <Quote className="supporter-quote-icon" size={31} />
+              <p>
+                Chealuna first connected with Glory Children Ministry after discovering Ssuna's work with vulnerable children in Wakiso. She became a monthly supporter and, after speaking directly with Ssuna and the children, felt confident in the ministry and the care being provided.
+              </p>
+              <p>
+                Since then, she has helped organize GoFundMe campaigns that have supported practical needs such as food, medicine, clean water, education and safer living conditions, while also helping us work toward longer-term goals that can give children greater stability and opportunity.
+              </p>
+            </div>
+
+            <p className="supporter-testimonial-attribution">
+              <strong>Chealuna Wright Ochoa</strong>
+              <span>GoFundMe campaign organizer &amp; supporter</span>
+            </p>
+
+            <div className="supporter-campaign-card">
+              <div>
+                <span className="supporter-campaign-label">SUPPORT THE CURRENT CAMPAIGN</span>
+                <h3>Help us continue bringing hope to children.</h3>
+                <p>Through this GoFundMe campaign, Chealuna is helping friends and supporters participate in the work from the USA and beyond.</p>
+              </div>
+              <a
+                className="button supporter-gofundme-button"
+                href="https://gofund.me/chealuna-hill-27aug"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Support on GoFundMe
+                <ArrowRight size={17} />
+              </a>
+            </div>
+
+            <p className="supporter-source-note">
+              Story summarized from Chealuna's GoFundMe campaign description.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="scripture-section" aria-label="Bible verses encouraging generosity">
         <div className="scripture-pattern pattern-one" aria-hidden="true" /><div className="scripture-pattern pattern-two" aria-hidden="true" />
         <div className="container">
