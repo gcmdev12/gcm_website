@@ -88,6 +88,14 @@ export async function deleteAdminImage(path:string, sha:string){
 }
 
 export async function uploadAdminImage(file: File, folder: 'news' | 'gallery' | 'uploads' = 'uploads') {
+  const allowedTypes = new Set(['image/jpeg', 'image/jpg', 'image/png'])
+  if (!allowedTypes.has(file.type.toLowerCase())) {
+    throw new Error('Only JPG and PNG images are allowed.')
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    throw new Error('Image must be 5 MB or smaller.')
+  }
+
   const token = getAdminToken()
   if (!token) throw new Error('Your admin session has expired. Please sign in again.')
 
