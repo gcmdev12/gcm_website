@@ -59,7 +59,7 @@ export default function UpdatesPage(){
      <p>Follow the people, moments and programme updates behind the work of Glory Children Ministry.</p>
      <div className="updates-hero-actions"><a href="#latest-news" className="button button-primary">Explore Latest News <ArrowRight size={17}/></a><Link href="/donate" className="button button-outline"><Heart size={17} fill="currentColor"/> Support the Work</Link></div>
     </div>
-    <div className="updates-hero-card"><div className="updates-hero-card-image"><Image src="/images/hero-children.png" alt="Children smiling together" fill priority sizes="(max-width:760px) 88vw,430px"/></div><div className="updates-hero-card-content"><span>KEEP UP WITH THE JOURNEY</span><strong>Every story is a reminder that every child matters.</strong></div></div>
+    <div className="updates-hero-card"><div className="updates-hero-card-image"><Image src="/images/hero-updates.png" alt="Children smiling together" fill priority sizes="(max-width:760px) 88vw,430px"/></div><div className="updates-hero-card-content"><span>KEEP UP WITH THE JOURNEY</span><strong>Every story is a reminder that every child matters.</strong></div></div>
    </div>
   </section>
 
