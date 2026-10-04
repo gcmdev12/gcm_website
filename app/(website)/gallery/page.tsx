@@ -150,7 +150,7 @@ export default function GalleryPage() {
           <div className="gallery-hero-collage" aria-label="Gallery highlights">
             <div className="collage-main">
               <Image
-                src="/images/hero-children.png"
+                src="/images/hero-gallery.png"
                 alt="Children smiling together"
                 fill
                 priority
@@ -164,7 +164,7 @@ export default function GalleryPage() {
 
             <div className="collage-small collage-small-top">
               <Image
-                src="/images/about-children.png"
+                src="/images/hero-updates.png"
                 alt="Children learning"
                 fill
                 sizes="180px"
@@ -173,7 +173,7 @@ export default function GalleryPage() {
 
             <div className="collage-small collage-small-bottom">
               <Image
-                src="/images/4.png"
+                src="/images/hero-gallery1.png"
                 alt="Children together"
                 fill
                 sizes="180px"
