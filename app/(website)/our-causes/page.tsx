@@ -156,7 +156,7 @@ export default function CausesPage() {
         if (!data?.causes?.length) return
         setManagedCauses(data.causes.map((item,index) => {
           const fallback=causes.find(x=>x.id===item.slug)||causes[index%causes.length]
-          return {...fallback,id:item.slug,title:item.name,shortTitle:item.name,description:item.description,image:item.imageUrl||fallback.image,tone:item.color||fallback.tone,icon:iconMap[item.icon||'']||fallback.icon}
+          return {...fallback,id:item.slug,title:item.name,shortTitle:item.name,description:item.description,image:item.imageUrl?.trim()||fallback.image,tone:item.color||fallback.tone,icon:iconMap[item.icon||'']||fallback.icon}
         }))
       }).catch(()=>{})
   }, [])
