@@ -8482,3 +8482,107 @@ button:disabled,input:disabled{cursor:not-allowed;opacity:.72}
     width: 100%;
   }
 }
+
+
+/* Remitly + WorldRemit offline donation card */
+.donation-remitly-worldremit {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(13, 91, 180, .19);
+  background: linear-gradient(145deg, #ffffff 0%, #f4f8ff 56%, #fff5f8 100%);
+}
+.donation-remitly-worldremit::before {
+  content: "";
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  right: -65px;
+  top: -75px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0, 102, 204, .12), rgba(231, 28, 97, .10));
+  pointer-events: none;
+}
+.donation-brand-remitly-worldremit {
+  width: auto !important;
+  min-width: 154px;
+  max-width: 100%;
+  min-height: 48px;
+  padding: 8px 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  background: #fff;
+  border: 1px solid rgba(21, 76, 140, .10);
+  box-shadow: 0 7px 18px rgba(24, 48, 87, .08);
+}
+.remitly-worldremit-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.remitly-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: #1459a6;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: -.65px;
+}
+.remitly-wordmark i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 6px 6px 6px 2px;
+  color: #fff;
+  background: linear-gradient(145deg, #2c91ec, #1556a7);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 900;
+}
+.brand-logo-divider {
+  width: 1px;
+  height: 23px;
+  background: #e1e7ef;
+}
+.worldremit-wordmark {
+  color: #163b70;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: -.55px;
+}
+.worldremit-wordmark span {
+  color: #20a56b;
+}
+.remitly-recipient-details {
+  position: relative;
+  z-index: 1;
+}
+.airtel-wallet-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #d3222a !important;
+}
+.airtel-wallet-label span {
+  font-size: 15px;
+  line-height: 1;
+  color: #e52330;
+  text-shadow: 0 0 0 #e52330;
+}
+@media (max-width: 420px) {
+  .donation-brand-remitly-worldremit {
+    min-width: 0;
+    padding: 7px 8px;
+  }
+  .remitly-worldremit-logo { gap: 5px; }
+  .remitly-wordmark { font-size: 13px; }
+  .worldremit-wordmark { font-size: 10px; }
+}
