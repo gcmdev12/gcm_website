@@ -149,14 +149,14 @@ const quickIcons = [
 
 export default function CausesPage() {
   const [managedCauses, setManagedCauses] = useState(causes)
-  const iconMap:Record<string,typeof GraduationCap>={GraduationCap,Stethoscope,Utensils,Users,Home,Wrench}
   useEffect(() => {
-    graphqlRequest<{causes:Array<{slug:string;name:string;description:string;imageUrl?:string|null;icon?:string|null;color?:string|null}>}>(PUBLIC_CAUSES_QUERY)
+    graphqlRequest<{causes:Array<{slug:string;imageUrl?:string|null}>}>(PUBLIC_CAUSES_QUERY)
       .then((data) => {
         if (!data?.causes?.length) return
-        setManagedCauses(data.causes.map((item,index) => {
-          const fallback=causes.find(x=>x.id===item.slug)||causes[index%causes.length]
-          return {...fallback,id:item.slug,title:item.name,shortTitle:item.name,description:item.description,image:item.imageUrl?.trim()||fallback.image,tone:item.color||fallback.tone,icon:iconMap[item.icon||'']||fallback.icon}
+        const slugAliases:Record<string,string>={'guidance-counselling':'guidance','shelter-protection':'shelter','skills-future':'skills'}
+        setManagedCauses(current=>current.map(cause=>{
+          const row=data.causes.find(item=>item.slug===cause.id||slugAliases[item.slug]===cause.id)
+          return row?.imageUrl?.trim()?{...cause,image:row.imageUrl.trim()}:cause
         }))
       }).catch(()=>{})
   }, [])
