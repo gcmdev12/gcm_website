@@ -241,8 +241,8 @@ export default function DonationPage() {
               const isWesternUnion = presentation.type === "western-union"
               const isRemitlyWorldRemit = presentation.type === "remitly-worldremit"
               const accName = method.accountName || ""
-              const number = method.accountNumber || ""
-              const telNumber = method.contactNumber || method.accountNumber || ""
+              const number = method.accountNumber || (isRemitlyWorldRemit ? "+256755575982" : "")
+              const telNumber = method.contactNumber || method.accountNumber || (isRemitlyWorldRemit ? "+256755575982" : "")
               const description = method.instructions || presentation.description
 
               return (
