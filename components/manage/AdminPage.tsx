@@ -1,9 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { adminGraphql, uploadAdminImage, deleteAdminImage, CAUSES_QUERY, UPDATE_CAUSE_IMAGE, IMPACT_QUERY, UPSERT_IMPACT, GALLERY_QUERY, DELETE_GALLERY, NEWS_QUERY, CREATE_NEWS, DELETE_NEWS, DASHBOARD_QUERY, SITE_SETTINGS_QUERY, UPDATE_SITE_SETTINGS, DONATION_METHODS_QUERY, CREATE_DONATION, UPDATE_DONATION, DELETE_DONATION, SUBMISSION_SUMMARY, CONTACT_SUBMISSIONS, VOLUNTEER_SUBMISSIONS, NEWSLETTER_SUBSCRIBERS, SPONSOR_SUBMISSIONS, UPDATE_CONTACT_STATUS, UPDATE_VOLUNTEER_STATUS, UPDATE_NEWSLETTER_STATUS, UPDATE_SPONSOR_STATUS, MEDIA_QUERY, UPSERT_MEDIA, DELETE_MEDIA, ME_QUERY, UPDATE_PROFILE, CHANGE_PASSWORD, type Cause, type Impact, type GalleryItem, type NewsArticle, type MediaAsset, type DashboardStats, type SiteSettings, type DonationMethod, type ContactSubmission, type VolunteerSubmission, type NewsletterSubscriber, type SponsorSubmission, type SubmissionSummary } from '../../lib/admin-api'
+import { adminGraphql, uploadAdminImage, deleteAdminImage, CAUSES_QUERY, UPDATE_CAUSE_IMAGE, IMPACT_QUERY, UPSERT_IMPACT, GALLERY_QUERY, DELETE_GALLERY, NEWS_QUERY, CREATE_NEWS, DELETE_NEWS, DASHBOARD_QUERY, SITE_SETTINGS_QUERY, UPDATE_SITE_SETTINGS, DONATION_METHODS_QUERY, CREATE_DONATION, UPDATE_DONATION, DELETE_DONATION, SUBMISSION_SUMMARY, CONTACT_SUBMISSIONS, VOLUNTEER_SUBMISSIONS, NEWSLETTER_SUBSCRIBERS, SPONSOR_SUBMISSIONS, UPDATE_CONTACT_STATUS, UPDATE_VOLUNTEER_STATUS, UPDATE_NEWSLETTER_STATUS, UPDATE_SPONSOR_STATUS, MEDIA_QUERY, UPSERT_MEDIA, DELETE_MEDIA, ME_QUERY, UPDATE_PROFILE, CHANGE_PASSWORD, type Impact, type GalleryItem, type NewsArticle, type MediaAsset, type DashboardStats, type SiteSettings, type DonationMethod, type ContactSubmission, type VolunteerSubmission, type NewsletterSubscriber, type SponsorSubmission, type SubmissionSummary } from '../../lib/admin-api'
 import { Plus, Search, Upload, Save, MoreHorizontal, Pencil, Trash2, Eye, Image as ImageIcon, CheckCircle2, Clock3, XCircle, ArrowUpRight, Download, Filter, Mail, Phone, MapPin, Instagram, Facebook, Youtube, MessageCircle, Music2, AtSign, LockKeyhole, UserRound, Globe2, Landmark, BarChart3, HeartHandshake } from 'lucide-react'
 
 type Props={title:string; eyebrow?:string; description?:string; action?:string; children?:React.ReactNode}
+type CauseImageItem={id:string;slug:string;name:string;imageUrl?:string|null}
 const CREATE_GALLERY=`mutation CreateGallery($input:GalleryItemInput!) { createGalleryItem(input:$input) { id title description imageUrl category isPublished sortOrder } }`
 export function PageHeader({title,eyebrow='MANAGE',description,action}:{title:string;eyebrow?:string;description?:string;action?:string}){return <div className="page-header"><div><span className="page-eyebrow">{eyebrow}</span><h1>{title}</h1>{description&&<p>{description}</p>}</div>{action&&<button className="primary-btn"><Plus size={17}/>{action}</button>}</div>}
 export function Toolbar({search='Search...',filter=true}:{search?:string;filter?:boolean}){return <div className="toolbar"><div className="search-box"><Search size={17}/><input placeholder={search}/></div>{filter&&<button className="soft-btn"><Filter size={16}/> Filter</button>}</div>}
@@ -66,13 +67,13 @@ function ConnectedProfile(){
  return <><PageHeader title="Admin profile" description="Update the administrator's profile information and account security."/><>{error&&<div className="login-error">{error}</div>}{message&&<div className="login-success">{message}</div>}</><section className="panel profile-panel"><div className="profile-avatar">GC</div><div className="form-grid"><Field label="First name"><input value={profile?.firstName||''} onChange={e=>setProfile({...profile,firstName:e.target.value})}/></Field><Field label="Last name"><input value={profile?.lastName||''} onChange={e=>setProfile({...profile,lastName:e.target.value})}/></Field><Field label="Email address"><input value={profile?.email||''} onChange={e=>setProfile({...profile,email:e.target.value})}/></Field></div><button className="primary-btn" onClick={save} disabled={saving}><Save size={16}/>{saving?'Saving…':'Save profile'}</button></section><section className="panel"><div className="panel-head"><div><span className="mini-label">SECURITY</span><h3>Update password</h3></div><LockKeyhole size={20}/></div><div className="form-grid"><Field label="Current password"><input type="password" value={password.currentPassword} onChange={e=>setPassword({...password,currentPassword:e.target.value})}/></Field><Field label="New password"><input type="password" value={password.newPassword} onChange={e=>setPassword({...password,newPassword:e.target.value})}/></Field><Field label="Confirm new password"><input type="password" value={password.confirm} onChange={e=>setPassword({...password,confirm:e.target.value})}/></Field></div><button className="primary-btn" onClick={changePassword} disabled={saving}><LockKeyhole size={16}/>{saving?'Updating…':'Update password'}</button></section></>
 }
 function ConnectedCauses(){
- const [items,setItems]=useState<Cause[]>([]),[loading,setLoading]=useState(true),[error,setError]=useState(''),[saving,setSaving]=useState<string|null>(null)
- useEffect(()=>{adminGraphql<{adminCauses:Cause[]}>(CAUSES_QUERY).then(x=>setItems(x.adminCauses)).catch(e=>setError(e.message)).finally(()=>setLoading(false))},[])
+ const [items,setItems]=useState<CauseImageItem[]>([]),[loading,setLoading]=useState(true),[error,setError]=useState(''),[saving,setSaving]=useState<string|null>(null)
+ useEffect(()=>{adminGraphql<{adminCauses:CauseImageItem[]}>(CAUSES_QUERY).then(x=>setItems(x.adminCauses)).catch(e=>setError(e.message)).finally(()=>setLoading(false))},[])
  const defaultImage=(slug:string)=>({
   education:'/images/education.jpg',health:'/images/health.jpg',food:'/images/food.jpg',
   'guidance-counselling':'/images/guidance.jpg','shelter-protection':'/images/shelter.jpg','skills-future':'/images/skills.jpg',
  } as Record<string,string>)[slug]||'/images/hero-children.png'
- const upload=async(x:Cause,file?:File)=>{
+ const upload=async(x:CauseImageItem,file?:File)=>{
   if(!file)return
   if(!['image/jpeg','image/jpg','image/png'].includes(file.type.toLowerCase())){setError('Please select a JPG or PNG image.');return}
   if(file.size>5*1024*1024){setError('Image must be 5 MB or smaller.');return}
@@ -80,7 +81,7 @@ function ConnectedCauses(){
   try{
    const old=x.imageUrl||''
    const result=await uploadAdminImage(file,'uploads')
-   const saved=await adminGraphql<{updateCauseImage:Cause}>(UPDATE_CAUSE_IMAGE,{id:x.id,imageUrl:result.imageUrl})
+   const saved=await adminGraphql<{updateCauseImage:CauseImageItem}>(UPDATE_CAUSE_IMAGE,{id:x.id,imageUrl:result.imageUrl})
    setItems(v=>v.map(item=>item.id===x.id?{...item,imageUrl:saved.updateCauseImage.imageUrl}:item))
    if(old.startsWith('/images/uploads/')){try{await deleteAdminImage(old,'')}catch{/* Keep the saved replacement if cleanup fails. */}}
   }catch(e){setError((e as Error).message)}
