@@ -225,7 +225,7 @@ export default function DonationPage() {
           <div className="donation-method-grid">
             {donationMethods.map((method, index) => {
               const methodName = method.name || ""
-              const presentation = /remitly|world\\s?remit/i.test(methodName)
+              const presentation = /remitly|world\s?remit/i.test(methodName)
                 ? donationPresentation[4]
                 : /western union/i.test(methodName)
                   ? donationPresentation[3]
