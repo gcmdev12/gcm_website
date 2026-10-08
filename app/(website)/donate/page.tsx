@@ -36,6 +36,7 @@ const donationPresentation = [
   { type: "mobile", tone: "airtel", brand: "airtel", label: "Airtel Money", description: "Use Airtel Money to make a direct contribution.", icon: Smartphone },
   { type: "bank", tone: "bank", brand: "DTB", label: "Diamond Trust Bank", description: "Make a bank transfer or deposit to the ministry account.", icon: Banknote },
   { type: "western-union", tone: "western-union", brand: "WU", label: "Western Union", description: "Send your donation through Western Union using the recipient details below.", icon: Banknote },
+  { type: "remitly-worldremit", tone: "remitly-worldremit", brand: "R + W", label: "Remitly & WorldRemit", description: "Send an international transfer to the recipient’s Airtel mobile wallet in Uganda.", icon: Smartphone },
 ] as const
 
 const fallbackDonationMethods: DonationMethodRecord[] = [
@@ -43,6 +44,7 @@ const fallbackDonationMethods: DonationMethodRecord[] = [
   { id: "airtel", name: "Airtel Money", accountName: "Ssuna Khalim", accountNumber: "+256 755 575 982", instructions: "Use Airtel Money to make a direct contribution.", isActive: true, sortOrder: 1 },
   { id: "dtb", name: "Diamond Trust Bank", accountName: "Ssuna Khalim", accountNumber: "7389213001", instructions: "Make a bank transfer or deposit to the ministry account.", isActive: true, sortOrder: 2 },
   { id: "western-union", name: "Western Union", accountName: "Ssuna Khalim", accountNumber: "+256755575982", instructions: "Send your donation through Western Union using the recipient details below.", country: "Uganda", city: "Kampala", contactNumber: "+256755575982", isActive: true, sortOrder: 3 },
+  { id: "remitly-worldremit", name: "Remitly & WorldRemit", accountName: "Ssuna Khalim", accountNumber: "+256755575982", instructions: "Send an international transfer to the recipient’s Airtel mobile wallet in Uganda.", country: "Uganda", contactNumber: "+256755575982", city: "Kampala", isActive: true, sortOrder: 4 },
 ]
 
 const impactItems = [
@@ -71,7 +73,10 @@ export default function DonationPage() {
     graphqlRequest<{ donationMethods: DonationMethodRecord[] }>(PUBLIC_DONATION_METHODS_QUERY)
       .then((data) => {
         const methods = (data?.donationMethods || []).slice().sort((a, b) => a.sortOrder - b.sortOrder)
-        if (methods.length) setDonationMethods(methods)
+        if (methods.length) {
+          const hasRemitly = methods.some((method) => /remitly|world\s?remit/i.test(method.name))
+          setDonationMethods(hasRemitly ? methods : [...methods, fallbackDonationMethods[4]])
+        }
       })
       .catch(() => {})
   }, [])
@@ -223,6 +228,7 @@ export default function DonationPage() {
               const Icon = presentation.icon
               const isBank = presentation.type === "bank"
               const isWesternUnion = presentation.type === "western-union"
+              const isRemitlyWorldRemit = presentation.type === "remitly-worldremit"
               const accName = method.accountName || ""
               const number = method.accountNumber || ""
               const telNumber = method.contactNumber || method.accountNumber || ""
@@ -238,11 +244,17 @@ export default function DonationPage() {
                       className={`donation-brand-logo donation-brand-${presentation.tone}`}
                       aria-label={`${presentation.brand} logo`}
                     >
-                      <span>{presentation.brand}</span>
+                      {isRemitlyWorldRemit ? (
+                        <span className="remitly-worldremit-logo" aria-label="Remitly and WorldRemit">
+                          <strong className="remitly-wordmark"><i aria-hidden="true">↗</i> remitly</strong>
+                          <span className="brand-logo-divider" />
+                          <strong className="worldremit-wordmark">world<span>remit</span></strong>
+                        </span>
+                      ) : <span>{presentation.brand}</span>}
                     </div>
 
                     <span className="method-type">
-                      {isWesternUnion ? "Western Union" : isBank ? "Bank transfer" : "Mobile money"}
+                      {isRemitlyWorldRemit ? "International transfer" : isWesternUnion ? "Western Union" : isBank ? "Bank transfer" : "Mobile money"}
                     </span>
                   </div>
 
@@ -250,7 +262,14 @@ export default function DonationPage() {
 
                   <p>{description}</p>
 
-                  {isWesternUnion ? (
+                  {isRemitlyWorldRemit ? (
+                    <div className="bank-details remitly-recipient-details">
+                      <div><small>Name</small><strong>{method.accountName || "Ssuna Khalim"}</strong></div>
+                      <div><small>Country</small><strong>{method.country || "Uganda"}</strong></div>
+                      <div><small>Tel</small><a href={`tel:${telNumber.replace(/\s/g, "")}`}>{telNumber || "+256755575982"}</a></div>
+                      <div><small>Mobile Wallet</small><strong className="airtel-wallet-label"><span aria-hidden="true">●</span> Airtel</strong></div>
+                    </div>
+                  ) : isWesternUnion ? (
                     <div className="bank-details">
                       <div>
                         <small>Name</small>
