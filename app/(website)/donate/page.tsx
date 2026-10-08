@@ -75,7 +75,7 @@ export default function DonationPage() {
         const methods = (data?.donationMethods || []).slice().sort((a, b) => a.sortOrder - b.sortOrder)
         if (methods.length) {
           const hasRemitly = methods.some((method) => /remitly|world\s?remit/i.test(method.name))
-          setDonationMethods(hasRemitly ? methods : [...methods, fallbackDonationMethods[4]])
+          setDonationMethods(hasRemitly ? methods : [...methods, fallbackDonationMethods[4]!])
         }
       })
       .catch(() => {})
@@ -224,7 +224,18 @@ export default function DonationPage() {
 
           <div className="donation-method-grid">
             {donationMethods.map((method, index) => {
-              const presentation = donationPresentation[index] || donationPresentation[0]
+              const methodName = method.name || ""
+              const presentation = /remitly|world\\s?remit/i.test(methodName)
+                ? donationPresentation[4]
+                : /western union/i.test(methodName)
+                  ? donationPresentation[3]
+                  : /bank|diamond trust|dtb/i.test(methodName)
+                    ? donationPresentation[2]
+                    : /airtel/i.test(methodName)
+                      ? donationPresentation[1]
+                      : /mtn/i.test(methodName)
+                        ? donationPresentation[0]
+                        : donationPresentation[index] || donationPresentation[0]
               const Icon = presentation.icon
               const isBank = presentation.type === "bank"
               const isWesternUnion = presentation.type === "western-union"
