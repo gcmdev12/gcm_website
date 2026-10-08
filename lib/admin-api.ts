@@ -28,7 +28,7 @@ export async function adminGraphql<T>(query:string, variables?:Record<string, un
 }
 
 export const DASHBOARD_QUERY=`query { dashboardStats { newContacts newVolunteers newSubscribers causes galleryItems newsArticles } }`
-export const CAUSES_QUERY=`query { adminCauses { id slug name description imageUrl icon color isActive sortOrder } }`
+export const CAUSES_QUERY=`query { adminCauses { id slug name imageUrl } }`
 export const IMPACT_QUERY=`query { impactStatistics { id key label value description sortOrder } }`
 export const GALLERY_QUERY=`query { adminGalleryItems { id title description imageUrl category isPublished sortOrder } }`
 export const NEWS_QUERY=`query { adminNewsArticles { id title slug category excerpt content imageUrl published publishedAt createdAt } }`
@@ -38,6 +38,7 @@ export const DELETE_MEDIA=`mutation DeleteMedia($id:String!) { deleteMediaAsset(
 
 export const CREATE_CAUSE=`mutation CreateCause($input: CauseInput!) { createCause(input:$input) { id slug name description imageUrl icon color isActive sortOrder } }`
 export const UPDATE_CAUSE=`mutation UpdateCause($id:String!,$input:CauseInput!) { updateCause(id:$id,input:$input) { id slug name description imageUrl icon color isActive sortOrder } }`
+export const UPDATE_CAUSE_IMAGE=`mutation UpdateCauseImage($id:String!,$imageUrl:String!) { updateCauseImage(id:$id,imageUrl:$imageUrl) { id slug name imageUrl } }`
 export const DELETE_CAUSE=`mutation DeleteCause($id:String!) { deleteCause(id:$id) }`
 
 export const UPSERT_IMPACT=`mutation UpsertImpact($id:String,$input:ImpactStatisticInput!) { upsertImpactStatistic(id:$id,input:$input) { id key label value description sortOrder } }`
